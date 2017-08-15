@@ -1,0 +1,14 @@
+---
+
+- name: Powerline fonts from Github
+  git: 
+    repo: https://github.com/powerline/fonts.git
+    dest: "/Users/{{ user }}/fonts"
+  tags: fonts
+
+- name: Install fonts
+  command: "/Users/{{ user }}/fonts/install.sh"
+  args:
+    chdir: "/Users/{{ user }}/fonts"
+  tags: fonts
+  

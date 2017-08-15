@@ -1,0 +1,13 @@
+---
+
+- name: Download geckodriver from github
+  get_url:
+    url: "https://github.com/mozilla/geckodriver/releases/download/v{{ gecko_version }}/geckodriver-v{{ gecko_version }}-macos.tar.gz"
+    dest: /tmp/geckodriver_v{{ gecko_version }}.tar.gz
+
+- name: Unzip geckodriver to ~/bin
+  unarchive:
+    src: /tmp/geckodriver_v{{ gecko_version }}.tar.gz
+    dest: /Users/{{ user }}/bin/
+    remote_src: yes
+

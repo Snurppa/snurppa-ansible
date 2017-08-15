@@ -1,0 +1,34 @@
+---
+
+- name: Download BitBar from Github
+  get_url:
+    url: "https://github.com/matryer/bitbar/releases/download/v{{ bitbar_version }}/BitBar-v{{ bitbar_version }}.zip"
+    dest: /tmp/bitbar.zip
+  tags: bitbar
+
+- name: Unzip BitBar to ~/Applications
+  unarchive:
+    src: /tmp/bitbar.zip
+    dest: /Users/{{ user }}/Applications/
+    remote_src: yes
+  tags: bitbar
+
+# Remember to open BitBar.app and define plugin directory from UI
+
+- name: ~/BitBar-plugins
+  file: path=/Users/{{ user }}/BitBar-plugins state=directory
+  tags: bitbar-plugins
+
+- name: Fetch BitBar plugins
+  get_url:
+    url: "https://github.com/matryer/bitbar-plugins/raw/master/{{ item }}"
+    dest: /Users/{{ user }}/BitBar-plugins/
+    mode: 0740
+  tags: bitbar-plugins
+  with_items:
+    - System/memusage.5s.py
+    - System/real-cpu-usage.10s.sh
+    - Dev/GitHub/github_status.10m.py
+    - Dev/Logs/tail.5s.sh
+    - Network/external-ip.1h.sh
+    - Network/internal-ip.1h.sh

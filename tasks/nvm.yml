@@ -1,0 +1,22 @@
+---
+
+- name: Install NVM via homebrew
+  homebrew: name=nvm state=present
+
+- name: ~/.nvm
+  file: path="/Users/{{ user }}/.nvm" state=directory owner={{ user }}
+
+- name: Ensure NVM_DIR to .zshrc
+  lineinfile: path="/Users/{{ user }}/.zshrc" regexp='^export NVM_DIR=' line='export NVM_DIR="/Users/{{ user }}/.nvm"'
+  tags:
+    - zshrc
+
+- name: Source nvm from ~/.zshrc
+  lineinfile:
+    path: "/Users/{{ user }}/.zshrc"
+    regexp: '^\. "\/usr\/local\/opt\/nvm\/nvm.\sh"'
+    insertafter: '^export NVM_DIR='
+    line: '. "/usr/local/opt/nvm/nvm.sh"'
+  tags:
+    - zshrc
+

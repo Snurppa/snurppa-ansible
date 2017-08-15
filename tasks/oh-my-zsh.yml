@@ -1,0 +1,30 @@
+---
+
+- file: path="/Users/{{ user }}/.oh-my-zsh" state=directory mode=0755 owner="{{ user }}"
+  tags: zsh
+
+- name: Clone oh-my-zsh repo
+  git:
+    repo: https://github.com/robbyrussell/oh-my-zsh.git
+    dest: "/Users/{{ user }}/.oh-my-zsh"
+  tags: zsh
+
+- name: .zsh* files
+  template: src=templates/{{ item }}.j2 dest="/Users/{{ user }}/.{{ item }}" owner={{ user }}
+  with_items:
+    - zshrc
+    - zshenv
+  tags:
+    - zsh
+    - zshrc
+
+- name: Clone powerline9k zsh theme
+  git:
+    repo: https://github.com/bhilburn/powerlevel9k.git
+    dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel9k
+  tags: zsh
+
+- name: Set zsh as default shell
+  become: yes
+  user: name={{ user }} shell=/bin/zsh
+  tags: zsh

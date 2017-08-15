@@ -1,0 +1,61 @@
+---
+
+- name: Install homebrew packages
+  homebrew: name={{ item }} state=present
+  with_items:
+    - openssl
+    - mongodb
+    - autojump
+    - git-flow-avh
+    - graphviz
+    - freetype
+    - fontconfig
+    - coreutils
+    - maven
+  tags: brew
+
+- name: Install coreutils via brew
+  homebrew: name={{ item }} state=present
+  with_items:
+    - grep
+    - gnu-tar
+    - ripgrep
+  tags:
+   - brew
+   - coreutils
+
+- name: Install homebrew-cask packages
+  command: brew cask install {{ item }}
+  register: cask_install
+  changed_when: '"already installed" not in cask_install.stderr'
+  with_items:
+    - google-chrome
+    - firefox
+    - spotify
+    - pgAdmin4
+    - slack
+    - sourcetree
+    - p4merge
+    - meld
+    - thunderbird
+  tags:
+    - brew
+    - brew-cask
+
+- name: Install hombrew-services
+  command: brew tap homebrew/services
+  register: services_tap
+  changed_when: services_tap.stdout != ""
+  tags:
+    - brew
+    - brew-services
+
+- name: Start services via homebrew-services
+  command: brew services start {{item}}
+  with_items:
+    - mongodb
+  register: services_start
+  changed_when: '"already started" not in services_start.stdout'
+  tags:
+    - brew
+    - brew-services

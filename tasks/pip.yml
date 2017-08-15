@@ -1,0 +1,12 @@
+---
+- name: Install pip packages
+  pip: name="{{ item.name }}" version="{{ item.version | default(omit) }}" extra_args="--user" use_mirrors=no
+  with_items:
+    - { name: powerline-status }
+    - { name: thefuck }
+    - { name: awscli }
+    - { name: selenium, version: 3.4.3 }
+    - { name: robotframework, version: 3.0.2 }
+    - { name: robotframework-selenium2library, version: 1.8.0 }
+    - { name: robotframework-debuglibrary, version: 0.8.1 }
+  tags: pip
