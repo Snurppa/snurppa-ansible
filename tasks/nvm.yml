@@ -6,14 +6,15 @@
 - name: ~/.nvm
   file: path="/Users/{{ user }}/.nvm" state=directory owner={{ user }}
 
-- name: Ensure NVM_DIR to .zshrc
-  lineinfile: path="/Users/{{ user }}/.zshrc" regexp='^export NVM_DIR=' line='export NVM_DIR="/Users/{{ user }}/.nvm"'
+# NVM to .zshenv for compability https://github.com/SublimeLinter/SublimeLinter3/issues/128
+- name: Ensure NVM_DIR to .zshenv
+  lineinfile: path="/Users/{{ user }}/.zshenv" regexp='^export NVM_DIR=' line='export NVM_DIR="/Users/{{ user }}/.nvm"'
   tags:
     - zshrc
 
-- name: Source nvm from ~/.zshrc
+- name: Source nvm from ~/.zshenv
   lineinfile:
-    path: "/Users/{{ user }}/.zshrc"
+    path: "/Users/{{ user }}/.zshenv"
     regexp: '^\. "\/usr\/local\/opt\/nvm\/nvm.\sh"'
     insertafter: '^export NVM_DIR='
     line: '. "/usr/local/opt/nvm/nvm.sh"'
