@@ -5,7 +5,7 @@
   connection: local
   vars:
     gecko_version: "0.18.0"
-    chromedriver_version: "2.30"
+    chromedriver_version: "2.31"
     bitbar_version: "1.9.2"
     homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
   tasks:
