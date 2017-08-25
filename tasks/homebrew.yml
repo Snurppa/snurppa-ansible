@@ -38,6 +38,9 @@
     - p4merge
     - meld
     - thunderbird
+    - virtualbox
+    - vagrant
+    - vagrant-manager
   tags:
     - brew
     - brew-cask
