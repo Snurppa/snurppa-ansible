@@ -9,4 +9,6 @@
     - { name: robotframework, version: 3.0.2 }
     - { name: robotframework-selenium2library, version: 1.8.0 }
     - { name: robotframework-debuglibrary, version: 1.0.0 }
+    - { name: cryptography }
+    - { name: netaddr }
   tags: pip
