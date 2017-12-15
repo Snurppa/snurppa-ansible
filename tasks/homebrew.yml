@@ -12,6 +12,7 @@
     - fontconfig
     - coreutils
     - maven
+    - imagemagick
   tags: brew
 
 - name: Install coreutils via brew
