@@ -4,8 +4,8 @@
   hosts: localhost
   connection: local
   vars:
-    gecko_version: "0.18.0"
-    chromedriver_version: "2.31"
+    gecko_version: "0.19.1"
+    chromedriver_version: "2.34"
     bitbar_version: "1.9.2"
     homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
   tasks:
@@ -25,6 +25,7 @@
       tags: nvm
     - include: tasks/fonts.yml
     - include: tasks/bitbar.yml
+    - include: tasks/scripts.yml
     - include: tasks/geckodriver.yml
       tags: geckodriver
     - include: tasks/chromedriver.yml
