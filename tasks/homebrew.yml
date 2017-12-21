@@ -11,7 +11,6 @@
     - freetype
     - fontconfig
     - coreutils
-    - maven
     - imagemagick
   tags: brew
 
@@ -25,6 +24,14 @@
    - brew
    - coreutils
 
+- name: Install caskroom/versions
+  command: brew tap caskroom/versions
+  register: versions_tap
+  changed_when: versions_tap.stdout != ""
+  tags:
+    - brew
+    - brew-versions
+
 - name: Install homebrew-cask packages
   command: brew cask install {{ item }}
   register: cask_install
@@ -32,6 +39,7 @@
   with_items:
     - google-chrome
     - firefox
+    - java8
     - spotify
     - pgAdmin4
     - slack
