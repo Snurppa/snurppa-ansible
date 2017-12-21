@@ -4,7 +4,7 @@
   homebrew: name={{ item }} state=present
   with_items:
     - openssl
-    - mongodb
+    - mongodb@3.4
     - autojump
     - git-flow-avh
     - graphviz
@@ -57,7 +57,7 @@
 - name: Start services via homebrew-services
   command: brew services start {{item}}
   with_items:
-    - mongodb
+    - mongodb@3.4
   register: services_start
   changed_when: '"already started" not in services_start.stdout'
   tags:
