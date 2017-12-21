@@ -50,6 +50,7 @@
     - virtualbox
     - vagrant
     - vagrant-manager
+    - iterm2
   tags:
     - brew
     - brew-cask
