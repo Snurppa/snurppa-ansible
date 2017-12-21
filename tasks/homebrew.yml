@@ -51,6 +51,7 @@
     - vagrant
     - vagrant-manager
     - iterm2
+    - intellij-idea-ce
   tags:
     - brew
     - brew-cask
