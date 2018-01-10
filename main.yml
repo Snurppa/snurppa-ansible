@@ -30,3 +30,4 @@
       tags: geckodriver
     - include: tasks/chromedriver.yml
       tags: chromedriver
+    - include: tasks/hosts.yml
