@@ -12,6 +12,8 @@
     - fontconfig
     - coreutils
     - imagemagick
+    - leiningen
+    - git
   tags: brew
 
 - name: Install coreutils via brew
