@@ -4,15 +4,16 @@
   homebrew: name={{ item }} state=present
   with_items:
     - openssl
-    - mongodb
+    - mongodb@3.4
     - autojump
     - git-flow-avh
     - graphviz
     - freetype
     - fontconfig
     - coreutils
-    - maven
     - imagemagick
+    - leiningen
+    - git
   tags: brew
 
 - name: Install coreutils via brew
@@ -25,6 +26,14 @@
    - brew
    - coreutils
 
+- name: Install caskroom/versions
+  command: brew tap caskroom/versions
+  register: versions_tap
+  changed_when: versions_tap.stdout != ""
+  tags:
+    - brew
+    - brew-versions
+
 - name: Install homebrew-cask packages
   command: brew cask install {{ item }}
   register: cask_install
@@ -32,6 +41,7 @@
   with_items:
     - google-chrome
     - firefox
+    - java8
     - spotify
     - pgAdmin4
     - slack
@@ -42,6 +52,8 @@
     - virtualbox
     - vagrant
     - vagrant-manager
+    - iterm2
+    - intellij-idea-ce
   tags:
     - brew
     - brew-cask
@@ -57,7 +69,7 @@
 - name: Start services via homebrew-services
   command: brew services start {{item}}
   with_items:
-    - mongodb
+    - mongodb@3.4
   register: services_start
   changed_when: '"already started" not in services_start.stdout'
   tags:
