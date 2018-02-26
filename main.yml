@@ -18,6 +18,9 @@
       file: path="/Users/{{ user }}/bin" state=directory mode=0755
       tags: bin
 
+    - name: ~/Applications
+      file: path="/Users/{{ user }}/Applications" state=directory mode=0755
+
     - include: tasks/pip.yml
     - include: tasks/oh-my-zsh.yml
     - include: tasks/homebrew.yml
