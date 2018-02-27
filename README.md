@@ -24,3 +24,4 @@ ansible-playbook main.yml --ask-become-pass
 * Chrome bookmarks
 * Studio3T
 * Sublime Text - packages at ~/Library/Application Support/Sublime Text 3/, folders 'Installed Packages' and 'Packages'.
+* iTerm + Solarized: Color -> Color Presets -> Solarized

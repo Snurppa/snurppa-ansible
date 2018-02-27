@@ -1,7 +1,7 @@
 ---
 
 - name: Powerline fonts from Github
-  git: 
+  git:
     repo: https://github.com/powerline/fonts.git
     dest: "/Users/{{ user }}/fonts"
   tags: fonts
@@ -11,4 +11,18 @@
   args:
     chdir: "/Users/{{ user }}/fonts"
   tags: fonts
-  
+
+
+- name: ~/Solarized
+  file: path="/Users/{{ user }}/Solarized" state=directory mode=0755
+  tags:
+    - fonts
+    - solarized
+
+- name: Solarized theme
+  git:
+    repo: https://github.com/altercation/solarized.git
+    dest: "/Users/{{ user }}/Solarized"
+  tags:
+    - fonts
+    - solarized
