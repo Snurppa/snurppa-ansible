@@ -48,7 +48,7 @@
     - slack
     - sourcetree
     - p4merge
-    - meld
+    - kdiff3
     - thunderbird
     - virtualbox
     - vagrant
