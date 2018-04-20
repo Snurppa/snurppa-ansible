@@ -1,0 +1,39 @@
+---
+
+brew_packages:
+  - openssl
+  - mongodb@3.4
+  - autojump
+  - git-flow-avh
+  - graphviz
+  - freetype
+  - fontconfig
+  - coreutils
+  - imagemagick
+  - leiningen
+  - git
+  - node
+
+brew_coreutils:
+  - grep
+  - gnu-tar
+  - ripgrep
+
+brew_casks:
+  - google-chrome
+  - firefox
+  - java8
+  - spotify
+  - pgAdmin4
+  - slack
+  - sourcetree
+  - p4merge
+  - kdiff3
+  - thunderbird
+  - virtualbox
+  - vagrant
+  - vagrant-manager
+  - iterm2
+
+brew_services:
+  - mongodb@3.4
