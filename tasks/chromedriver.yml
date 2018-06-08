@@ -1,15 +1,14 @@
 ---
 
-- name: Download geckodriver from github
+- name: Download ChromeDriver from github
   get_url:
     url: "https://chromedriver.storage.googleapis.com/{{ chromedriver_version }}/chromedriver_mac64.zip"
     dest: /tmp/chromedriver_v{{ chromedriver_version }}.zip
   tags: chromedriver
 
-- name: Unzip geckodriver to ~/bin
+- name: Unzip ChromeDriver to ~/bin
   unarchive:
     src: /tmp/chromedriver_v{{ chromedriver_version }}.zip
     dest: /Users/{{ user }}/bin/
     remote_src: yes
   tags: chromedriver
-
