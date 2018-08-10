@@ -12,7 +12,6 @@ brew_packages:
   - imagemagick
   - leiningen
   - git
-  - node
 
 brew_coreutils:
   - grep
