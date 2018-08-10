@@ -2,7 +2,7 @@
 
 brew_packages:
   - openssl
-  - mongodb@3.4
+  - mongodb
   - autojump
   - git-flow-avh
   - graphviz
@@ -36,4 +36,4 @@ brew_casks:
   - iterm2
 
 brew_services:
-  - mongodb@3.4
+  - mongodb
