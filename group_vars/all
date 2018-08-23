@@ -12,6 +12,7 @@ brew_packages:
   - imagemagick
   - leiningen
   - git
+  - terraform
 
 brew_coreutils:
   - grep
