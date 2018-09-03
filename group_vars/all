@@ -12,6 +12,8 @@ brew_packages:
   - imagemagick
   - leiningen
   - git
+  - python3
+  - python2
   - terraform
 
 brew_coreutils:

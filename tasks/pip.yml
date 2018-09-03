@@ -1,15 +1,19 @@
 ---
 - name: Install pip packages
-  pip: name="{{ item.name }}" version="{{ item.version | default(omit) }}" extra_args="--user" use_mirrors=no
+  become: no
+  pip: name="{{ item.name }}" version="{{ item.version | default(omit) }}" extra_args="--user"  use_mirrors=no
   with_items:
     - { name: powerline-status }
     - { name: thefuck }
     - { name: awscli }
-    - { name: selenium, version: 3.12.0 }
+    - { name: selenium, version: 3.13.0 }
     - { name: robotframework, version: 3.0.4 }
     - { name: robotframework-seleniumlibrary, version: 3.1.1 }
-    - { name: robotframework-debuglibrary, version: 1.1.2 }
+    - { name: robotframework-debuglibrary, version: 1.1.4 }
     - { name: cryptography }
     - { name: netaddr }
     - { name: apache-libcloud }
+    - { name: pycrypto }
+    - { name: requests }
+    - { name: google-auth }
   tags: pip
