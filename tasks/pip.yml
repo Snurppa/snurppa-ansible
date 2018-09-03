@@ -17,3 +17,19 @@
     - { name: requests }
     - { name: google-auth }
   tags: pip
+
+- name: Check Python3 version
+  command: python3 --version
+  register: python_version
+  tags:
+    - python
+
+- name: Symlink Python to /Library/Frameworks
+  become: true
+  file:
+    src: "/usr/local/Cellar/python/{{ python_version.stdout | regex_replace('^Python (\\d\\.\\d\\.\\d)', '\\1') }}/Frameworks/Python.framework"
+    dest: /Library/Frameworks/Python.framework
+    mode: 0775
+    state: link
+  tags:
+    - python
