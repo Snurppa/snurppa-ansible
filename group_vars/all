@@ -36,6 +36,7 @@ brew_casks:
   - vagrant
   - vagrant-manager
   - iterm2
+  - docker
 
 brew_services:
   - mongodb
