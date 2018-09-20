@@ -1,8 +1,7 @@
 ---
 
 - name: Install homebrew packages
-  homebrew: name={{ item }} state=present
-  with_items: "{{ brew_packages }}"
+  homebrew: name={{ brew_packages }} state=present
   tags: brew
 
 - name: Install coreutils via brew
@@ -21,10 +20,9 @@
     - brew-versions
 
 - name: Install homebrew-cask packages
-  command: brew cask install {{ item }}
+  command: brew cask install {{ brew_casks | join(' ') }}
   register: cask_install
   changed_when: '"already installed" not in cask_install.stderr'
-  with_items: "{{ brew_casks }}"
   tags:
     - brew
     - brew-cask
