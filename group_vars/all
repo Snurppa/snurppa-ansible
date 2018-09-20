@@ -15,6 +15,7 @@ brew_packages:
   - python3
   - python2
   - terraform
+  - httpie
 
 brew_coreutils:
   - grep
