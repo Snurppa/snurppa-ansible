@@ -16,6 +16,8 @@
     - { name: pycrypto }
     - { name: requests }
     - { name: google-auth }
+    - { name: openshift }
+    - { name: docker }
   tags: pip
 
 - name: Check Python3 version
