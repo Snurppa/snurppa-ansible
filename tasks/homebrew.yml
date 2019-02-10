@@ -5,8 +5,7 @@
   tags: brew
 
 - name: Install coreutils via brew
-  homebrew: name={{ item }} state=present
-  with_items: "{{ brew_coreutils }}"
+  homebrew: name={{ brew_coreutils }} state=present
   tags:
    - brew
    - coreutils

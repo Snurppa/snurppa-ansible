@@ -21,11 +21,11 @@ brew_coreutils:
   - grep
   - gnu-tar
   - ripgrep
+  - bat
 
 brew_casks:
   - google-chrome
   - firefox
-  - java8
   - spotify
   - pgAdmin4
   - slack
