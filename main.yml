@@ -4,8 +4,8 @@
   hosts: localhost
   connection: local
   vars:
-    gecko_version: "0.20.1"
-    chromedriver_version: "2.41"
+    gecko_version: "0.24.0"
+    chromedriver_version: "2.46"
     bitbar_version: "1.9.2"
     homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
   tasks:
