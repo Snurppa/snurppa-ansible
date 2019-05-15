@@ -1,0 +1,11 @@
+---
+
+  - name: Checkout fzf from Github
+    git:
+      repo: https://github.com/junegunn/fzf.git
+      dest: "/Users/{{ user }}/.fzf"
+
+  - name: Install fzf
+    command: ./install --no-fish
+    args:
+      chdir: "/Users/{{ user }}/.fzf"
