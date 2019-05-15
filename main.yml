@@ -8,6 +8,9 @@
     chromedriver_version: "2.46"
     bitbar_version: "1.9.2"
     homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
+    graalvm:
+      enabled: True
+      version: "19.0.0"
   tasks:
     - set_fact: user="{{ lookup('env', 'USER')}}"
       tags: always
@@ -16,6 +19,7 @@
 
     - name: ~/bin
       file: path="/Users/{{ user }}/bin" state=directory mode=0755
+      register: user_bin
       tags: bin
 
     - name: ~/Applications
@@ -34,3 +38,6 @@
     - import_tasks: tasks/chromedriver.yml
       tags: chromedriver
     - import_tasks: tasks/hosts.yml
+    - import_tasks: tasks/graalvm.yml
+      when: graalvm.enabled
+      tags: graalvm

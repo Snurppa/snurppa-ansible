@@ -139,3 +139,8 @@ if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
 
 {# Add your sensitive environment variables to secret_zshrc.j2 #}
 {% include 'secret_zshrc.j2' ignore missing %}
+
+{% if graalvm.enabled %}
+export GRAALVM_HOME=/Users/{{ user }}/bin/graalvm-ce-{{ graalvm.version }}/Contents/Home
+export PATH=$GRAALVM_HOME/bin:$PATH
+{% endif %}
