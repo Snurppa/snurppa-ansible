@@ -1,3 +1,5 @@
 *.retry
 *_token
 templates/secret_zshrc.j2
+vars/secrets
+.vault-pw
