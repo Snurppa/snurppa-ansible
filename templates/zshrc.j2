@@ -134,5 +134,8 @@ if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc'; fi
 
+# kubectl
+if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi
+
 {# Add your sensitive environment variables to secret_zshrc.j2 #}
 {% include 'secret_zshrc.j2' ignore missing %}
