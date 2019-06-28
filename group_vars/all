@@ -12,6 +12,7 @@ brew_packages:
   - imagemagick
   - leiningen
   - git
+  - vim
   - python3
   - python2
   - terraform
