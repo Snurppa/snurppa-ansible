@@ -6,7 +6,7 @@ Put your token into `homebrew_token` file into root of this project. Ansible aut
 
 Provision your macOS by running:
 
-```
+```bash
 ansible-playbook main.yml --ask-become-pass
 ```
 

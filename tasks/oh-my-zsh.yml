@@ -11,7 +11,7 @@
 
 - name: .zsh* files
   template: src=templates/{{ item }}.j2 dest="/Users/{{ user }}/.{{ item }}" owner={{ user }}
-  with_items:
+  loop:
     - zshrc
     - zshenv
   tags:
@@ -27,4 +27,6 @@
 - name: Set zsh as default shell
   become: yes
   user: name={{ user }} shell=/bin/zsh
-  tags: zsh
+  tags:
+    - zsh
+    - sudo
