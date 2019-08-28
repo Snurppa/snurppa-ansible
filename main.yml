@@ -25,6 +25,7 @@
     - name: ~/Applications
       file: path="/Users/{{ user }}/Applications" state=directory mode=0755
 
+    - import_tasks: tasks/python.yml
     - import_tasks: tasks/pip.yml
     - import_tasks: tasks/oh-my-zsh.yml
     - import_tasks: tasks/homebrew.yml

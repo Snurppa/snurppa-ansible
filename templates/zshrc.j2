@@ -56,6 +56,9 @@ plugins=(git web-search)
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="/usr/local/sbin:$PATH"
 
+# Python user site-packages
+export PATH=$PATH:{{ python_user_site.stdout }}
+
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -98,8 +101,8 @@ alias grep="/usr/local/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.
 alias fuck='$(thefuck $(fc -ln -1))'
 
 # Powerline (installed with pip)
-export PATH=$PATH:~/Library/Python/2.7/bin
-. ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+export PATH=$PATH:~/Library/Python/{{ python_version }}/bin
+. ~/Library/Python/{{ python_version }}/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 
 # SSH quicks by jokimaki
 function sshprod {

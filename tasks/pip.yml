@@ -1,5 +1,12 @@
 ---
-- name: Install pip packages
+
+#- name: Install pip global packages
+#  become: no
+#  pip: name="{{ item.name }}" version="{{ item.version | default(omit) }}" use_mirrors=no
+#  loop:
+#  tags: pip
+
+- name: Install pip user packages
   become: no
   pip: name="{{ item.name }}" version="{{ item.version | default(omit) }}" extra_args="--user"  use_mirrors=no
   loop:
@@ -20,19 +27,3 @@
     - { name: docker }
     - { name: git-of-theseus }
   tags: pip
-
-- name: Check Python3 version
-  command: python3 --version
-  register: python_version
-  tags:
-    - python
-
-- name: Symlink Python to /Library/Frameworks
-  become: true
-  file:
-    src: "/usr/local/Cellar/python/{{ python_version.stdout | regex_replace('^Python (\\d\\.\\d\\.\\d)', '\\1') }}/Frameworks/Python.framework"
-    dest: /Library/Frameworks/Python.framework
-    mode: 0775
-    state: link
-  tags:
-    - python
