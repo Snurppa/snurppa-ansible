@@ -5,9 +5,9 @@
 #    url: "https://github.com/oracle/graal/releases/download/vm-{{ graalvm.version }}/graalvm-ce-darwin-amd64-{{ graalvm.version }}.tar.gz"
 #    dest: /tmp/graalvm_v{{ graalvm.version }}.tar.gz
 
-- name: Unzip GraalVM to ~/bin
+- name: Unzip GraalVM to ~
   unarchive:
     #src: /tmp/geckodriver_v{{ graalvm.version }}.tar.gz
     src: "https://github.com/oracle/graal/releases/download/vm-{{ graalvm.version }}/graalvm-ce-darwin-amd64-{{ graalvm.version }}.tar.gz"
-    dest: /Users/{{ user }}/bin/
+    dest: /Users/{{ user }}/
     remote_src: yes
