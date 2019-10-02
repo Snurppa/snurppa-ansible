@@ -97,12 +97,13 @@ alias grep="/usr/local/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.
 # autojump
 [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
-# thefuck (from pip)
-alias fuck='$(thefuck $(fc -ln -1))'
 
 # Powerline (installed with pip)
 export PATH=$PATH:~/Library/Python/2.7/bin
 . ~/Library/Python/2.7/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
+
+# thefuck (from pip)
+eval $(thefuck --alias)
 
 # SSH quicks by jokimaki
 function sshprod {
