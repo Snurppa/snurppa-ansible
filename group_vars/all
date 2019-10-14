@@ -17,6 +17,7 @@ brew_packages:
   - python2
   - terraform
   - httpie
+  - borkdude/brew/clj-kondo
 
 brew_coreutils:
   - zsh
