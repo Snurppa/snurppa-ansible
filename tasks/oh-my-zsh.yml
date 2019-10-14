@@ -18,15 +18,15 @@
     - zsh
     - zshrc
 
-- name: Clone powerline9k zsh theme
+- name: Clone powerline10k zsh theme
   git:
-    repo: https://github.com/bhilburn/powerlevel9k.git
-    dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel9k
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k
   tags: zsh
 
-- name: Set zsh as default shell
+- name: Set Homebrew zsh as default shell
   become: yes
-  user: name={{ user }} shell=/bin/zsh
+  user: name={{ user }} shell=/usr/local/bin/zsh
   tags:
     - zsh
     - sudo
