@@ -2,7 +2,7 @@
 
 brew_packages:
   - openssl
-  - mongodb
+  #- mongodb
   - autojump
   - git-flow-avh
   - graphviz
@@ -33,9 +33,10 @@ brew_casks:
   - pgAdmin4
   - slack
   - sourcetree
-  - p4merge
-  - kdiff3
+  - p4v
+#  - kdiff3
   - thunderbird
+  - flycut
   - virtualbox
   - vagrant
   - vagrant-manager
@@ -43,4 +44,4 @@ brew_casks:
   - docker
 
 brew_services:
-  - mongodb
+  #- mongodb

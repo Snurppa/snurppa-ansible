@@ -18,7 +18,7 @@
 - name: Symlink Python 3 to /Library/Frameworks
   become: true
   file:
-    src: "/usr/local/Cellar/python/{{ python_version_full }}/Frameworks/Python.framework"
+    src: /usr/local/Frameworks/Python.framework
     dest: /Library/Frameworks/Python.framework
     mode: 0775
     state: link

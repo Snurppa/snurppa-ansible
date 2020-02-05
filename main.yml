@@ -10,7 +10,7 @@
     homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
     graalvm:
       enabled: True
-      version: "19.2.0"
+      version: "19.2.1"
   tasks:
     - set_fact: user="{{ lookup('env', 'USER')}}"
       tags: always

@@ -15,7 +15,7 @@ ansible-playbook main.yml --ask-become-pass
 
 * [Homebrew](https://brew.sh/)
 * `brew install python`
-* `brew install ansible`
+* `pip3 winstall ansible`
 
 # Other notes / TODO
 

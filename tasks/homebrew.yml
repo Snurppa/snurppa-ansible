@@ -11,7 +11,7 @@
    - coreutils
 
 - name: Install caskroom/versions
-  command: brew tap caskroom/versions
+  command: brew tap homebrew/cask-versions
   register: versions_tap
   changed_when: versions_tap.stdout != ""
   tags:
