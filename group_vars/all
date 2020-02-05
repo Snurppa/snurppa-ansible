@@ -27,8 +27,8 @@ brew_coreutils:
   - bat
 
 brew_casks:
-  - google-chrome
-  - firefox
+  #- google-chrome
+  #- firefox
   - spotify
   - pgAdmin4
   - slack
@@ -42,6 +42,7 @@ brew_casks:
   - vagrant-manager
   - iterm2
   - docker
+  - sublime-text
 
 brew_services:
   #- mongodb
