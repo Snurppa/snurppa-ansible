@@ -20,6 +20,7 @@ ansible-playbook main.yml --ask-become-pass
 # Other notes / TODO
 
 * Change Mission control bindings for Ctrl+&larr; & Ctrl+&rarr;: Keyboard -> Shortcuts -> Mission Control
+* https://adoptopenjdk.net/
 * IDEA preferences
 * Chrome bookmarks
 * Studio3T
