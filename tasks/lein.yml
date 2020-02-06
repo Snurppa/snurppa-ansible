@@ -1,0 +1,8 @@
+---
+ - name: .lein
+   file: path=~/.lein state=directory
+   tags: lein
+
+ - name: profiles.clj
+   copy: src=lein_profiles.clj dest=~/.lein/profiles.clj
+   tags: lein

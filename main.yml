@@ -36,6 +36,8 @@
     - import_tasks: tasks/scripts.yml
     - import_tasks: tasks/fzf.yml
       tags: fzf
+    - import_tasks: tasks/lein.yml
+      tags: lein
     - import_tasks: tasks/geckodriver.yml
       tags: geckodriver
     - import_tasks: tasks/chromedriver.yml
