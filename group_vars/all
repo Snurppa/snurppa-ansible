@@ -37,6 +37,7 @@ brew_casks:
 #  - kdiff3
   - thunderbird
   - flycut
+  - flux
   - virtualbox
   - vagrant
   - vagrant-manager
