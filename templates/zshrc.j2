@@ -155,3 +155,9 @@ if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/
 export GRAALVM_HOME=/Users/{{ user }}/bin/graalvm-ce-{{ graalvm.version }}/Contents/Home
 export PATH=$PATH:$GRAALVM_HOME/bin
 {% endif %}
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# load fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
