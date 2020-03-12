@@ -112,6 +112,9 @@ export PATH=$PATH:~/Library/Python/{{ python_version }}/bin
 # thefuck (from pip)
 eval $(thefuck --alias)
 
+# Fix a "bug" with Python fork
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
 # SSH quicks by jokimaki
 function sshprod {
   ssh "$1.lupapiste.fi"
@@ -161,3 +164,7 @@ export PATH=$PATH:$GRAALVM_HOME/bin
 
 # load fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
