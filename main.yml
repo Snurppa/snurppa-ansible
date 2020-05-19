@@ -5,7 +5,7 @@
   connection: local
   vars:
     gecko_version: "0.24.0"
-    chromedriver_version: "2.46"
+    chromedriver_version: "81.0.4044.138"
     bitbar_version: "1.9.2"
     homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
     graalvm:
