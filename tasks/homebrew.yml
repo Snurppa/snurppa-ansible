@@ -5,7 +5,7 @@
   tags: brew
 
 - name: Install coreutils via brew
-  homebrew: name={{ brew_coreutils }} state=present
+  homebrew: name={{ brew_coreutils }} state=latest
   tags:
    - brew
    - coreutils
