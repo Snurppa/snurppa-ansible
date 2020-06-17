@@ -11,6 +11,8 @@
     graalvm:
       enabled: True
       version: "19.2.1"
+  vars_files:
+    - vars/secrets
   tasks:
     - set_fact: user="{{ lookup('env', 'USER')}}"
       tags: always
