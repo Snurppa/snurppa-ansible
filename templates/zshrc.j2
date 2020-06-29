@@ -172,4 +172,7 @@ export NVM_DIR="$HOME/.nvm"
 
 {% if google_credentials is defined %}
 export GOOGLE_APPLICATION_CREDENTIALS={{ google_credentials }}
+# for Ansible GCP inventory plugin
+export GCP_SERVICE_ACCOUNT_FILE={{ google_credentials }}
+alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)"'
 {% endif %}
