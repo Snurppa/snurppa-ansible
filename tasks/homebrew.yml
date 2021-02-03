@@ -19,9 +19,10 @@
     - brew-versions
 
 - name: Install homebrew-cask packages
-  command: brew cask install {{ brew_casks | join(' ') }}
+  command: brew install --cask {{ brew_casks | join(' ') }}
   register: cask_install
   changed_when: '"already installed" not in cask_install.stderr'
+  failed_when: '"Error" in cask_install.stderr'
   tags:
     - brew
     - brew-cask
@@ -34,11 +35,12 @@
     - brew
     - brew-services
 
-- name: Start services via homebrew-services
-  command: brew services start {{item}}
-  with_items: "{{ brew_services }}"
-  register: services_start
-  changed_when: '"already started" not in services_start.stdout'
-  tags:
-    - brew
-    - brew-services
+#- name: Start services via homebrew-services
+#  command: brew services start {{item}}
+#  with_items: "{{ brew_services }}"
+#  register: services_start
+#  changed_when: '"already started" not in services_start.stdout'
+#  when: brew_services is defined and brew_services 
+#  tags:
+#    - brew
+#    - brew-services

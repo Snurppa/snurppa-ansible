@@ -1,13 +1,8 @@
 ---
 
-#- name: Download Oracle GraalVM CE from github
-#  get_url:
-#    url: "https://github.com/oracle/graal/releases/download/vm-{{ graalvm.version }}/graalvm-ce-darwin-amd64-{{ graalvm.version }}.tar.gz"
-#    dest: /tmp/graalvm_v{{ graalvm.version }}.tar.gz
 
-- name: Unzip GraalVM to ~
+- name: Unzip GraalVM CE Java 11 to ~
   unarchive:
-    #src: /tmp/geckodriver_v{{ graalvm.version }}.tar.gz
-    src: "https://github.com/oracle/graal/releases/download/vm-{{ graalvm.version }}/graalvm-ce-darwin-amd64-{{ graalvm.version }}.tar.gz"
+    src: "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-{{ graalvm.version }}/graalvm-ce-java11-darwin-amd64-{{ graalvm.version }}.tar.gz"
     dest: /Users/{{ user }}/
     remote_src: yes
