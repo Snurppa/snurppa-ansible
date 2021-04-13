@@ -3,6 +3,9 @@
 brew_packages:
   - openssl
   #- mongodb
+  - git
+  - vim
+  - gcc
   - autojump
   - git-flow-avh
   - graphviz
@@ -11,12 +14,13 @@ brew_packages:
   - coreutils
   - imagemagick
   - leiningen
-  - git
-  - vim
+  - maven
   - python3
   - terraform
   - httpie
   - borkdude/brew/clj-kondo
+  - nmap
+  - mcrypt
 
 brew_coreutils:
   - zsh
@@ -43,6 +47,7 @@ brew_casks:
   - iterm2
   - docker
   - sublime-text
+  - licecap
 
 brew_services:
   #- mongodb

@@ -13,9 +13,11 @@ ansible-playbook main.yml --ask-become-pass
 
 # Requirements
 
+* `xcode-select --install`
 * [Homebrew](https://brew.sh/)
 * `brew install python`
 * `pip3 install ansible`
+
 
 # Other notes / TODO
 

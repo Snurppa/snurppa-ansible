@@ -40,7 +40,7 @@
 #  with_items: "{{ brew_services }}"
 #  register: services_start
 #  changed_when: '"already started" not in services_start.stdout'
-#  when: brew_services is defined and brew_services 
+#  when: brew_services is defined and brew_services
 #  tags:
 #    - brew
 #    - brew-services
