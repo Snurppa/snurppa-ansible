@@ -7,7 +7,6 @@
     gecko_version: "0.24.0"
     chromedriver_version: "89.0.4389.23"
     bitbar_version: "1.9.2"
-    homebrew_api_token: "{{ lookup('file', 'homebrew_token')}}"
     graalvm:
       enabled: True
       version: "21.0.0"
