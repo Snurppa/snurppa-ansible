@@ -21,3 +21,9 @@
   tags:
     - zshrc
 
+- name: .npmrc
+  lineinfile:
+    path: "/Users/{{ user }}/.npmrc"
+    regexp: "^//npm.pkg.github.com/:_authToken"
+    line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
+
