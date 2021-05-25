@@ -9,6 +9,7 @@ brew_packages:
   - gcc
   - autojump
   - git-flow-avh
+  - libpq
   - graphviz
   - freetype
   - fontconfig
