@@ -5,7 +5,7 @@
   connection: local
   vars:
     gecko_version: "0.24.0"
-    chromedriver_version: "89.0.4389.23"
+    chromedriver_version: "91.0.4472.101"
     bitbar_version: "1.9.2"
     graalvm:
       enabled: True
