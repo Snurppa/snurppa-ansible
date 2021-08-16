@@ -1,5 +1,9 @@
 ---
 
+- name: Install zsh from brew
+  homebrew: name=zsh state=present
+  tags: zsh
+
 - file: path="/Users/{{ user }}/.oh-my-zsh" state=directory mode=0755 owner="{{ user }}"
   tags: zsh
 

@@ -29,6 +29,5 @@
     - System/memusage.5s.py
     - System/real-cpu-usage.10s.sh
     - Dev/GitHub/github_status.10m.py
-    - Dev/Logs/tail.5s.sh
     - Network/external-ip.1h.sh
     - Network/internal-ip.1h.sh

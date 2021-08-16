@@ -25,7 +25,6 @@ brew_packages:
   - mcrypt
 
 brew_coreutils:
-  - zsh
   - grep
   - gnu-tar
   - ripgrep
@@ -36,9 +35,9 @@ brew_casks:
   #- firefox
   - spotify
   - pgAdmin4
-  - slack
+  #- slack
   - sourcetree
-  - p4v
+  #- p4v
 #  - kdiff3
   - thunderbird
   - flycut

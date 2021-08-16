@@ -2,15 +2,18 @@
 
 - name: Install NVM via homebrew
   homebrew: name=nvm state=present
+  tags: nvm
 
 - name: ~/.nvm
   file: path="/Users/{{ user }}/.nvm" state=directory owner={{ user }}
+  tags: nvm
 
 # NVM to .zshenv for compability https://github.com/SublimeLinter/SublimeLinter3/issues/128
 - name: Ensure NVM_DIR to .zshenv
   lineinfile: path="/Users/{{ user }}/.zshenv" regexp='^export NVM_DIR=' line='export NVM_DIR="/Users/{{ user }}/.nvm"'
   tags:
     - zshrc
+    - nvm
 
 - name: Source nvm from ~/.zshenv
   lineinfile:
@@ -20,10 +23,17 @@
     line: '. "/usr/local/opt/nvm/nvm.sh"'
   tags:
     - zshrc
+    - nvm
+
 
 - name: .npmrc
-  lineinfile:
-    path: "/Users/{{ user }}/.npmrc"
-    regexp: "^//npm.pkg.github.com/:_authToken"
-    line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
-
+  block:
+    - file:
+        dest: "/Users/{{ user }}/.npmrc"
+        state: touch
+    - lineinfile:
+        path: "/Users/{{ user }}/.npmrc"
+        regexp: "^//npm.pkg.github.com/:_authToken"
+        line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
+  tags: nvm
+  when: npm_gh_token
