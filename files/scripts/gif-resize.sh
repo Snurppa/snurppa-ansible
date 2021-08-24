@@ -11,4 +11,4 @@ if [ ! -f $IMG ]; then
     exit 1
 fi
 
-convert $IMG -coalesce -repage 0x0 -resize $SIZE -layers Optimize -colors 64 $OUT
+convert $IMG -coalesce -repage 0x0 -resize $SIZE -layers Optimize -colors 64 -loop 0 $OUT

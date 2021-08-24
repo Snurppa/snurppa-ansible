@@ -31,24 +31,19 @@ brew_coreutils:
   - bat
 
 brew_casks:
-  #- google-chrome
-  #- firefox
   - spotify
   - pgAdmin4
-  #- slack
   - sourcetree
-  #- p4v
-#  - kdiff3
   - thunderbird
   - flycut
   - flux
   - virtualbox
   - vagrant
   - vagrant-manager
-  - iterm2
   - docker
   - sublime-text
   - licecap
+  - wireshark
 
 brew_services:
   #- mongodb

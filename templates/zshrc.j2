@@ -63,8 +63,7 @@ plugins=(git web-search kubectl docker docker-compose)
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="/usr/local/sbin:$PATH"
 
-# Python user site-packages
-export PATH=$PATH:{{ python_user_site.stdout }}
+export PATH=$PATH:{{ python_user_site.stdout }}:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,34 +115,16 @@ eval $(thefuck --alias)
 # Fix a "bug" with Python fork
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# SSH quicks by jokimaki
-function sshprod {
-  ssh "$1.lupapiste.fi"
-}
-function sshqa {
-  ssh "$1-qa.lupapiste.fi"
-}
-function sshtest {
-  ssh "$1-test.lupapiste.fi"
-}
-function sshdev {
-  ssh "$1-dev.lupapiste.fi"
-}
-
 export HOMEBREW_GITHUB_API_TOKEN="{{ homebrew_api_token }}"
 # alias psql='/Applications/Postgres.app/Contents/Versions/9.5/bin'/psql
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
-export JAVA_13_HOME=$(/usr/libexec/java_home -v13)
+export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v16)
 
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
-alias java11='export JAVA_HOME=$JAVA_11_HOME'
-alias java13='export JAVA_HOME=$JAVA_13_HOME'
+alias java-latest='export JAVA_HOME=$JAVA_LATEST_HOME'
 
-# default to Java 13
-java13
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc'; fi
