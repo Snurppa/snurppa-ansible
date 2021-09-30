@@ -7,14 +7,14 @@
     gecko_version: "0.24.0"
     chromedriver_version: "91.0.4472.101"
     bitbar_version: "1.9.2"
+    docker_cred_helper_version: "0.6.4"
     graalvm:
       enabled: True
       version: "21.0.0"
+    user: "{{ lookup('env', 'USER')}}"
   vars_files:
     - vars/secrets
   tasks:
-    - set_fact: user="{{ lookup('env', 'USER')}}"
-      tags: always
     - debug: var=user
       tags: always
 
@@ -47,3 +47,8 @@
     - import_tasks: tasks/graalvm.yml
       when: graalvm.enabled
       tags: graalvm
+    - import_tasks: tasks/docker.yml
+      tags: docker
+  roles:
+    - role: aws-profile
+      tags: aws

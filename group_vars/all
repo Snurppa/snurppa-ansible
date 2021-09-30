@@ -14,6 +14,7 @@ brew_packages:
   - freetype
   - fontconfig
   - coreutils
+  - shellcheck
   - imagemagick
   - leiningen
   - maven
@@ -23,6 +24,8 @@ brew_packages:
   - borkdude/brew/clj-kondo
   - nmap
   - mcrypt
+  - sops
+  - warrensbox/tap/tfswitch
 
 brew_coreutils:
   - grep
@@ -40,7 +43,6 @@ brew_casks:
   - virtualbox
   - vagrant
   - vagrant-manager
-  - docker
   - sublime-text
   - licecap
   - wireshark
