@@ -23,7 +23,7 @@ ansible-playbook main.yml --ask-become-pass
 
 - macOS settings
 -- Change Mission control bindings for Ctrl+&larr; & Ctrl+&rarr;: Keyboard -> Shortcuts -> Mission Control
--- Remove confusing bindings from Services
+-- Remove Cmd+Shift+A "Open man page" keyboard shortcut from Services section
 - https://adoptopenjdk.net/
 - IDEA preferences
 - Chrome bookmarks
