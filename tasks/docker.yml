@@ -1,0 +1,30 @@
+---
+
+- name: Docker Desktop 
+  command: brew install --cask docker
+  register: cask_install
+  changed_when: '"already installed" not in cask_install.stderr'
+  failed_when: '"Error" in cask_install.stderr'
+  tags:
+    - brew
+    - brew-cask
+
+
+- name: Docker credentials helper
+  block:
+    - ansible.builtin.file:
+        path: "~/bin/docker-helper"
+        state: directory
+    - ansible.builtin.unarchive: 
+        src: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ docker_cred_helper_version }}/docker-credential-osxkeychain-v{{ docker_cred_helper_version }}-amd64.tar.gz"
+        dest: "~/bin/docker-helper"
+        remote_src: yes
+
+- name: Docker config
+  block:
+    - ansible.builtin.file:
+        path: "~/.docker"
+        state: directory
+    - ansible.builtin.template:
+        src: docker-config.json.j2
+        dest: "~/.docker/config.json"

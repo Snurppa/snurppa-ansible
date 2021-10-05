@@ -1,0 +1,23 @@
+---
+
+- name: .aws folder
+  file:
+    dest: "/Users/{{ user }}/.aws"
+    state: directory
+
+- name: Install AWS cli tools
+  homebrew:
+    name: 
+      - awscli
+      - awsume
+      - aws-vault
+    state: present
+
+- name: Templates to .aws
+  template:
+    src: "templates/{{ item }}.j2"
+    dest: "/Users/{{ user }}/.aws/{{ item }}" 
+    owner: "{{ user }}"
+  loop:
+    - config
+    - credentials
