@@ -120,7 +120,7 @@ export HOMEBREW_GITHUB_API_TOKEN="{{ homebrew_api_token }}"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v16)
+export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5))
 
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
 alias java-latest='export JAVA_HOME=$JAVA_LATEST_HOME'
