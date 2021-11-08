@@ -26,6 +26,7 @@ brew_packages:
   - mcrypt
   - sops
   - warrensbox/tap/tfswitch
+  - doctl
 
 brew_coreutils:
   - grep
