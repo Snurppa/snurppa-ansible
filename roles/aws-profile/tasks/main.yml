@@ -20,4 +20,5 @@
     owner: "{{ user }}"
   loop:
     - config
-    - credentials
+
+## Use aws-vault to store access tokens
