@@ -25,6 +25,12 @@
     - zshrc
     - nvm
 
+- name: Default NPM packages
+  template:
+    src: nvm-default-packages.j2
+    dest: ~/.nvm/default-packages
+  tags:
+    - nvm
 
 - name: .npmrc
   block:
