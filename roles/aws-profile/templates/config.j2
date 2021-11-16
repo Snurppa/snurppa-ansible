@@ -1,6 +1,16 @@
-[profile quuppa-cloud]
+[profile quuppa-cloud-root]
 region = eu-west-1
 output = json
 cli_follow_urlparam = false
 cli_pager=
+mfa_serial = {{ quuppa_mfa_arn }}
+
+[profile quuppa-cloud-dev]
+source_profile = quuppa-cloud-root
+role_arn=arn:aws:iam::537228110248:role/OrganizationAccountAccessRole
+mfa_serial = {{ quuppa_mfa_arn }}
+
+[profile quuppa-cloud-prod]
+source_profile = quuppa-cloud-root
+role_arn=arn:aws:iam::451898373201:role/OrganizationAccountAccessRole
 mfa_serial = {{ quuppa_mfa_arn }}
