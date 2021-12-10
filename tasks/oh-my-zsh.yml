@@ -13,14 +13,22 @@
     dest: "/Users/{{ user }}/.oh-my-zsh"
   tags: zsh
 
-- name: .zsh* files
-  template: src=templates/{{ item }}.j2 dest="/Users/{{ user }}/.{{ item }}" owner={{ user }}
-  loop:
-    - zshrc
-    - zshenv
+- name: .zshrc from template
+  template: src=templates/zshrc.j2 dest="/Users/{{ user }}/.zshrc" owner={{ user }}
   tags:
     - zsh
     - zshrc
+
+- name: PATH to .zshenv
+  lineinfile:
+    create: yes
+    path: "/Users/{{ user }}/.zshenv"
+    regexp: '^export PATH='
+    line: 'export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/{{ user }}/bin"'
+  tags:
+    - zsh
+    - zshrc
+
 
 - name: Clone powerline10k zsh theme
   git:
