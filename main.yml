@@ -49,6 +49,8 @@
       tags: graalvm
     - import_tasks: tasks/docker.yml
       tags: docker
+    - import_tasks: tasks/clojure.yml
+      tags: clojure
   roles:
     - role: aws-profile
       tags: aws

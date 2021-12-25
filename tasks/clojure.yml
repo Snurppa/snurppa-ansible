@@ -1,0 +1,9 @@
+---
+
+- name: Install clj
+  homebrew: name=clojure
+
+- name: user deps.edn
+  template: src=deps.edn dest=~/.clojure/deps.edn
+  tags: 
+    - deps.edn
