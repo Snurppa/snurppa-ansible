@@ -52,3 +52,5 @@
   roles:
     - role: aws-profile
       tags: aws
+    - role: nvim
+      tags: vim

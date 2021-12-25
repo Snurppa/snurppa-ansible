@@ -1,0 +1,15 @@
+local PKGS = {
+    {% for pkg in paq_packages %}
+    "{{ pkg }}";
+    {% endfor %}
+}
+-- Load Paq
+vim.cmd('packadd paq-nvim')
+local paq = require('paq')
+
+-- Exit nvim after installing plugins
+vim.cmd('autocmd User PaqDoneInstall quit')
+
+-- Read and install packages
+paq(PKGS)
+paq.install()

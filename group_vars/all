@@ -5,7 +5,6 @@ brew_packages:
   - mongodb/brew/mongodb-community-shell
   - mongodb/brew/mongodb-database-tools
   - git
-  - vim
   - gcc
   - autojump
   - git-flow-avh

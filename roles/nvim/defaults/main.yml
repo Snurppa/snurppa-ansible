@@ -1,0 +1,13 @@
+nvim_config_dir: $HOME/.config/nvim
+nvim_data_dir: $HOME/.local/share/nvim
+nvim_lua_dir: "{{ nvim_config_dir }}/lua"
+
+paq_packages:
+  - savq/paq-nvim
+  - ojroques/nvim-hardline
+  - kyazdani42/nvim-tree.lua
+  - kyazdani42/nvim-web-devicons
+  - rmehri01/onenord.nvim
+  - gfanto/fzf-lsp.nvim
+  - Olical/conjure
+

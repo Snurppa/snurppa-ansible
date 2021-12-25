@@ -1,0 +1,29 @@
+set termguicolors
+set history=100
+set ruler
+set showcmd
+let mapleader = ","
+
+lua <<EOF
+  require("paq") {
+    {% for pkg in paq_packages %}
+    "{{ pkg }}";
+    {% endfor %}
+  }
+require('hardline').setup {
+        bufferline = true,  -- enable bufferline
+        bufferline_settings = {
+                exclude_terminal = true,  -- don't show terminal buffers in bufferline
+                show_index = true,        -- show buffer indexes (not the actual buffer numbers) in bufferline
+        }
+}
+
+require'nvim-tree'.setup {}
+require('onenord').setup({
+        theme = "dark"
+})
+EOF
+
+
+let g:conjure#client#clojure#nrepl#connection#auto_repl#hidden = true
+let g:conjure#client#clojure#nrepl#eval#raw_out = true
