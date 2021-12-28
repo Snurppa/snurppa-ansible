@@ -12,6 +12,7 @@
       enabled: True
       version: "21.0.0"
     user: "{{ lookup('env', 'USER')}}"
+    xdg_config_home: ~/.config
   vars_files:
     - vars/secrets
   tasks:
@@ -51,6 +52,8 @@
       tags: docker
     - import_tasks: tasks/clojure.yml
       tags: clojure
+    - import_tasks: tasks/alacritty.yml
+      tags: alacritty
   roles:
     - role: aws-profile
       tags: aws
