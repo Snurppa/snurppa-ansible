@@ -5,9 +5,11 @@ nvim_lua_dir: "{{ nvim_config_dir }}/lua"
 paq_packages:
   - savq/paq-nvim
   - ojroques/nvim-hardline
-  - kyazdani42/nvim-tree.lua
-  - kyazdani42/nvim-web-devicons
   - rmehri01/onenord.nvim
   - gfanto/fzf-lsp.nvim
   - Olical/conjure
+  - luochen1990/rainbow
+  - tpope/vim-surround
+  - tpope/vim-sexp-mappings-for-regular-people
+  - guns/vim-sexp
 
