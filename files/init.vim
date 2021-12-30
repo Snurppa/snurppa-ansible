@@ -25,22 +25,29 @@ lua <<EOF
 
 require("paq") {
   "savq/paq-nvim";
-  "ojroques/nvim-hardline";
   "rmehri01/onenord.nvim";
   "gfanto/fzf-lsp.nvim";
+-- clojure etc
   "Olical/conjure";
   "luochen1990/rainbow";
   "tpope/vim-surround";
   "tpope/vim-sexp-mappings-for-regular-people";
   "guns/vim-sexp";
+-- statusline / bufferline
+  "feline-nvim/feline.nvim";
+  "nvim-lua/plenary.nvim";
+  "lewis6991/gitsigns.nvim";
+  "crispgm/nvim-tabline";
+--  "kyazdani42/nvim-web-devicons";
 }
-require('hardline').setup {
-        bufferline = true,  -- enable bufferline
-}
+require('feline').setup({
+    preset = 'noicon'
+})
+require('tabline').setup({})
 require('onenord').setup({
         theme = "dark"
 })
-
+require('gitsigns').setup()
 EOF
 
 " use system fzf
