@@ -26,6 +26,7 @@ brew_packages:
   - sops
   - warrensbox/tap/tfswitch
   - doctl
+  - dive
 
 brew_coreutils:
   - grep
