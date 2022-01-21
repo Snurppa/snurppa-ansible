@@ -44,7 +44,6 @@
       tags: geckodriver
     - import_tasks: tasks/chromedriver.yml
       tags: chromedriver
-    - import_tasks: tasks/hosts.yml
     - import_tasks: tasks/graalvm.yml
       when: graalvm.enabled
       tags: graalvm

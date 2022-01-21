@@ -27,6 +27,7 @@ brew_packages:
   - warrensbox/tap/tfswitch
   - doctl
   - dive
+  - jq
 
 brew_coreutils:
   - grep
