@@ -28,6 +28,8 @@ brew_packages:
   - doctl
   - dive
   - jq
+  - ffmpeg
+  - gifsicle
 
 brew_coreutils:
   - grep

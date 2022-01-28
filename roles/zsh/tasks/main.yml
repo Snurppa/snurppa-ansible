@@ -2,21 +2,23 @@
 
 - name: Install zsh from brew
   homebrew: name=zsh state=present
-  tags: zsh
+
+- name: Set Homebrew zsh as default shell
+  become: yes
+  user: name={{ user }} shell=/usr/local/bin/zsh
+  tags:
+    - sudo
 
 - file: path="/Users/{{ user }}/.oh-my-zsh" state=directory mode=0755 owner="{{ user }}"
-  tags: zsh
 
 - name: Clone oh-my-zsh repo
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "/Users/{{ user }}/.oh-my-zsh"
-  tags: zsh
 
 - name: .zshrc from template
   template: src=templates/zshrc.j2 dest="/Users/{{ user }}/.zshrc" owner={{ user }}
   tags:
-    - zsh
     - zshrc
 
 - name: PATH to .zshenv
@@ -26,8 +28,16 @@
     regexp: '^export PATH='
     line: 'export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/{{ user }}/bin"'
   tags:
-    - zsh
     - zshrc
+
+# https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
+- name: ~/zsh-functions
+  copy:
+    src: functions/
+    dest: "/Users/{{ user }}/zsh-functions"
+    mode: u+rwx,g-wx,o-rwx
+  tags: 
+    - zfuncs
 
 
 - name: Clone powerline10k zsh theme
@@ -35,12 +45,4 @@
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k
   tags: 
-    - zsh
     - p10k
-
-- name: Set Homebrew zsh as default shell
-  become: yes
-  user: name={{ user }} shell=/usr/local/bin/zsh
-  tags:
-    - zsh
-    - sudo
