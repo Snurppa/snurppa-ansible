@@ -12,6 +12,8 @@
       - awsume
       - aws-vault
     state: present
+  tags:
+    - brew
 
 - name: Templates to .aws
   template:

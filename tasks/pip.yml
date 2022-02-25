@@ -12,7 +12,6 @@
   loop:
     - { name: powerline-status }
     - { name: thefuck }
-    - { name: awscli }
     - { name: cryptography }
     - { name: netaddr }
     - { name: apache-libcloud }

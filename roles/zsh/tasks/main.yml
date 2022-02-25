@@ -2,6 +2,8 @@
 
 - name: Install zsh from brew
   homebrew: name=zsh state=present
+  tags:
+    - brew
 
 - name: Set Homebrew zsh as default shell
   become: yes

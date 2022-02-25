@@ -113,6 +113,8 @@ alias gpskip="git push -o ci.skip"
 # Python path (powerline tec)
 export PATH=$PATH:~/Library/Python/{{ python_version }}/bin
 
+source <(pip3 completion --zsh)
+
 # thefuck (from pip)
 eval $(thefuck --alias)
 

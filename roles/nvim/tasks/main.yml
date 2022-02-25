@@ -2,6 +2,8 @@
 
 - name: brew install neovim
   homebrew: name=neovim state=latest
+  tags:
+    - brew
 
 - name: nvim dirs
   file: state=directory path="{{ item }}"
@@ -16,7 +18,7 @@
     dest: "{{ nvim_data_dir }}/site/pack/paqs/start/paq-nvim"
     depth: 1
 
-- name: vimrc symlink 
+- name: vimrc symlink
   file: 
     src:  "{{ playbook_dir }}/files/init.vim"
     dest: "{{ nvim_config_dir }}/init.vim"
