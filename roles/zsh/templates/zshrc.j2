@@ -66,7 +66,7 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH=$PATH:{{ python_user_site.stdout }}:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
 fpath=(~/zsh-functions "${fpath[@]}")
-autoload -Uz {{ lookup('fileglob', '~/zsh-functions/*') | basename }}
+autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(' ') }}
 
 source $ZSH/oh-my-zsh.sh
 

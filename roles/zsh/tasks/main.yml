@@ -11,6 +11,15 @@
   tags:
     - sudo
 
+# https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
+- name: ~/zsh-functions
+  copy:
+    src: functions/
+    dest: "/Users/{{ user }}/zsh-functions"
+    mode: u+rwx,g-wx,o-rwx
+  tags: 
+    - zfuncs
+
 - file: path="/Users/{{ user }}/.oh-my-zsh" state=directory mode=0755 owner="{{ user }}"
 
 - name: Clone oh-my-zsh repo
@@ -31,15 +40,6 @@
     line: 'export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/{{ user }}/bin"'
   tags:
     - zshrc
-
-# https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
-- name: ~/zsh-functions
-  copy:
-    src: functions/
-    dest: "/Users/{{ user }}/zsh-functions"
-    mode: u+rwx,g-wx,o-rwx
-  tags: 
-    - zfuncs
 
 
 - name: Clone powerline10k zsh theme
