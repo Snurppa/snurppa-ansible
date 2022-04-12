@@ -31,6 +31,8 @@
 
     - import_tasks: tasks/pip.yml
     - import_tasks: tasks/homebrew.yml
+    - import_tasks: tasks/java.yml
+      tags: java
     - import_tasks: tasks/nvm.yml
       tags: nvm
     - import_tasks: tasks/fonts.yml

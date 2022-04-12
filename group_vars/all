@@ -1,11 +1,18 @@
 ---
 
-brew_packages:
+brew_coreutils:
   - openssl
-  - mongodb/brew/mongodb-community-shell
-  - mongodb/brew/mongodb-database-tools
+  - net-tools
   - git
   - gcc
+  - grep
+  - gnu-tar
+  - ripgrep
+  - bat
+
+brew_packages:
+#  - mongodb/brew/mongodb-community-shell
+#  - mongodb/brew/mongodb-database-tools
   - autojump
   - git-flow-avh
   - libpq
@@ -31,13 +38,9 @@ brew_packages:
   - ffmpeg
   - gifsicle
 
-brew_coreutils:
-  - grep
-  - gnu-tar
-  - ripgrep
-  - bat
-
 brew_casks:
+  - temurin17
+  - temurin8
   - spotify
   - pgAdmin4
   - sourcetree
