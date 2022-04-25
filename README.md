@@ -30,3 +30,10 @@ ansible-playbook main.yml --ask-become-pass
 - Studio3T
 - Sublime Text - packages at ~/Library/Application Support/Sublime Text 3/, folders 'Installed Packages' and 'Packages'.
 - iTerm + Solarized: Color -> Color Presets -> Solarized (https://gist.github.com/kevin-smets/8568070)
+
+# Hints
+
+## Completion
+
+<!-- https://unix.stackexchange.com/a/606305 -->
+> press ^X? (Ctrl+X ?) instead of Tab to run _complete_debug.

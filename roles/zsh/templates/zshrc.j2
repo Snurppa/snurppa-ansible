@@ -55,7 +55,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws kubectl docker docker-compose urltools)
+plugins=(git aws terraform docker nmap urltools)
 
 # User configuration
 
@@ -65,10 +65,15 @@ export PATH="/usr/local/sbin:$PATH"
 
 export PATH=$PATH:{{ python_user_site.stdout }}:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
+# Launch OH MY
+source $ZSH/oh-my-zsh.sh
+
 fpath=(~/zsh-functions "${fpath[@]}")
 autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(' ') }}
 
-source $ZSH/oh-my-zsh.sh
+# Custom compdefs
+#compdef '_git branch' git-branch-delete
+
 
 # You may need to manually set your language environment
 export LC_ALL=en_US.UTF-8
