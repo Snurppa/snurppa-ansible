@@ -52,7 +52,7 @@
     - import_tasks: tasks/docker.yml
       tags: docker
     - import_tasks: tasks/clojure.yml
-      tags: clojure
+      tags: clojure, clj
     - import_tasks: tasks/alacritty.yml
       tags: alacritty
   roles:
