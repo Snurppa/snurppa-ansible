@@ -41,7 +41,7 @@
     - import_tasks: tasks/fzf.yml
       tags: fzf
     - import_tasks: tasks/lein.yml
-      tags: lein
+      tags: lein,clojure
     - import_tasks: tasks/geckodriver.yml
       tags: geckodriver
     - import_tasks: tasks/chromedriver.yml
