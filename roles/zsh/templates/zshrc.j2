@@ -72,7 +72,8 @@ fpath=(~/zsh-functions "${fpath[@]}")
 autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(' ') }}
 
 # Custom compdefs
-#compdef '_git branch' git-branch-delete
+#  git-branch-delete: same as "git branch -d"
+compdef '__gitcomp_direct "$(__git_heads "" "$cur" " ")"' git-branch-delete
 
 
 # You may need to manually set your language environment
