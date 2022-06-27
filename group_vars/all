@@ -35,6 +35,8 @@ brew_packages:
   - doctl
   - dive
   - jq
+  - yq
+  - jless
   - ffmpeg
   - gifsicle
 
