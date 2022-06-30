@@ -39,6 +39,7 @@ brew_packages:
   - jless
   - ffmpeg
   - gifsicle
+  - pandoc
 
 brew_casks:
   - temurin17
