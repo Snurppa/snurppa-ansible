@@ -1,41 +1,42 @@
 ---
 
-brew_coreutils:
+# These have state=latest
+brew_latest_packages:
   - openssl
-  - net-tools
   - git
-  - gcc
   - grep
   - gnu-tar
   - ripgrep
   - bat
-
-brew_packages:
-#  - mongodb/brew/mongodb-community-shell
-#  - mongodb/brew/mongodb-database-tools
   - autojump
+  - sops
+
+# These have state=present
+brew_packages:
+  - age
+  - exa
   - git-flow-avh
-  - libpq
+  - gcc
+  - gpg
   - graphviz
+  - libpq
   - freetype
   - fontconfig
-  - coreutils
   - shellcheck
   - imagemagick
   - leiningen
   - maven
   - python3
-  - terraform
   - httpie
   - borkdude/brew/clj-kondo
   - nmap
   - mcrypt
-  - sops
-  - warrensbox/tap/tfswitch
   - doctl
   - dive
   - jq
   - yq
+  - tldr
+  - procs
   - jless
   - ffmpeg
   - gifsicle
@@ -46,13 +47,13 @@ brew_casks:
   - temurin8
   - spotify
   - pgAdmin4
-  - sourcetree
-  - thunderbird
+  #- sourcetree
+  #- thunderbird
   - flycut
   - flux
-  - virtualbox
-  - vagrant
-  - vagrant-manager
+  #- virtualbox
+  #- vagrant
+  #- vagrant-manager
   - sublime-text
   - licecap
   - wireshark

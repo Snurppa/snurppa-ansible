@@ -4,11 +4,11 @@
   homebrew: name={{ brew_packages }} state=present
   tags: brew
 
-- name: Install coreutils via brew
+- name: Install homebrew with latest versions
   homebrew: name={{ brew_coreutils }} state=latest
   tags:
    - brew
-   - coreutils
+   - brew-latest
 
 - name: Install caskroom/versions
   command: brew tap homebrew/cask-versions
