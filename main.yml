@@ -31,9 +31,11 @@
 
     - import_tasks: tasks/asdf.yml
       tags: asdf
-    - import_tasks: tasks/pip.yml
+    - import_tasks: tasks/hashicorp.yml
+      tags: hashicorp
     - import_tasks: tasks/homebrew.yml
       tags: homebrew
+    - import_tasks: tasks/pip.yml
     - import_tasks: tasks/java.yml
       tags: java
     - import_tasks: tasks/nvm.yml

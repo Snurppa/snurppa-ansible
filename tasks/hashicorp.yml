@@ -1,0 +1,14 @@
+--
+
+- command: brew tap hashicorp/tap
+
+- name: Nomad
+  homebrew:
+    name: hashicorp/tap/nomad
+  tags: nomad
+
+- name: Terraform (tfswitch)
+  homebrew:
+    name: warrensbox/tap/tfswitch
+    #name: hashicorp/tap/terraform
+  tags: terraform
