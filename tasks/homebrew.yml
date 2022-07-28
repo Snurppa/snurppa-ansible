@@ -5,32 +5,25 @@
   tags: brew
 
 - name: Install homebrew with latest versions
-  homebrew: name={{ brew_coreutils }} state=latest
+  homebrew: name={{ brew_latest_packages }} state=latest
   tags:
    - brew
    - brew-latest
 
 - name: Install caskroom/versions
   command: brew tap homebrew/cask-versions
-  register: versions_tap
-  changed_when: versions_tap.stdout != ""
   tags:
     - brew
     - brew-versions
 
 - name: Install homebrew-cask packages
-  command: brew install --cask {{ brew_casks | join(' ') }}
-  register: cask_install
-  changed_when: '"already installed" not in cask_install.stderr'
-  failed_when: '"Error" in cask_install.stderr'
+  command: brew install --quiet --cask {{ brew_casks | join(' ') }}
   tags:
     - brew
     - brew-cask
 
 - name: Install hombrew-services
   command: brew tap homebrew/services
-  register: services_tap
-  changed_when: services_tap.stdout != ""
   tags:
     - brew
     - brew-services

@@ -7,18 +7,22 @@
 
 - name: Install AWS cli tools
   homebrew:
-    name: 
+    name:
       - awscli
-      - awsume
-      - aws-vault
     state: present
   tags:
     - brew
 
+- name: Install latest of aws-vault
+  homebrew: name=aws-vault state=latest
+  tags:
+    - brew
+    - aws-vault
+
 - name: Templates to .aws
   template:
     src: "templates/{{ item }}.j2"
-    dest: "/Users/{{ user }}/.aws/{{ item }}" 
+    dest: "/Users/{{ user }}/.aws/{{ item }}"
     owner: "{{ user }}"
   loop:
     - config

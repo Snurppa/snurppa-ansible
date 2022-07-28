@@ -19,7 +19,7 @@
     depth: 1
 
 - name: vimrc symlink
-  file: 
+  file:
     src:  "{{ playbook_dir }}/files/init.vim"
     dest: "{{ nvim_config_dir }}/init.vim"
     state: link
@@ -37,7 +37,7 @@
 #   changed_when: "install.stderr != ' Paq: Nothing to install'"
 #   tags: vimrc
 
-- debug: var=install
+# - debug: var=install
 
 
   #     global
