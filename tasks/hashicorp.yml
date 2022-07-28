@@ -1,6 +1,7 @@
---
+---
 
-- command: brew tap hashicorp/tap
+- name: hashicorp/tap
+  command: brew tap hashicorp/tap
 
 - name: Nomad
   homebrew:
