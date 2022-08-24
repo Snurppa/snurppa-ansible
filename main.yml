@@ -31,6 +31,7 @@
 
     - import_tasks: tasks/asdf.yml
       tags: asdf
+    - import_tasks: tasks/bitbar.yml
     - import_tasks: tasks/hashicorp.yml
       tags: hashicorp
     - import_tasks: tasks/homebrew.yml
@@ -38,10 +39,11 @@
     - import_tasks: tasks/pip.yml
     - import_tasks: tasks/java.yml
       tags: java
+    - import_tasks: tasks/launchctl.yml
+      tags: launchd
     - import_tasks: tasks/nvm.yml
       tags: nvm
     - import_tasks: tasks/fonts.yml
-    - import_tasks: tasks/bitbar.yml
     - import_tasks: tasks/scripts.yml
     - import_tasks: tasks/fzf.yml
       tags: fzf

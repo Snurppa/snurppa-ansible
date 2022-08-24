@@ -1,0 +1,15 @@
+---
+
+- name: launchctl - Open files limit
+  become: yes
+  template:
+    src: maxfiles.plist.j2
+    dest: /Library/LaunchDaemons/private.maxfiles.plist
+
+
+- name: launchctl - Enable open files limit
+  become: yes
+  community.general.launchd:
+    name: private.maxfiles
+    enabled: yes
+

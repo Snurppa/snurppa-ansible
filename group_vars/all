@@ -15,32 +15,33 @@ brew_latest_packages:
 brew_packages:
   - age
   - exa
+  - borkdude/brew/clj-kondo
+  - doctl
+  - dive
   - git-flow-avh
   - gcc
   - gpg
   - graphviz
-  - libpq
-  - freetype
-  - fontconfig
-  - shellcheck
-  - imagemagick
-  - leiningen
-  - maven
-  - python3
-  - httpie
-  - borkdude/brew/clj-kondo
-  - nmap
-  - mcrypt
-  - doctl
-  - dive
-  - jq
-  - yq
-  - tldr
-  - procs
-  - jless
-  - ffmpeg
   - gifsicle
+  - ffmpeg
+  - fontconfig
+  - freetype
+  - httpie
+  - imagemagick
+  - jless
+  - jq
+  - leiningen
+  - libpq
+  - maven
+  - mcrypt
+  - nmap
+  - netcat
   - pandoc
+  - procs
+  - python3
+  - shellcheck
+  - tldr
+  - yq
 
 brew_casks:
   - temurin17
