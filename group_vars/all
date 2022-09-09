@@ -10,12 +10,12 @@ brew_latest_packages:
   - bat
   - autojump
   - sops
+  - borkdude/brew/clj-kondo
 
 # These have state=present
 brew_packages:
   - age
   - exa
-  - borkdude/brew/clj-kondo
   - doctl
   - dive
   - git-flow-avh
