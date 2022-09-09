@@ -1,0 +1,9 @@
+---
+
+- command: bat | get config file location
+  register: bat_config_file
+
+- name: bat | config
+  template:
+    src: bat.config.j2
+    dest: "{{ bat_config_file.stdout }}"

@@ -31,6 +31,8 @@
 
     - import_tasks: tasks/asdf.yml
       tags: asdf
+    - import_tasks: tasks/bat.yml
+      tags: bat
     - import_tasks: tasks/bitbar.yml
     - import_tasks: tasks/hashicorp.yml
       tags: hashicorp
