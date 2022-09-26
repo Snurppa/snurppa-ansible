@@ -6,7 +6,7 @@
   vars:
     gecko_version: "0.24.0"
     chromedriver_version: "91.0.4472.101"
-    bitbar_version: "1.9.2"
+    xbar_version: "2.1.7-beta"
     docker_cred_helper_version: "0.6.4"
     graalvm:
       enabled: True
@@ -33,7 +33,7 @@
       tags: asdf
     - import_tasks: tasks/bat.yml
       tags: bat
-    - import_tasks: tasks/bitbar.yml
+    - import_tasks: tasks/xbar.yml
     - import_tasks: tasks/hashicorp.yml
       tags: hashicorp
     - import_tasks: tasks/homebrew.yml
