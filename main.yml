@@ -29,41 +29,42 @@
     - name: ~/Applications
       file: path="/Users/{{ user }}/Applications" state=directory mode=0755
 
+
+    - import_tasks: tasks/alacritty.yml
+      tags: alacritty
     - import_tasks: tasks/asdf.yml
       tags: asdf
     - import_tasks: tasks/bat.yml
       tags: bat
-    - import_tasks: tasks/xbar.yml
+    - import_tasks: tasks/chromedriver.yml
+      tags: chromedriver
+    - import_tasks: tasks/clojure.yml
+      tags: clojure, clj
+    - import_tasks: tasks/docker.yml
+      tags: docker
+    - import_tasks: tasks/fonts.yml
+    - import_tasks: tasks/fzf.yml
+      tags: fzf
+    - import_tasks: tasks/geckodriver.yml
+      tags: geckodriver
+    - import_tasks: tasks/graalvm.yml
+      when: graalvm.enabled
+      tags: graalvm
     - import_tasks: tasks/hashicorp.yml
       tags: hashicorp
     - import_tasks: tasks/homebrew.yml
       tags: homebrew
-    - import_tasks: tasks/pip.yml
     - import_tasks: tasks/java.yml
       tags: java
     - import_tasks: tasks/launchctl.yml
       tags: launchd
-    - import_tasks: tasks/nvm.yml
-      tags: nvm
-    - import_tasks: tasks/fonts.yml
-    - import_tasks: tasks/scripts.yml
-    - import_tasks: tasks/fzf.yml
-      tags: fzf
     - import_tasks: tasks/lein.yml
       tags: lein,clojure
-    - import_tasks: tasks/geckodriver.yml
-      tags: geckodriver
-    - import_tasks: tasks/chromedriver.yml
-      tags: chromedriver
-    - import_tasks: tasks/graalvm.yml
-      when: graalvm.enabled
-      tags: graalvm
-    - import_tasks: tasks/docker.yml
-      tags: docker
-    - import_tasks: tasks/clojure.yml
-      tags: clojure, clj
-    - import_tasks: tasks/alacritty.yml
-      tags: alacritty
+    - import_tasks: tasks/nvm.yml
+      tags: nvm
+    - import_tasks: tasks/pip.yml
+    - import_tasks: tasks/scripts.yml
+    - import_tasks: tasks/xbar.yml
   roles:
     - role: zsh
       tags: zsh
