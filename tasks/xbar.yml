@@ -4,21 +4,18 @@
   get_url:
     url: "https://github.com/matryer/xbar/releases/download/v{{ xbar_version }}/xbar.v{{ xbar_version }}.zip"
     dest: /tmp/xbar.zip
-  tags: xbar
 
 - name: Unzip xbar to ~/Applications
   unarchive:
     src: /tmp/xbar.zip
     dest: /Users/{{ user }}/Applications/
     remote_src: yes
-  tags: xbar
 
 # Remember to open xbar.app and define plugin directory from UI
 
 - name: ~/xbar-plugins
   file: path="/Users/{{ user }}/Library/Application Support/xbar" state=directory
   tags:
-    - xbar
     - xbar-plugins
 
 - name: Fetch xbar plugins
@@ -27,7 +24,6 @@
     dest: /Users/{{ user }}/Library/Application Support/xbar/plugins/
     mode: 0740
   tags:
-    - xbar
     - xbar-plugins
   with_items:
     - System/real-cpu-usage.10s.sh

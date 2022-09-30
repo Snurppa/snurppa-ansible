@@ -64,11 +64,14 @@
       tags: nvm
     - import_tasks: tasks/pip.yml
     - import_tasks: tasks/scripts.yml
+    - import_tasks: tasks/tinkey.yml
+      tags: tinkey
     - import_tasks: tasks/xbar.yml
+      tags: xbar
   roles:
     - role: zsh
       tags: zsh
     - role: aws-profile
       tags: aws
     - role: nvim
-      tags: vim
+      tags: vim, nvim

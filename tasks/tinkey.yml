@@ -1,0 +1,9 @@
+---
+
+- name: tap google/tink
+  command: brew tap google/tink https://github.com/google/tink
+
+- name: install tinkey
+  homebrew:
+    name: tinkey
+    state: latest
