@@ -1,0 +1,29 @@
+---
+
+# https://podman.io/getting-started/installation#macos
+# Next, create and start your first Podman machine:
+#
+# podman machine init
+# podman machine start
+#
+# You can then verify the installation information using:
+#
+# podman info
+
+- name: Podman from Homebrew
+  homebrew:
+    name:
+      - podman
+      - podman-compose
+    state: latest
+  tags:
+   - brew
+   - brew-latest
+
+
+- name: Podman Desktop
+  homebrew: name=homebrew/cask/podman-desktop state=latest
+  tags:
+   - brew
+   - brew-latest
+

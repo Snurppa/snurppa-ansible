@@ -75,3 +75,5 @@
       tags: aws
     - role: nvim
       tags: vim, nvim
+    - role: podman
+      tags: podman

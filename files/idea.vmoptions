@@ -1,21 +1,17 @@
 # custom IntelliJ IDEA VM options
 
--Xms1G
--Xmx8G
--XX:ReservedCodeCacheSize=240m
--XX:+UseCompressedOops
--Dfile.encoding=UTF-8
--XX:+UseG1GC
--XX:-UseParNewGC
--XX:-UseConcMarkSweepGC
--XX:SoftRefLRUPolicyMSPerMB=50
--ea
--Dsun.io.useCanonCaches=false
+-Xms2G
+-Xmx10G
 -Djava.net.preferIPv4Stack=true
--XX:+HeapDumpOnOutOfMemoryError
--XX:-OmitStackTraceInFastThrow
--Xverify:none
+
+-XX:+UseZGC
+-XX:+UseLargePages
+-XX:ParallelGCThreads=4
+-XX:ConcGCThreads=4
 
 -XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log
 -XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof
--Xbootclasspath/a:../lib/boot.jar
+-XX:+HeapDumpOnOutOfMemoryError
+
+-XX:-OmitStackTraceInFastThrow
+-Djdk.attach.allowAttachSelf=true
