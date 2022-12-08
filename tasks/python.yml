@@ -13,9 +13,14 @@
   check_mode: no
 
 - set_fact:
-    python_version_full: "{{ python_version_string.stdout | regex_replace('^Python (\\d\\.\\d\\.\\d)', '\\1') }}"
-    python_version: "{{ python_version_string.stdout | regex_replace('^Python (\\d\\.\\d)\\.\\d', '\\1') }}"
+    python_version_full: "{{ python_version_string.stdout | regex_replace('^Python (\\d\\.\\d+\\.\\d+)', '\\1') }}"
+    python_version: "{{ python_version_string.stdout | regex_replace('^Python (\\d\\.\\d+)\\.\\d+', '\\1') }}"
   tags: always
+  check_mode: no
+
+- debug: var=python_version_full
+  tags: always
+  check_mode: no
 
 - name: Symlink Python 3 to /Library/Frameworks
   become: true

@@ -55,7 +55,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git ssh-plugin aws terraform asdf docker nmap urltools)
+plugins=(git aws terraform asdf docker nmap urltools)
 
 # User configuration
 
@@ -118,6 +118,7 @@ alias gpskip="git push -o ci.skip"
 alias gcshort="git rev-parse --short"
 alias nnetstat="netstat -an"
 alias glgsearch="git log -S"
+alias pocker=podman
 
 # http://stackoverflow.com/questions/20794751/class-javalaunchhelper-is-implemented-in-both-one-of-the-two-will-be-used-whic
 
@@ -126,7 +127,7 @@ alias glgsearch="git log -S"
 
 
 # Python path (powerline tec)
-export PATH=$PATH:~/Library/Python/{{ python_version }}/bin
+export PATH="$PATH:~/Library/Python/{{ python_version }}/bin"
 
 source <(pip3 completion --zsh)
 
@@ -185,6 +186,10 @@ alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-t
 ###  AWS stuff
 ###
 alias awx-root='aws-vault exec quuppa-cloud-root --'
+command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
+
 
 export GL_PAT={{ gitlab_pat }}
 export LEO_DEV={{ qpe_api_keys.dev.leo }}
+
+command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea

@@ -17,7 +17,7 @@
     src: functions/
     dest: "/Users/{{ user }}/zsh-functions"
     mode: u+rwx,g-wx,o-rwx
-  tags: 
+  tags:
     - zfuncs
 
 - file: path="/Users/{{ user }}/.oh-my-zsh" state=directory mode=0755 owner="{{ user }}"
@@ -28,7 +28,7 @@
     dest: "/Users/{{ user }}/.oh-my-zsh"
 
 - name: .zshrc from template
-  template: src=templates/zshrc.j2 dest="/Users/{{ user }}/.zshrc" owner={{ user }}
+  template: src=templates/zshrc.j2 dest="/Users/{{ user }}/.zshrc" owner={{ user }} backup=yes
   tags:
     - zshrc
 
@@ -46,5 +46,5 @@
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k
-  tags: 
+  tags:
     - p10k
