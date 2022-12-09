@@ -189,7 +189,7 @@ alias awx-root='aws-vault exec quuppa-cloud-root --'
 command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
 
 
-export GL_PAT={{ gitlab_pat }}
+export GITLAB_TOKEN={{ gitlab_pat }}
 export LEO_DEV={{ qpe_api_keys.dev.leo }}
 
 command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea

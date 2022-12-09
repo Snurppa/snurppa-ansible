@@ -1,7 +1,7 @@
 ---
 
 - name: Install NVM via homebrew
-  homebrew: name=nvm state=present
+  homebrew: name=nvm state=latest
   tags: nvm
 
 - name: ~/.nvm
@@ -32,14 +32,21 @@
   tags:
     - nvm
 
-- name: .npmrc
-  block:
-    - file:
-        dest: "/Users/{{ user }}/.npmrc"
-        state: touch
-    - lineinfile:
+- block:
+    - name: .npmrc | npm.pkg.github.com authToken
+      lineinfile:
         path: "/Users/{{ user }}/.npmrc"
+        create: yes
         regexp: "^//npm.pkg.github.com/:_authToken"
         line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
-  tags: nvm
-  when: npm_gh_token
+      when: npm_gh_token
+    - name: .npmrc | save = true
+      lineinfile:
+        path: "/Users/{{ user }}/.npmrc"
+        create: yes
+        # By default when updating, edit package.json versions too
+        regexp: "^save="
+        line: "save=true"
+  tags:
+    - nvm
+    - npmrc
