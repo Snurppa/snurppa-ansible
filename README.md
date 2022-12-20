@@ -15,8 +15,10 @@ ansible-playbook main.yml --ask-become-pass
 
 * `xcode-select --install`
 * [Homebrew](https://brew.sh/)
-* `brew install python`
-* `pip3 install ansible`
+* Python
+   * Should inspect more: https://opensource.com/article/19/5/python-3-default-mac
+   * `brew install python`
+   * `pip3 install ansible`
 
 
 # Other notes / TODO

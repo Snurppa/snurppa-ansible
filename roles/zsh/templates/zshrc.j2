@@ -63,7 +63,7 @@ plugins=(git aws terraform asdf docker nmap urltools)
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="/usr/local/sbin:$PATH"
 
-export PATH=$PATH:{{ python_user_site.stdout }}:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
+export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent#lazy
 zstyle :omz:plugins:ssh-agent lazy yes
@@ -127,7 +127,7 @@ alias pocker=podman
 
 
 # Python path (powerline tec)
-export PATH="$PATH:~/Library/Python/{{ python_version }}/bin"
+export PATH="$PATH:$HOME/Library/Python/{{ python_version }}/bin"
 
 source <(pip3 completion --zsh)
 

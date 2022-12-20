@@ -22,13 +22,13 @@
   tags: always
   check_mode: no
 
-- name: Symlink Python 3 to /Library/Frameworks
-  become: true
-  file:
-    src: /usr/local/Frameworks/Python.framework
-    dest: /Library/Frameworks/Python.framework
-    mode: 0775
-    state: link
-  tags:
-    - python
-    - sudo
+# - name: Symlink Python 3 to /Library/Frameworks
+#   become: true
+#   file:
+#     src: /usr/local/Frameworks/Python.framework
+#     dest: /Library/Frameworks/Python.framework
+#     mode: 0775
+#     state: link
+#   tags:
+#     - python
+#     - sudo
