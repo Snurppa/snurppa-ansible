@@ -33,7 +33,7 @@ brew_packages:
   - leiningen
   - libpq
   - maven
-  - mcrypt
+  - moar
   - nmap
   - netcat
   - pandoc
@@ -41,6 +41,7 @@ brew_packages:
   - python3
   - shellcheck
   - tldr
+  - walles/johan/riffdiff
   - yq
 
 brew_casks:

@@ -83,8 +83,10 @@ compdef '__gitcomp_direct "$(__git_heads "" "$cur" " ")"' git-branch-delete
 
 
 # You may need to manually set your language environment
-export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LC_CTYPE=fi_FI.UTF-8
+export LC_COLLATE=fi_FI.UTF-8
+export LC_TIME=fi_FI.UTF-8
 
 
 # Preferred editor for local and remote sessions
@@ -94,21 +96,12 @@ export LANG=en_US.UTF-8
 #   export EDITOR='mvim'
 # fi
 
+# moar as pager (instead of default 'less')
+command -v /usr/local/bin/moar &>/dev/null && export PAGER=/usr/local/bin/moar
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-#
 
 # From brew/coreutils
 alias grep="/usr/local/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
@@ -147,13 +140,15 @@ export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v$(/usr/libexec/java_home -V  
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
 alias java-latest='export JAVA_HOME=$JAVA_LATEST_HOME'
 
-
+##
+## GCloud
+##
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc'; fi
-
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc'; fi
-
+# kubectl
+command -v kubectl &>/dev/null && source <(kubectl completion zsh)
 
 {# Add your sensitive environment variables to secret_zshrc.j2 #}
 {% include 'secret_zshrc.j2' ignore missing %}
@@ -173,7 +168,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-command -v kubectl &>/dev/null && source <(kubectl completion zsh)
+
 
 {% if google_credentials is defined %}
 export GOOGLE_APPLICATION_CREDENTIALS={{ google_credentials }}

@@ -17,7 +17,7 @@
     - brew-versions
 
 - name: Install homebrew-cask packages
-  command: brew install --quiet --cask {{ brew_casks | join(' ') }}
+  homebrew: name={{ brew_casks }} install_options=quiet,cask
   tags:
     - brew
     - brew-cask
@@ -37,3 +37,13 @@
 #  tags:
 #    - brew
 #    - brew-services
+
+- name: Ping certain brew forumales
+  command: brew pin {{ item }}
+  loop:
+    - gcc
+  register: brew_pin
+  changed_when: '"already pinned" not in brew_pin.msg'
+  tags:
+    - brew
+    - brew-ping
