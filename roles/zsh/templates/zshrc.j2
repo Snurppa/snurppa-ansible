@@ -97,7 +97,9 @@ export LC_TIME=fi_FI.UTF-8
 # fi
 
 # moar as pager (instead of default 'less')
-command -v /usr/local/bin/moar &>/dev/null && export PAGER=/usr/local/bin/moar
+command -v /usr/local/bin/moar &>/dev/null \
+ && export PAGER=/usr/local/bin/moar\
+ MOAR='--statusbar=bold --no-linenumbers --style=github'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
