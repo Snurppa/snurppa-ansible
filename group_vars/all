@@ -2,15 +2,14 @@
 
 # These have state=latest
 brew_latest_packages:
-  - openssl
+  - autojump
+  - borkdude/brew/clj-kondo
   - git
   - grep
   - gnu-tar
+  - openssl
   - ripgrep
-  - bat
-  - autojump
   - sops
-  - borkdude/brew/clj-kondo
 
 # These have state=present
 brew_packages:
@@ -18,8 +17,7 @@ brew_packages:
   - exa
   - doctl
   - dive
-  - git-flow-avh
-  - gcc
+ # - gcc
   - gpg
   - graphviz
   - gifsicle
@@ -38,20 +36,18 @@ brew_packages:
   - netcat
   - pandoc
   - procs
-  - python3
   - shellcheck
   - tldr
   - walles/johan/riffdiff
   - yq
 
 brew_casks:
-  - temurin17
-  - temurin8
+  - fork
   - spotify
-  - pgAdmin4
+  # - pgAdmin4
   #- sourcetree
   #- thunderbird
-  - flycut
+  #- flycut
   - flux
   #- virtualbox
   #- vagrant

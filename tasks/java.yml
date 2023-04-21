@@ -1,5 +1,15 @@
 ---
 
+- name: Install homebrew/cask-versions
+  command: brew tap homebrew/cask-versions
+  tags:
+    - cask-versions
+
+- name: Install Temurin cask
+  homebrew:
+    name: temurin,temurin8
+    install_options: quiet,cask
+
 - shell: /usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5)
   register: java_path
 

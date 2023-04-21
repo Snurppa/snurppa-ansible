@@ -9,3 +9,5 @@
     command: ./install --no-fish
     args:
       chdir: "/Users/{{ user }}/.fzf"
+    register: fzf
+    changed_when: '"Already exists" not in fzf.stdout'

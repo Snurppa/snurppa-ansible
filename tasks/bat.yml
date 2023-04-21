@@ -1,9 +1,20 @@
 ---
 
-- command: bat | get config file location
+- name: bat | brew install
+  homebrew:
+    name: bat
+    state: latest
+
+- name: bat | get config file path
+  command: bat --config-file
   register: bat_config_file
 
-- name: bat | config
+- name: bat | config dir
+  file:
+    state: directory
+    path:  "{{ bat_config_file.stdout | dirname }}"
+
+- name: bat | config from template
   template:
     src: bat.config.j2
     dest: "{{ bat_config_file.stdout }}"

@@ -14,7 +14,7 @@
   homebrew:
     name:
       - podman
-      - podman-compose
+#      - podman-compose
     state: latest
   tags:
    - brew
@@ -22,7 +22,10 @@
 
 
 - name: Podman Desktop
-  homebrew: name=homebrew/cask/podman-desktop state=latest
+  homebrew: name=podman-desktop state=latest install_options=cask
+  register: cask_install
+  changed_when: '"already installed" not in cask_install.msg'
+  failed_when: '"installed" not in cask_install.msg'
   tags:
    - brew
    - brew-latest

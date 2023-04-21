@@ -1,3 +1,4 @@
+# vim: filetype=zsh
 # {{ ansible_managed }}
 # Se tname of the theme to load.
 export ZSH=/Users/{{ user }}/.oh-my-zsh
@@ -97,8 +98,8 @@ export LC_TIME=fi_FI.UTF-8
 # fi
 
 # moar as pager (instead of default 'less')
-command -v /usr/local/bin/moar &>/dev/null \
- && export PAGER=/usr/local/bin/moar\
+command -v moar &>/dev/null \
+ && export PAGER="$(which moar)"\
  MOAR='--statusbar=bold --no-linenumbers --style=github'
 
 # Compilation flags
@@ -140,14 +141,16 @@ command -v thefuck &>/dev/null && eval $(thefuck --alias)
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 export HOMEBREW_GITHUB_API_TOKEN="{{ homebrew_api_token }}"
-# alias psql='/Applications/Postgres.app/Contents/Versions/9.5/bin'/psql
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
-export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5))
+# Java stuff
+if /usr/libexec/java_home &>/dev/null ; then
+	export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+	export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5))
 
-alias java8='export JAVA_HOME=$JAVA_8_HOME'
-alias java-latest='export JAVA_HOME=$JAVA_LATEST_HOME'
+	alias java8='export JAVA_HOME=$JAVA_8_HOME'
+	alias java-latest='export JAVA_HOME=$JAVA_LATEST_HOME'
+fi
 
 ##
 ## GCloud
