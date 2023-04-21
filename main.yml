@@ -4,23 +4,24 @@
   hosts: localhost
   connection: local
   vars:
+    brew_prefix: "{{ lookup('ansible.builtin.env', 'HOMEBREW_PREFIX', default=Undefined) }}"
     gecko_version: "0.24.0"
     chromedriver_version: "91.0.4472.101"
     xbar_version: "2.1.7-beta"
-    docker_cred_helper_version: "0.6.4"
+    docker_cred_helper_version: "0.7.0"
     graalvm:
-      enabled: True
+      enabled: False
       version: "21.0.0"
-    user: "{{ lookup('env', 'USER')}}"
+    user: "{{ lookup('ansible.builtin.env', 'USER')}}"
     xdg_config_home: ~/.config
   vars_files:
     - vars/secrets
   pre_tasks:
     - import_tasks: tasks/python.yml
-  tasks:
-    - debug: var=user
+    - debug: var=brew_prefix
       tags: always
 
+  tasks:
     - name: ~/bin
       file: path="/Users/{{ user }}/bin" state=directory mode=0755
       register: user_bin
@@ -42,7 +43,8 @@
       tags: clojure, clj
     - import_tasks: tasks/docker.yml
       tags: docker
-    - import_tasks: tasks/fonts.yml
+#   Not sure if this is needed anymore, after powerline10k handles fonts at least
+#   - import_tasks: tasks/fonts.yml
     - import_tasks: tasks/fzf.yml
       tags: fzf
     - import_tasks: tasks/geckodriver.yml

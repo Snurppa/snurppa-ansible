@@ -7,7 +7,7 @@
 
 - name: Set Homebrew zsh as default shell
   become: yes
-  user: name={{ user }} shell=/usr/local/bin/zsh
+  user: name={{ user }} shell="{{ brew_prefix }}/bin/zsh"
   tags:
     - sudo
 
@@ -32,15 +32,15 @@
   tags:
     - zshrc
 
-- name: PATH to .zshenv
-  lineinfile:
-    create: yes
-    path: "/Users/{{ user }}/.zshenv"
-    regexp: '^export PATH='
-    line: 'export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/{{ user }}/bin"'
-  tags:
-    - zshrc
-
+#- name: PATH to .zshenv
+#  lineinfile:
+#    create: yes
+#    path: "/Users/{{ user }}/.zshenv"
+#    regexp: '^export PATH='
+#    line: 'export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/{{ user }}/bin"'
+#  tags:
+#    - zshrc
+#
 
 - name: Clone powerline10k zsh theme
   git:

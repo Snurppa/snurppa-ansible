@@ -61,7 +61,7 @@ plugins=(git aws terraform asdf docker nmap urltools)
 
 # export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/Users/{{ user }}/bin:$PATH"
 
 export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
@@ -106,7 +106,7 @@ command -v /usr/local/bin/moar &>/dev/null \
 
 
 # From brew/coreutils
-alias grep="/usr/local/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
+command -v {{ brew_prefix }}/bin/ggrep &>/dev/null && alias grep="{{ brew_prefix }}/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
 alias -s xml=subl
 alias dcup="docker-compose up -d"
 alias gpskip="git push -o ci.skip"
