@@ -28,9 +28,7 @@ brew_packages:
   - imagemagick
   - jless
   - jq
-  - leiningen
   - libpq
-  - maven
   - moar
   - nmap
   - netcat
@@ -42,7 +40,7 @@ brew_packages:
   - yq
 
 brew_casks:
-  - fork
+#  - fork
   - spotify
   # - pgAdmin4
   #- sourcetree
@@ -55,6 +53,3 @@ brew_casks:
   - sublime-text
   - licecap
   - wireshark
-
-brew_services:
-  #- mongodb

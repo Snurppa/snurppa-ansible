@@ -1,10 +1,12 @@
 ---
 
-- name: Install homebrew packages
+- name: Install Homebrew packages
   homebrew: name={{ brew_packages }} state=present
-  tags: brew
+  tags:
+    - brew
+    - brew-packages
 
-- name: Install homebrew with latest versions
+- name: Install Homebrew state=latest packages
   homebrew: name={{ brew_latest_packages }} state=latest
   tags:
    - brew
@@ -17,26 +19,11 @@
     - brew-versions
 
 - name: Install homebrew-cask packages
-  homebrew: name={{ brew_casks }} install_options=quiet,cask
+  community.general.homebrew_cask: 
+    name: "{{ brew_casks }}"
   tags:
     - brew
     - brew-cask
-
-- name: Install hombrew-services
-  command: brew tap homebrew/services
-  tags:
-    - brew
-    - brew-services
-
-#- name: Start services via homebrew-services
-#  command: brew services start {{item}}
-#  with_items: "{{ brew_services }}"
-#  register: services_start
-#  changed_when: '"already started" not in services_start.stdout'
-#  when: brew_services is defined and brew_services
-#  tags:
-#    - brew
-#    - brew-services
 
 - name: Ping certain brew forumales
   command: brew pin {{ item }}
@@ -46,4 +33,4 @@
   changed_when: '"already pinned" not in brew_pin.msg'
   tags:
     - brew
-    - brew-ping
+    - brew-pin

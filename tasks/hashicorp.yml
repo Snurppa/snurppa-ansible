@@ -2,6 +2,7 @@
 
 - name: hashicorp/tap
   command: brew tap hashicorp/tap
+  tags: nomad
 
 - name: Nomad
   homebrew:

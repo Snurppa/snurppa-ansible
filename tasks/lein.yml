@@ -1,4 +1,9 @@
 ---
+
+ - name: Install Leinignen from Homebrew
+   community.general.homebrew:
+     name: leinignen
+
  - name: .lein
    file: path=~/.lein state=directory
    tags: lein

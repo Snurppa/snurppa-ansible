@@ -15,3 +15,7 @@
 
 - name: JAVA_HOME for launchctl setenv
   command: launchctl setenv JAVA_HOME "{{ java_path.stdout }}"
+
+- name: Maven
+  community.general.homebrew:
+    name: maven
