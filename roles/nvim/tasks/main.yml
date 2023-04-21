@@ -12,11 +12,12 @@
     - "{{ nvim_data_dir }}"
     - "{{ nvim_lua_dir }}"
 
-- name: paq from GitHub
-  ansible.builtin.git:
-    repo: git@github.com:savq/paq-nvim.git
-    dest: "{{ nvim_data_dir }}/site/pack/paqs/start/paq-nvim"
-    depth: 1
+# Moved cloning to init.vim as Lua block
+#- name: paq from GitHub
+#  ansible.builtin.git:
+#    repo: git@github.com:savq/paq-nvim.git
+#    dest: "{{ nvim_data_dir }}/site/pack/paqs/start/paq-nvim"
+#    depth: 1
 
 - name: vimrc symlink
   file:
@@ -26,9 +27,9 @@
   tags:
     - vimrc
 
-- name: plugins.lua
-  template: src=plugins.lua.j2 dest="{{ nvim_lua_dir }}/plugins.lua"
-  tags: vimrc
+#- name: plugins.lua
+#  template: src=plugins.lua.j2 dest="{{ nvim_lua_dir }}/plugins.lua"
+#  tags: vimrc
 
 
 # - name: Install plugins

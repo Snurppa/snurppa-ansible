@@ -17,4 +17,3 @@
 #    - { name: openshift }
 #    - { name: docker }
 #    - { name: git-of-theseus }
-  tags: pip

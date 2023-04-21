@@ -22,8 +22,31 @@ tnoremap <C-W>n <C-\><C-n>
 noremap <Leader><Tab><Tab> :set invlist<CR>
 
 lua <<EOF
+-- From *paq-bootstrapping* docs
 
-require("paq") {
+local function clone_paq()
+  local path = vim.fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
+  local is_installed = vim.fn.empty(vim.fn.glob(path)) == 0
+  if not is_installed then
+    vim.fn.system { "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", path }
+    return true
+  end
+end
+
+local function bootstrap_paq(packages)
+  local first_install = clone_paq()
+  vim.cmd.packadd("paq-nvim")
+  local paq = require("paq")
+  if first_install then
+    vim.notify("Installing plugins... If prompted, hit Enter to continue.")
+  end
+
+  -- Read and install packages
+  paq(packages)
+  paq.install()
+end
+
+bootstrap_paq {
   "savq/paq-nvim";
   "rmehri01/onenord.nvim";
   "gfanto/fzf-lsp.nvim";
@@ -34,15 +57,11 @@ require("paq") {
   "tpope/vim-sexp-mappings-for-regular-people";
   "guns/vim-sexp";
 -- statusline / bufferline
-  "feline-nvim/feline.nvim";
   "nvim-lua/plenary.nvim";
   "lewis6991/gitsigns.nvim";
   "crispgm/nvim-tabline";
 --  "kyazdani42/nvim-web-devicons";
 }
-require('feline').setup({
-    preset = 'noicon'
-})
 require('tabline').setup({})
 require('onenord').setup({
         theme = "dark"

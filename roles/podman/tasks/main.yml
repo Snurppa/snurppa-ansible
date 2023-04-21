@@ -22,10 +22,9 @@
 
 
 - name: Podman Desktop
-  homebrew: name=podman-desktop state=latest install_options=cask
-  register: cask_install
-  changed_when: '"already installed" not in cask_install.msg'
-  failed_when: '"installed" not in cask_install.msg'
+  community.general.homebrew_cask: 
+    name: podman-desktop
+    state: latest
   tags:
    - brew
    - brew-latest
