@@ -122,12 +122,19 @@ alias pocker=podman
 
 
 # Python path (powerline tec)
-export PATH="$PATH:$HOME/Library/Python/{{ python_version }}/bin"
+# export PATH="$PATH:$HOME/Library/Python/{{ python_version }}/bin"
+
+# pyenv setup: https://github.com/pyenv/pyenv#set-up-your-shell-environment-for-pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+# Set Python user site to PATH: (python3 -m site --user-base)
+export PATH="$PATH:{{ python_user_base.stdout }}/bin"
 
 source <(pip3 completion --zsh)
 
 # thefuck (from pip)
-eval $(thefuck --alias)
+command -v thefuck &>/dev/null && eval $(thefuck --alias)
 
 # Fix a "bug" with Python fork
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES

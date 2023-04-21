@@ -15,9 +15,11 @@ ansible-playbook main.yml --ask-become-pass
 
 * `xcode-select --install`
 * [Homebrew](https://brew.sh/)
-* Python
-   * Should inspect more: https://opensource.com/article/19/5/python-3-default-mac
-   * `brew install python`
+* Python via pyenv
+   * `brew install pyenv` _(assumes Homebrew handles setting pyenv to PATH)_
+   * `pyenv install 3.11`
+   * `pyenv global 3.11.X`
+   * `eval "$(pyenv init -)"`
    * `pip3 install ansible`
 
 
@@ -34,6 +36,12 @@ ansible-playbook main.yml --ask-become-pass
 - iTerm + Solarized: Color -> Color Presets -> Solarized (https://gist.github.com/kevin-smets/8568070)
 
 # Hints
+
+## Set of tags for different use cases
+
+### Essentials
+
+- --tags zsh,asdf,bat,fzf
 
 ## Completion
 

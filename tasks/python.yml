@@ -6,9 +6,9 @@
   tags: always
   check_mode: no
 
-- name: Python3 user site location
-  command: python3 -m site --user-site
-  register: python_user_site
+- name: Python3 user base location
+  command: python3 -m site --user-base
+  register: python_user_base
   tags: always
   check_mode: no
 
