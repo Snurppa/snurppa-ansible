@@ -1,0 +1,7 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "shift+cmd+[Semicolon]",
+        "command": "workbench.action.terminal.new"
+    }
+]

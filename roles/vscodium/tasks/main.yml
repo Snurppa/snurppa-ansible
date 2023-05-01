@@ -1,0 +1,17 @@
+---
+
+- name: Install VSCodium cask
+  community.general.homebrew_cask:
+    name: vscodium 
+    state: present
+
+# Visual Studio Code stores its keybindings.json and settings.json file in these locations:
+#
+# Windows: %APPDATA%\Code\User
+# macOS: $HOME/Library/Application Support/Code/User
+# Linux: $HOME/.config/Code/User
+# You can copy these files to the VSCodium user settings folder:
+#
+# Windows: %APPDATA%\VSCodium\User
+# macOS: $HOME/Library/Application Support/VSCodium/User
+# Linux: $HOME/.config/VSCodium/User
