@@ -1,0 +1,13 @@
+---
+
+- name: ~/.gitconfig | name
+  community.general.git_config:
+    scope: global
+    name: user.name
+    value: Joni Hämäläinen
+
+- name: ~/.gitconfig | email
+  community.general.git_config:
+    scope: global
+    name: user.email
+    value: "{{ git_email | default('snurppa@gmail.com') }}"

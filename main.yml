@@ -49,6 +49,8 @@
       tags: fzf
     - import_tasks: tasks/geckodriver.yml
       tags: geckodriver
+    - import_tasks: tasks/git.yml
+      tags: git, git-config
     - import_tasks: tasks/graalvm.yml
       when: graalvm.enabled
       tags: graalvm
@@ -80,3 +82,5 @@
       tags: vim, nvim
     - role: podman
       tags: podman
+    - role: vscodium
+      tags: vscodium, vscode
