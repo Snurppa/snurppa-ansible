@@ -4,6 +4,8 @@
   homebrew:
     name: bat
     state: latest
+  tags:
+    - brew-latest
 
 - name: bat | get config file path
   command: bat --config-file
@@ -14,7 +16,7 @@
     state: directory
     path:  "{{ bat_config_file.stdout | dirname }}"
 
-- name: bat | config from template
-  template:
-    src: bat.config.j2
+- name: bat | config
+  copy:
+    src: files/bat.config
     dest: "{{ bat_config_file.stdout }}"
