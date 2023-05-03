@@ -32,16 +32,6 @@
   tags:
     - zshrc
 
-#- name: PATH to .zshenv
-#  lineinfile:
-#    create: yes
-#    path: "/Users/{{ user }}/.zshenv"
-#    regexp: '^export PATH='
-#    line: 'export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/{{ user }}/bin"'
-#  tags:
-#    - zshrc
-#
-
 - name: Clone powerline10k zsh theme
   git:
     repo: https://github.com/romkatv/powerlevel10k.git

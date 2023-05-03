@@ -1,0 +1,18 @@
+---
+
+# This non-interactive init file is used in .zshrc by defining the file as BASH_ENV export BASH_ENV=~/.config/bash/non-interactive
+# See https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
+
+- name: Bash | XDG config dir
+  file: path="{{ xdg_config_home }}/bash" state=directory
+
+- name: Bash | custom non-interactive
+  copy:
+    dest: "{{ xdg_config_home }}/bash/non-interactive"
+    content: |
+      sha256sum()
+      {
+        # macOS does not have sha256sum by default, so this function works as 'polyfill'
+        shasum -a 256 $@
+      }
+

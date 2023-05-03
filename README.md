@@ -22,6 +22,57 @@ ansible-playbook main.yml --ask-become-pass
    * `eval "$(pyenv init -)"`
    * `pip3 install ansible`
 
+# Python trivia (from brew Python vs pyenv)
+
+- Reinstalling brew packages that require Python will pick the latest Python version
+- Info about to using [pyenv](https://towardsdatascience.com/homebrew-and-pyenv-python-playing-pleasantly-in-partnership-3a342d86319b)
+- There might be challenges with bottled formulae. Try installing from source with `brew install -s`.
+   - `awscli` seems to include the virtualenv libexec dir with symlinks to /usr/local/opt/python@3.11/Frameworks...
+
+Example from awscli problem after `brew uninstall python3` and switching to pyenv:
+
+```sh
+❯ aws
+zsh: /usr/local/bin/aws: bad interpreter: /usr/local/Cellar/awscli/2.11.16/libexec/bin/python3.11: no such file or directory
+❯ cd /usr/local/Cellar/awscli/2.11.16/libexec/bin
+❯ ll
+total 128
+-rw-r--r--  1 joni.hamalainen  admin   8.8K 28 Huh 23:15 Activate.ps1
+-rw-r--r--  1 joni.hamalainen  admin   2.0K  3 Tou 10:41 activate
+-rw-r--r--  1 joni.hamalainen  admin   939B  3 Tou 10:41 activate.csh
+-rw-r--r--  1 joni.hamalainen  admin   2.2K  3 Tou 10:41 activate.fish
+-rwxr-xr-x  1 joni.hamalainen  admin   854B  3 Tou 10:41 aws
+-rw-r--r--  1 joni.hamalainen  admin   898B 28 Huh 23:15 aws.cmd
+-rw-r--r--  1 joni.hamalainen  admin   204B  3 Tou 10:41 aws_bash_completer
+-rwxr-xr-x  1 joni.hamalainen  admin   1.2K  3 Tou 10:41 aws_completer
+-rw-r--r--  1 joni.hamalainen  admin   1.8K 28 Huh 23:15 aws_zsh_completer.sh
+-rwxr-xr-x  1 joni.hamalainen  admin   251B  3 Tou 10:41 distro
+-rwxr-xr-x  1 joni.hamalainen  admin   1.7K  3 Tou 10:41 jp.py
+-rwxr-xr-x  1 joni.hamalainen  admin   260B  3 Tou 10:41 pip
+-rwxr-xr-x  1 joni.hamalainen  admin   260B  3 Tou 10:41 pip3
+-rwxr-xr-x  1 joni.hamalainen  admin   260B  3 Tou 10:41 pip3.11
+lrwxr-xr-x  1 joni.hamalainen  admin    87B 28 Huh 23:15 python -> ../../../../../opt/python@3.11/Frameworks/Python.framework/Versions/3.11/bin/python3.11
+lrwxr-xr-x  1 joni.hamalainen  admin    87B 28 Huh 23:15 python3 -> ../../../../../opt/python@3.11/Frameworks/Python.framework/Versions/3.11/bin/python3.11
+lrwxr-xr-x  1 joni.hamalainen  admin    87B 28 Huh 23:15 python3.11 -> ../../../../../opt/python@3.11/Frameworks/Python.framework/Versions/3.11/bin/python3.11
+```
+
+While local `python3 -m venv --system-site-packages libexec` call created following correct symlinks:
+```sh
+❯ ll
+total 80
+-rw-r--r--  1 joni.hamalainen  staff   8.8K  3 Tou 12:37 Activate.ps1
+-rw-r--r--  1 joni.hamalainen  staff   2.0K  3 Tou 12:37 activate
+-rw-r--r--  1 joni.hamalainen  staff   942B  3 Tou 12:37 activate.csh
+-rw-r--r--  1 joni.hamalainen  staff   2.2K  3 Tou 12:37 activate.fish
+-rwxr-xr-x  1 joni.hamalainen  staff   260B  3 Tou 12:37 pip
+-rwxr-xr-x  1 joni.hamalainen  staff   260B  3 Tou 12:37 pip3
+-rwxr-xr-x  1 joni.hamalainen  staff   260B  3 Tou 12:37 pip3.11
+lrwxr-xr-x  1 joni.hamalainen  staff     7B  3 Tou 12:37 python -> python3
+lrwxr-xr-x  1 joni.hamalainen  staff    57B  3 Tou 12:37 python3 -> /Users/joni.hamalainen/.pyenv/versions/3.11.3/bin/python3
+lrwxr-xr-x  1 joni.hamalainen  staff     7B  3 Tou 12:37 python3.11 -> python3
+-rw-r--r--  1 joni.hamalainen  staff    72B  3 Tou 12:53 readme.txt
+```
+
 
 # Other notes / TODO
 

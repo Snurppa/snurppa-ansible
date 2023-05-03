@@ -37,6 +37,8 @@
       tags: asdf
     - import_tasks: tasks/bat.yml
       tags: bat
+    - import_tasks: tasks/bash.yml
+      tags: bash
     - import_tasks: tasks/chromedriver.yml
       tags: chromedriver
     - import_tasks: tasks/clojure.yml

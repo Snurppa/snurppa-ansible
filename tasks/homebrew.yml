@@ -19,13 +19,13 @@
     - brew-versions
 
 - name: Install homebrew-cask packages
-  community.general.homebrew_cask: 
+  community.general.homebrew_cask:
     name: "{{ brew_casks }}"
   tags:
     - brew
     - brew-cask
 
-- name: Ping certain brew forumales
+- name: Pin certain brew forumales
   command: brew pin {{ item }}
   loop:
     - gcc
@@ -34,3 +34,13 @@
   tags:
     - brew
     - brew-pin
+
+- name: Homebrew shellenv to .zprofile
+  lineinfile:
+    create: yes
+    path: "/Users/{{ user }}/.zprofile"
+    regexp: 'brew shellenv'
+    line: 'eval "$(brew shellenv)"'
+  tags:
+    - brew
+    - zprofile

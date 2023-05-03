@@ -62,7 +62,7 @@ plugins=(git aws terraform asdf docker nmap urltools)
 
 # export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
-export PATH="/Users/{{ user }}/bin:$PATH"
+export PATH="$PATH:/Users/{{ user }}/bin"
 
 export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
@@ -88,6 +88,10 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=fi_FI.UTF-8
 export LC_COLLATE=fi_FI.UTF-8
 export LC_TIME=fi_FI.UTF-8
+
+# When running non-interactively, bash only sources $BASH_ENV
+# See https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
+export BASH_ENV=~/.config/bash/non-interactive
 
 
 # Preferred editor for local and remote sessions
@@ -115,6 +119,7 @@ alias gcshort="git rev-parse --short"
 alias nnetstat="netstat -an"
 alias glgsearch="git log -S"
 alias pocker=podman
+alias sha256sum="shasum -a 256"
 
 # http://stackoverflow.com/questions/20794751/class-javalaunchhelper-is-implemented-in-both-one-of-the-two-will-be-used-whic
 
