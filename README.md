@@ -79,6 +79,7 @@ lrwxr-xr-x  1 joni.hamalainen  staff     7B  3 Tou 12:37 python3.11 -> python3
 - macOS settings
 -- Change Mission control bindings for Ctrl+&larr; & Ctrl+&rarr;: Keyboard -> Shortcuts -> Mission Control
 -- Remove Cmd+Shift+A "Open man page" keyboard shortcut from Services section
+-- Set Screenshots location `defaults write com.apple.screencapture location ~/Screenshots`
 - https://adoptopenjdk.net/
 - IDEA preferences
 - Chrome bookmarks
