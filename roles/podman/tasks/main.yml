@@ -22,10 +22,18 @@
 
 
 - name: Podman Desktop
-  community.general.homebrew_cask: 
+  community.general.homebrew_cask:
     name: podman-desktop
     state: latest
   tags:
    - brew
    - brew-latest
 
+
+- name: Skopeo from Homebrew
+  homebrew:
+    name: skopeo
+    state: latest
+  tags:
+   - brew
+   - brew-latest

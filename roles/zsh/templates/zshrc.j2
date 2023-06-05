@@ -82,6 +82,8 @@ autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(
 #  git-branch-delete: same as "git branch -d"
 compdef '__gitcomp_direct "$(__git_heads "" "$cur" " ")"' git-branch-delete
 
+# option stacking for docker https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker#settings
+zstyle ':completion:*:*:docker:*' option-stacking yes
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -104,7 +106,7 @@ export BASH_ENV=~/.config/bash/non-interactive
 # moar as pager (instead of default 'less')
 command -v moar &>/dev/null \
  && export PAGER="$(which moar)"\
- MOAR='--statusbar=bold --no-linenumbers --style=github'
+ MOAR='--statusbar=bold --no-linenumbers --style=solarized-dark'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -114,6 +116,7 @@ command -v moar &>/dev/null \
 command -v {{ brew_prefix }}/bin/ggrep &>/dev/null && alias grep="{{ brew_prefix }}/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
 alias -s xml=subl
 alias dcup="docker-compose up -d"
+alias dvmnt="docker volume inspect --format={{ '{{.Mountpoint}}' }}"
 alias gpskip="git push -o ci.skip"
 alias gcshort="git rev-parse --short"
 alias nnetstat="netstat -an"
