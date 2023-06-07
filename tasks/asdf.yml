@@ -4,3 +4,24 @@
   git:
     repo: https://github.com/asdf-vm/asdf.git
     dest: "/Users/{{ user }}/.asdf"
+
+- name: Install asdf plugins
+  shell: "source asdf.sh && asdf plugin add {{ item.name | quote }} {{ item.url | quote }}"
+  args:
+    chdir: "/Users/{{ user }}/.asdf"
+  loop:
+    - name: nodejs
+      url: https://github.com/asdf-vm/asdf-nodejs.git
+    - name: babashka
+      url: https://github.com/pitch-io/asdf-babashka.git
+    - name: awscli
+      url: https://github.com/MetricMike/asdf-awscli.git
+    - name: aws-vault
+      url: https://github.com/karancode/asdf-aws-vault.git
+    - name: just
+      url: https://github.com/olofvndrhr/asdf-just.git
+  register: asdf_plugin_add
+  failed_when: asdf_plugin_add.rc == 1
+  changed_when: asdf_plugin_add.rc == 0
+  tags:
+    - asdf-plugins
