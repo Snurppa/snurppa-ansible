@@ -5,13 +5,10 @@
     dest: "/Users/{{ user }}/.aws"
     state: directory
 
-- name: Install AWS cli tools
-  homebrew:
-    name:
-      - awscli
+- name: Install AWS cli tools with pip
+  ansible.builtin.pip:
+    name: awscli
     state: present
-  tags:
-    - brew
 
 - name: Install latest of aws-vault
   homebrew: name=aws-vault state=latest
