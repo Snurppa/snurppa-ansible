@@ -14,13 +14,13 @@ brew_latest_packages:
 # These have state=present
 brew_packages:
   - age
-  - exa
   - doctl
   - dive
  # - gcc
   - gpg
   - graphviz
   - gifsicle
+  - fd
   - ffmpeg
   - fontconfig
   - freetype
@@ -29,6 +29,7 @@ brew_packages:
   - jless
   - jq
   - libpq
+  - lsd
   - moar
   - nmap
   - netcat
