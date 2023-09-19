@@ -1,19 +1,36 @@
 ---
 
 - name: Install Homebrew packages
-  homebrew: name={{ brew_packages }} state=present
+  community.general.homebrew: name={{ brew_packages }} state=present install_options=quiet
+  register: brew_packages
+  tags:
+    - brew
+    - brew-packages
+
+- name: "Changed packages" 
+  debug: var=brew_packages.changed_pkgs
+  check_mode: no
   tags:
     - brew
     - brew-packages
 
 - name: Install Homebrew state=latest packages
-  homebrew: name={{ brew_latest_packages }} state=latest
+  community.general.homebrew: name={{ brew_latest_packages }} state=latest install_options=quiet
+  register: brew_latest_packages
   tags:
    - brew
    - brew-latest
 
-- name: Install caskroom/versions
-  command: brew tap homebrew/cask-versions
+- name: "Changed latest packages" 
+  debug: var=brew_latest_packages.changed_pkgs
+  check_mode: no
+  tags:
+    - brew
+    - brew-packages
+
+- name: Add tap to homebrew/cask-versions
+  community.general.homebrew_tap:
+    name: homebrew/cask-versions
   tags:
     - brew
     - brew-versions
@@ -21,6 +38,7 @@
 - name: Install homebrew-cask packages
   community.general.homebrew_cask:
     name: "{{ brew_casks }}"
+    install_options: quiet
   tags:
     - brew
     - brew-cask

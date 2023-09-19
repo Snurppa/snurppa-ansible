@@ -9,6 +9,7 @@
   shell: "source asdf.sh && asdf plugin add {{ item.name | quote }} {{ item.url | quote }}"
   args:
     chdir: "/Users/{{ user }}/.asdf"
+    executable: /bin/zsh
   loop:
     - name: nodejs
       url: https://github.com/asdf-vm/asdf-nodejs.git

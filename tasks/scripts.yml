@@ -3,4 +3,3 @@
   copy: src="{{ item }}" dest="/Users/{{ user }}/bin/" mode=0744
   with_fileglob:
     - scripts/*
-  tags: scripts

@@ -38,3 +38,9 @@
     dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k
   tags:
     - p10k
+
+- name: zsh-syntax-highlight
+  git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest:  /Users/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+

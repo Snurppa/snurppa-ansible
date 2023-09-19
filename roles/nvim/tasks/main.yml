@@ -1,7 +1,7 @@
 ---
 
 - name: brew install neovim
-  homebrew: name=neovim state=latest
+  homebrew: name=neovim state=present
   tags:
     - brew
 

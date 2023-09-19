@@ -56,7 +56,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws terraform asdf docker nmap urltools)
+plugins=(git aws terraform asdf docker urltools zsh-syntax-highlighting)
 
 # User configuration
 
@@ -144,7 +144,8 @@ eval "$(pyenv virtualenv-init -)"
 # Set Python user site to PATH: (python3 -m site --user-base)
 export PATH="$PATH:{{ python_user_base.stdout }}/bin"
 
-source <(pip3 completion --zsh)
+# pip3 completion errors https://github.com/pypa/pip/issues/12166
+# source <(pip3 completion --zsh)
 
 # thefuck (from pip)
 command -v thefuck &>/dev/null && eval $(thefuck --alias)

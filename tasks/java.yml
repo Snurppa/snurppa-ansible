@@ -6,9 +6,11 @@
     - cask-versions
 
 - name: Install Temurin cask
-  homebrew:
-    name: temurin,temurin8
-    install_options: quiet,cask
+  community.general.homebrew_cask:
+    name:
+      - temurin # latest
+      - temurin17 # 17 LTS
+      - temurin8  # 8 LTS
 
 - shell: /usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5)
   register: java_path

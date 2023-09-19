@@ -3,6 +3,9 @@
 - name: Install clj
   homebrew: name=clojure
 
+- name: ~/.clojure
+  file: path="/Users/{{ user }}/.clojure" state=directory mode=0755
+
 - name: user deps.edn
   template: src=deps.edn dest=~/.clojure/deps.edn
   tags: 

@@ -20,7 +20,7 @@ ansible-playbook main.yml --ask-become-pass
    * `pyenv install 3.11`
    * `pyenv global 3.11.X`
    * `eval "$(pyenv init -)"`
-   * `pip3 install ansible`
+   * `pip3 install argcomplete ansible`
 
 # Python trivia (from brew Python vs pyenv)
 
@@ -84,7 +84,6 @@ lrwxr-xr-x  1 joni.hamalainen  staff     7B  3 Tou 12:37 python3.11 -> python3
 - Podman machine macOS: https://github.com/ansible/vscode-ansible/wiki/macos
 - IDEA preferences
 - Chrome bookmarks
-- Studio3T
 - Sublime Text - packages at ~/Library/Application Support/Sublime Text 3/, folders 'Installed Packages' and 'Packages'.
 - iTerm + Solarized: Color -> Color Presets -> Solarized (https://gist.github.com/kevin-smets/8568070)
 
@@ -94,7 +93,7 @@ lrwxr-xr-x  1 joni.hamalainen  staff     7B  3 Tou 12:37 python3.11 -> python3
 
 ### Essentials
 
-- --tags zsh,asdf,bat,fzf
+- --tags bin,git,zsh,bash,asdf,bat,fzf,scripts,launchd --skip-tags asdf-plugins,vscodium,chromedriver,geckodriver,hashicorp,lein
 
 ## Completion
 

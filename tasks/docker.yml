@@ -1,23 +1,31 @@
 ---
 
 - name: Docker Desktop
-  command: brew install --cask docker
+  community.general.homebrew_cask:
+    name: docker
+    state: present
+  tags:
+    - sudo
 
 - name: Docker credentials helper
   block:
-    - ansible.builtin.file:
+    - name: ~/bin/docker-herlper
+      ansible.builtin.file:
         path: "~/bin/docker-helper"
         state: directory
-    - ansible.builtin.unarchive:
-        src: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ docker_cred_helper_version }}/docker-credential-osxkeychain-v{{ docker_cred_helper_version }}-amd64.tar.gz"
+    - name: Download helper
+      ansible.builtin.get_url:
+        url: "https://github.com/docker/docker-credential-helpers/releases/download/v{{ docker_cred_helper.version }}/docker-credential-osxkeychain-v{{ docker_cred_helper.version }}.darwin-{{ ansible_architecture }}"
         dest: "~/bin/docker-helper"
-        remote_src: yes
+        checksum: "{{ docker_cred_helper.checksum[ansible_architecture] }}"
 
 - name: Docker config
   block:
-    - ansible.builtin.file:
+    - name: ~/.docker
+      ansible.builtin.file:
         path: "~/.docker"
         state: directory
-    - ansible.builtin.template:
+    - name: Docker config.json
+      ansible.builtin.template:
         src: docker-config.json.j2
         dest: "~/.docker/config.json"

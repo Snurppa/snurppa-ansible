@@ -22,6 +22,8 @@
   tags: always
   check_mode: no
 
-
-# TODO ansible
-# installed manually with git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+- name: pyenv-virtualenv
+  git:
+    repo: https://github.com/pyenv/pyenv-virtualenv.git
+    dest: "{{ pyenv_root }}/plugins/pyenv-virtualenv"
+  tags: pyenv-virtualenv

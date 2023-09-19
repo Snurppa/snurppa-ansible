@@ -8,10 +8,15 @@
     gecko_version: "0.24.0"
     chromedriver_version: "91.0.4472.101"
     xbar_version: "2.1.7-beta"
-    docker_cred_helper_version: "0.7.0"
+    docker_cred_helper:
+      version: "0.8.0"
+      checksum:
+        arm64: "sha256:3d03e049e12f2cabaa8a1f62b95e5da9d0fdabfbe38b4a6f7a861e06ec09c109"
+        amd64: "sha256:828ffa6489d6fe7d6ea4731f095477355942e09980aded61fb71bf499489b663"
     graalvm:
       enabled: False
       version: "21.0.0"
+    pyenv_root: "{{ lookup('ansible.builtin.env', 'PYENV_ROOT', default=Undefined) }}"
     user: "{{ lookup('ansible.builtin.env', 'USER')}}"
     xdg_config_home: ~/.config
   vars_files:
@@ -39,8 +44,8 @@
       tags: bat
     - import_tasks: tasks/bash.yml
       tags: bash
-    - import_tasks: tasks/chromedriver.yml
-      tags: chromedriver
+#    - import_tasks: tasks/chromedriver.yml
+#      tags: chromedriver
     - import_tasks: tasks/clojure.yml
       tags: clojure, clj
     - import_tasks: tasks/docker.yml
@@ -49,8 +54,8 @@
 #   - import_tasks: tasks/fonts.yml
     - import_tasks: tasks/fzf.yml
       tags: fzf
-    - import_tasks: tasks/geckodriver.yml
-      tags: geckodriver
+#    - import_tasks: tasks/geckodriver.yml
+#      tags: geckodriver
     - import_tasks: tasks/git.yml
       tags: git, git-config
     - import_tasks: tasks/graalvm.yml
@@ -63,7 +68,7 @@
     - import_tasks: tasks/java.yml
       tags: java
     - import_tasks: tasks/launchctl.yml
-      tags: launchd
+      tags: launchd, sudo
     - import_tasks: tasks/lein.yml
       tags: lein,clojure
     - import_tasks: tasks/nvm.yml
@@ -71,10 +76,11 @@
     - import_tasks: tasks/pip.yml
       tags: pip
     - import_tasks: tasks/scripts.yml
+      tags: scripts
     - import_tasks: tasks/tinkey.yml
       tags: tinkey
-    - import_tasks: tasks/xbar.yml
-      tags: xbar
+#    - import_tasks: tasks/xbar.yml
+#      tags: xbar
   roles:
     - role: zsh
       tags: zsh
