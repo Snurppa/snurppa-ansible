@@ -14,6 +14,7 @@ brew_latest_packages:
 # These have state=present
 brew_packages:
   - age
+  - coreutils
   - doctl
   - dive
  # - gcc

@@ -1,3 +1,7 @@
+"
+" This file is managed by ansible in snurppa-ansible/files/init.vim
+" It is directly symlinked from the repo to ~/.config/nvim/init.vim
+"
 set termguicolors
 set history=100
 set ruler
@@ -20,6 +24,10 @@ let g:netrw_browse_split = 4
 tnoremap <C-W>n <C-\><C-n>
 " toggle displaying special chars
 noremap <Leader><Tab><Tab> :set invlist<CR>
+
+" GitHub Copilot requires Node 17
+let $ASDF_NODEJS_VERSION="17.9.1"
+
 
 lua <<EOF
 -- From *paq-bootstrapping* docs
@@ -50,6 +58,7 @@ bootstrap_paq {
   "savq/paq-nvim";
   "rmehri01/onenord.nvim";
   "gfanto/fzf-lsp.nvim";
+  "github/copilot.vim";
 -- clojure etc
   "Olical/conjure";
   "luochen1990/rainbow";
@@ -61,6 +70,7 @@ bootstrap_paq {
   "lewis6991/gitsigns.nvim";
   "crispgm/nvim-tabline";
 --  "kyazdani42/nvim-web-devicons";
+  "NoahTheDuke/vim-just";
 }
 require('tabline').setup({})
 require('onenord').setup({

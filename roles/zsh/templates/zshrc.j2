@@ -56,13 +56,15 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws terraform asdf docker urltools zsh-syntax-highlighting)
+plugins=(git asdf aws terraform docker urltools zsh-syntax-highlighting)
 
 # User configuration
 
 # export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:~/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 export PATH="$PATH:/Users/{{ user }}/bin"
+# For libpq (psql) (libpq is keg-only, which means it was not symlinked into /opt/homebrew, because conflicts with postgres formula.)
+export PATH="$PATH:$HOMEBREW_PREFIX/opt/libpq/bin"
 
 export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
@@ -156,13 +158,15 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export HOMEBREW_GITHUB_API_TOKEN="{{ homebrew_api_token }}"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
+
 # Java stuff
 if /usr/libexec/java_home &>/dev/null ; then
-	export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
-	export JAVA_LATEST_HOME=$(/usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5))
-
-	alias java8='export JAVA_HOME=$JAVA_8_HOME'
-	alias java-latest='export JAVA_HOME=$JAVA_LATEST_HOME'
+  /usr/libexec/java_home -V  2>&1 | ghead -n-1 | tail -r | ghead -n-1 | while read -r version;
+  do
+    PATH_TO_JAVA=$(echo $version | grep -o '/Library/.*')
+    VERSION_NUM=$(echo $PATH_TO_JAVA | sed -n 's/^.*temurin-\([0-9]*\).*$/\1/p')
+    alias java$VERSION_NUM="export JAVA_HOME=$PATH_TO_JAVA"
+  done
 fi
 
 ##
@@ -205,11 +209,10 @@ alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-t
 ###
 ###  AWS stuff
 ###
-alias awx-root='aws-vault exec quuppa-cloud-root --'
 command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
 
 
 export GITLAB_TOKEN={{ gitlab_pat }}
-export LEO_DEV={{ qpe_api_keys.dev.leo }}
+alias siili-gl-token="export GITLAB_TOKEN={{ gitlab_pat_siili }}"
 
 command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea

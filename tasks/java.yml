@@ -9,6 +9,7 @@
   community.general.homebrew_cask:
     name:
       - temurin # latest
+      - temurin21 # 21 LTS
       - temurin17 # 17 LTS
       - temurin8  # 8 LTS
 

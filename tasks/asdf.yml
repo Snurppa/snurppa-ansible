@@ -21,6 +21,10 @@
       url: https://github.com/karancode/asdf-aws-vault.git
     - name: just
       url: https://github.com/olofvndrhr/asdf-just.git
+    - name: tfswitch
+      url: https://github.com/iul1an/asdf-tfswitch.git
+    - name: python
+      url: https://github.com/danhper/asdf-python.git
   register: asdf_plugin_add
   failed_when: asdf_plugin_add.rc == 1
   changed_when: asdf_plugin_add.rc == 0
