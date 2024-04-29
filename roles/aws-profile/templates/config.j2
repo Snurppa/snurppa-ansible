@@ -1,18 +1,13 @@
 [default]
-region = eu-west-1
+output=yaml
+cli_follow_urlparam=false
 
-[profile quuppa-cloud-root]
-output = json
-cli_follow_urlparam = false
-cli_pager=
-mfa_serial = {{ quuppa_mfa_arn }}
+[profile foo]
+region=eu-central-1
+sso_session=foo
+sso_account_id=66
+sso_role_name=TheRole
 
-[profile quuppa-cloud-dev]
-source_profile = quuppa-cloud-root
-role_arn=arn:aws:iam::537228110248:role/OrganizationAccountAccessRole
-mfa_serial = {{ quuppa_mfa_arn }}
-
-[profile quuppa-cloud-prod]
-source_profile = quuppa-cloud-root
-role_arn=arn:aws:iam::451898373201:role/OrganizationAccountAccessRole
-mfa_serial = {{ quuppa_mfa_arn }}
+[sso-session foo]
+sso_region = eu-central-1
+sso_start_url = https://d-foo.awsapps.com/start

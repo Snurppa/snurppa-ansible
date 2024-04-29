@@ -7,17 +7,16 @@
 
 
 - name: Install latest of aws-vault
-  homebrew: name=aws-vault state=latest
+  homebrew: name=aws-vault state=present
   tags:
     - brew
     - aws-vault
 
-- name: Templates to .aws
+- name: .aws/config
   template:
-    src: "templates/{{ item }}.j2"
-    dest: "/Users/{{ user }}/.aws/{{ item }}"
+    src: "templates/config.j2"
+    dest: "/Users/{{ user }}/.aws/config"
     owner: "{{ user }}"
-  loop:
-    - config
-
-## Use aws-vault to store access tokens
+  when: "'aws-config' in ansible_run_tags"
+  tags:
+    - aws-config

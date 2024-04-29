@@ -56,7 +56,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf aws terraform docker urltools zsh-syntax-highlighting)
+plugins=(git asdf aws terraform jira urltools zsh-syntax-highlighting)
 
 # User configuration
 
@@ -97,6 +97,8 @@ export LC_TIME=fi_FI.UTF-8
 # See https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
 export BASH_ENV=~/.config/bash/non-interactive
 
+export JIRA_DEFAULT_ACTION="jira mine"
+
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -108,7 +110,7 @@ export BASH_ENV=~/.config/bash/non-interactive
 # moar as pager (instead of default 'less')
 command -v moar &>/dev/null \
  && export PAGER="$(which moar)"\
- MOAR='--statusbar=bold --no-linenumbers --style=solarized-dark'
+ MOAR='--statusbar=bold --no-linenumbers --style=solarized-dark -quit-if-one-screen'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
