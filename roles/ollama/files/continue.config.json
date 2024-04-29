@@ -1,0 +1,60 @@
+{
+  "models": [
+    {
+      "title": "CodeGemma:7b-instruct",
+      "provider": "ollama",
+      "model": "codegemma"
+    },
+    {
+      "title": "Llama 3",
+      "provider": "ollama",
+      "model": "llama3"
+    },
+    {
+      "title": "CodeGemma:7b-code",
+      "provider": "ollama",
+      "model": "codegemma:7b-code"
+    }
+  ],
+  "slashCommands": [
+    {
+      "name": "edit",
+      "description": "Edit selected code"
+    },
+    {
+      "name": "comment",
+      "description": "Write comments for the selected code"
+    },
+    {
+      "name": "share",
+      "description": "Export this session as markdown"
+    }
+  ],
+  "customCommands": [
+    {
+      "name": "test",
+      "prompt": "Write a comprehensive set of unit tests for the selected code. It should setup, run tests that check for correctness including important edge cases, and teardown. Ensure that the tests are complete and sophisticated. Give the tests just as chat output, don't edit any file.",
+      "description": "Write unit tests for highlighted code"
+    }
+  ],
+  "contextProviders": [
+    {
+      "name": "open",
+      "params": {}
+    },
+    {
+      "name": "code",
+      "params": {}
+    },
+    {
+      "name": "docs",
+      "params": {}
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "CodeGemma 2b (fast)",
+    "provider": "ollama",
+    "model": "codegemma:2b"
+  },
+  "allowAnonymousTelemetry": false
+}

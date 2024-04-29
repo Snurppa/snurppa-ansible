@@ -31,6 +31,7 @@ brew_packages:
   - jq
   - libpq
   - lsd
+  - ollama
   - moar
   - nmap
   - netcat
@@ -42,16 +43,8 @@ brew_packages:
   - yq
 
 brew_casks:
-#  - fork
   - spotify
-  # - pgAdmin4
-  #- sourcetree
-  #- thunderbird
-  #- flycut
   - flux
-  #- virtualbox
-  #- vagrant
-  #- vagrant-manager
   - sublime-text
   - licecap
   - wireshark

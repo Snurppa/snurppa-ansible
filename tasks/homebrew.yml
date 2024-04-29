@@ -24,6 +24,7 @@
 - name: "Changed latest packages" 
   debug: var=brew_latest_packages.changed_pkgs
   check_mode: no
+  when: brew_latest_packages.changed_pkgs
   tags:
     - brew
     - brew-packages

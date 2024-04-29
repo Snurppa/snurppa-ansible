@@ -1,0 +1,9 @@
+
+
+- name: Continue.dev config.json
+  copy: 
+    src: continue.config.json
+    dest: ~/.continue/config.json
+    backup: yes
+  tags:
+    - continue.dev
