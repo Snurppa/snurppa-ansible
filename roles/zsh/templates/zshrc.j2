@@ -130,7 +130,8 @@ alias sha256sum="shasum -a 256"
 alias json="jless"
 alias yless="jless --yaml"
 alias awx="aws-vault exec"
-alias packbat="bat package.json"
+alias bap="bat package.json"
+alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
 
 # http://stackoverflow.com/questions/20794751/class-javalaunchhelper-is-implemented-in-both-one-of-the-two-will-be-used-whic
 
