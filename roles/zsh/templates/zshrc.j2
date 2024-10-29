@@ -132,6 +132,8 @@ alias yless="jless --yaml"
 alias awx="aws-vault exec"
 alias bap="bat package.json"
 alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
+alias npmaws="npm run aws-login"
+
 
 # http://stackoverflow.com/questions/20794751/class-javalaunchhelper-is-implemented-in-both-one-of-the-two-will-be-used-whic
 
@@ -160,7 +162,7 @@ command -v thefuck &>/dev/null && eval $(thefuck --alias)
 # Fix a "bug" with Python fork
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-export HOMEBREW_GITHUB_API_TOKEN="{{ homebrew_api_token }}"
+# export HOMEBREW_GITHUB_API_TOKEN="{{ homebrew_api_token }}"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 

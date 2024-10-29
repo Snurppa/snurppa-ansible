@@ -1,8 +1,10 @@
 # ansible-playbook for personal macOS setup
 
-Before you start it's good idea to get a GitHub API token for Homebrew. You can create a token in your [GitHub profile](https://github.com/settings/tokens).
-
-Put your token into `homebrew_token` file into root of this project. Ansible automatically reads `homebrew_token` file and sets this as HOMEBREW_GITHUB_API_TOKEN into `.zshrc`.
+For Homebrew GitHub API Token, set communication to SSH instead of HTTPS.
+```
+git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+```
+Source: [https://gist.github.com/bef/37d481764819187bad996cef0a30143b](https://gist.github.com/bef/37d481764819187bad996cef0a30143b)
 
 Provision your macOS by running:
 

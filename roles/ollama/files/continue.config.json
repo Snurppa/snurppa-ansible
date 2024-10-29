@@ -1,19 +1,9 @@
 {
   "models": [
     {
-      "title": "CodeGemma:7b-instruct",
+      "title": "Llama 3.1 (8B)",
       "provider": "ollama",
-      "model": "codegemma"
-    },
-    {
-      "title": "Llama 3",
-      "provider": "ollama",
-      "model": "llama3"
-    },
-    {
-      "title": "CodeGemma:7b-code",
-      "provider": "ollama",
-      "model": "codegemma:7b-code"
+      "model": "llama3.1-8b"
     }
   ],
   "slashCommands": [
@@ -49,12 +39,31 @@
     {
       "name": "docs",
       "params": {}
+    },
+    {
+      "name": "search"
+    },
+    {
+      "name": "tree"
+    },
+    {
+      "name": "codebase",
+      "params": {
+        "nRetrieve": 40,
+        "nFinal": 10,
+        "useReranking": true
+      }
     }
   ],
   "tabAutocompleteModel": {
-    "title": "CodeGemma 2b (fast)",
+    "title": "Starcoder 2 3b",
     "provider": "ollama",
-    "model": "codegemma:2b"
+    "model": "starcoder2:3b"
   },
-  "allowAnonymousTelemetry": false
+  "embeddingsProvider": {
+    "provider": "ollama",
+    "model": "nomic-embed-text"
+  },
+  "allowAnonymousTelemetry": false,
+  "docs": []
 }

@@ -18,6 +18,7 @@ brew_packages:
   - doctl
   - dive
  # - gcc
+  - gh
   - gpg
   - graphviz
   - gifsicle
