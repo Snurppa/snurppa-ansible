@@ -56,7 +56,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf aws terraform jira urltools zsh-syntax-highlighting)
+plugins=(git aws terraform urltools zsh-syntax-highlighting)
 
 # User configuration
 
@@ -118,6 +118,7 @@ command -v moar &>/dev/null \
 
 # From brew/coreutils
 command -v {{ brew_prefix }}/bin/ggrep &>/dev/null && alias grep="{{ brew_prefix }}/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
+command -v {{ brew_prefix }}/bin/gdate &>/dev/null && alias date="{{ brew_prefix }}/bin/gdate"
 alias -s xml=subl
 alias dcup="docker-compose up -d"
 alias dvmnt="docker volume inspect --format={{ '{{.Mountpoint}}' }}"
@@ -133,6 +134,7 @@ alias awx="aws-vault exec"
 alias bap="bat package.json"
 alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
 alias npmaws="npm run aws-login"
+alias mise-zsh='eval "$(mise activate zsh)"'
 
 
 # http://stackoverflow.com/questions/20794751/class-javalaunchhelper-is-implemented-in-both-one-of-the-two-will-be-used-whic

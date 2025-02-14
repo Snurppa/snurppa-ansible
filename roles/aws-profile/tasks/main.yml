@@ -8,6 +8,7 @@
 
 - name: Install latest of aws-vault
   homebrew: name=aws-vault state=present
+  when: false # disable
   tags:
     - brew
     - aws-vault

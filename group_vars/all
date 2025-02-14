@@ -3,7 +3,6 @@
 # These have state=latest
 brew_latest_packages:
   - autojump
-  - borkdude/brew/clj-kondo
   - git
   - grep
   - gnu-tar
@@ -14,6 +13,7 @@ brew_latest_packages:
 # These have state=present
 brew_packages:
   - age
+  - borkdude/brew/clj-kondo
   - coreutils
   - doctl
   - dive
@@ -34,16 +34,17 @@ brew_packages:
   - lsd
   - ollama
   - moar
+  - mise
   - nmap
   - netcat
   - pandoc
   - procs
   - shellcheck
   - tldr
-  - walles/johan/riffdiff
   - yq
 
 brew_casks:
+  - cursor
   - spotify
   - flux
   - sublime-text
