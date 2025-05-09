@@ -1,20 +1,15 @@
 # vim: filetype=zsh
 # {{ ansible_managed }}
-# Se tname of the theme to load.
-export ZSH=/Users/{{ user }}/.oh-my-zsh
 
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="powerlevel10k/powerlevel10k"
 #POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time)
 DEFAULT_USER={{ user }}
 
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+if [[ -o interactive ]] && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
@@ -56,7 +51,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws terraform urltools zsh-syntax-highlighting)
+plugins=(git)
 
 # User configuration
 
@@ -66,82 +61,132 @@ export PATH="$PATH:/Users/{{ user }}/bin"
 # For libpq (psql) (libpq is keg-only, which means it was not symlinked into /opt/homebrew, because conflicts with postgres formula.)
 export PATH="$PATH:$HOMEBREW_PREFIX/opt/libpq/bin"
 
-export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
-
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent#lazy
-zstyle :omz:plugins:ssh-agent lazy yes
 
 ####################
 # Launch OH MY ZSH #
 ####################
 
-source $ZSH/oh-my-zsh.sh
+# In interactive mode, these are skipped e.g. when launching terminal from VS Code etc...
+if [[ -o interactive ]]; then
 
-fpath=(~/zsh-functions "${fpath[@]}")
-autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(' ') }}
+  # Se tname of the theme to load.
+  export ZSH=/Users/{{ user }}/.oh-my-zsh
 
-# Custom compdefs
-#  git-branch-delete: same as "git branch -d"
-compdef '__gitcomp_direct "$(__git_heads "" "$cur" " ")"' git-branch-delete
+  # Look in ~/.oh-my-zsh/themes/
+  # Optionally, if you set this to "random", it'll load a random theme each
+  # time that oh-my-zsh is loaded.
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+  plugins+=(aws terraform urltools zsh-syntax-highlighting)
 
-# option stacking for docker https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker#settings
-zstyle ':completion:*:*:docker:*' option-stacking yes
+  export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-export LC_CTYPE=fi_FI.UTF-8
-export LC_COLLATE=fi_FI.UTF-8
-export LC_TIME=fi_FI.UTF-8
+  # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent#lazy
+  zstyle :omz:plugins:ssh-agent lazy yes
 
-# When running non-interactively, bash only sources $BASH_ENV
-# See https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
-export BASH_ENV=~/.config/bash/non-interactive
+  source $ZSH/oh-my-zsh.sh
 
-export JIRA_DEFAULT_ACTION="jira mine"
+  fpath=(~/zsh-functions "${fpath[@]}")
+  autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(' ') }}
 
+  # Custom compdefs
+  #  git-branch-delete: same as "git branch -d"
+  compdef '__gitcomp_direct "$(__git_heads "" "$cur" " ")"' git-branch-delete
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+  # option stacking for docker https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/docker#settings
+  zstyle ':completion:*:*:docker:*' option-stacking yes
 
-# moar as pager (instead of default 'less')
-command -v moar &>/dev/null \
- && export PAGER="$(which moar)"\
- MOAR='--statusbar=bold --no-linenumbers --style=solarized-dark -quit-if-one-screen'
+  # You may need to manually set your language environment
+  export LANG=en_US.UTF-8
+  export LC_CTYPE=fi_FI.UTF-8
+  export LC_COLLATE=fi_FI.UTF-8
+  export LC_TIME=fi_FI.UTF-8
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+  # When running non-interactively, bash only sources $BASH_ENV
+  # See https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
+  export BASH_ENV=~/.config/bash/non-interactive
+
+  export JIRA_DEFAULT_ACTION="jira mine"
 
 
-# From brew/coreutils
-command -v {{ brew_prefix }}/bin/ggrep &>/dev/null && alias grep="{{ brew_prefix }}/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
-command -v {{ brew_prefix }}/bin/gdate &>/dev/null && alias date="{{ brew_prefix }}/bin/gdate"
-alias -s xml=subl
-alias dcup="docker-compose up -d"
-alias dvmnt="docker volume inspect --format={{ '{{.Mountpoint}}' }}"
-alias gpskip="git push -o ci.skip"
-alias gcshort="git rev-parse --short"
-alias nnetstat="netstat -an"
-alias glgsearch="git log -S"
-alias pocker=podman
-alias sha256sum="shasum -a 256"
-alias json="jless"
-alias yless="jless --yaml"
-alias awx="aws-vault exec"
-alias bap="bat package.json"
-alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
-alias npmaws="npm run aws-login"
-alias mise-zsh='eval "$(mise activate zsh)"'
+  # Preferred editor for local and remote sessions
+  # if [[ -n $SSH_CONNECTION ]]; then
+  #   export EDITOR='vim'
+  # else
+  #   export EDITOR='mvim'
+  # fi
 
+  # moar as pager (instead of default 'less')
+  command -v moar &>/dev/null \
+   && export PAGER="$(which moar)"\
+   MOAR='--statusbar=bold --no-linenumbers --style=solarized-dark -quit-if-one-screen'
+
+  # Compilation flags
+  # export ARCHFLAGS="-arch x86_64"
+
+
+  # From brew/coreutils
+  command -v {{ brew_prefix }}/bin/ggrep &>/dev/null && alias grep="{{ brew_prefix }}/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
+  command -v {{ brew_prefix }}/bin/gdate &>/dev/null && alias date="{{ brew_prefix }}/bin/gdate"
+  alias -s xml=subl
+  alias dcup="docker-compose up -d"
+  alias dvmnt="docker volume inspect --format={{ '{{.Mountpoint}}' }}"
+  alias gpskip="git push -o ci.skip"
+  alias gcshort="git rev-parse --short"
+  alias nnetstat="netstat -an"
+  alias glgsearch="git log -S"
+  alias pocker=podman
+  alias sha256sum="shasum -a 256"
+  alias json="jless"
+  alias yless="jless --yaml"
+  alias awx="aws-vault exec"
+  alias bap="bat package.json"
+  alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
+  alias npmaws="npm run aws-login"
+  alias mise-zsh='eval "$(mise activate zsh)"'
+
+  # autojump
+  [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
+  # thefuck (from pip)
+  command -v thefuck &>/dev/null && eval $(thefuck --alias)
+
+
+  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+  # load fzf
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+  ##
+  ## GCloud
+  ##
+  # The next line updates PATH for the Google Cloud SDK.
+  if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc'; fi
+  # The next line enables shell command completion for gcloud.
+  if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc'; fi
+  # kubectl
+  command -v kubectl &>/dev/null && source <(kubectl completion zsh)
+
+  ###
+  ###  AWS stuff
+  ###
+  command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
+
+
+  export GITLAB_TOKEN={{ gitlab_pat }}
+  alias siili-gl-token="export GITLAB_TOKEN={{ gitlab_pat_siili }}"
+
+  command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
+
+
+fi
+#############################
+## END OF INTERACTIVE INIT ##
+#############################
 
 # Mise https://github.com/jdx/mise
 eval "$(mise activate zsh)"
 
-# autojump
-[[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
 
 
 # Python path (powerline tec)
@@ -158,9 +203,6 @@ export PATH="$PATH:{{ python_user_base.stdout }}/bin"
 
 # pip3 completion errors https://github.com/pypa/pip/issues/12166
 # source <(pip3 completion --zsh)
-
-# thefuck (from pip)
-command -v thefuck &>/dev/null && eval $(thefuck --alias)
 
 # Fix a "bug" with Python fork
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
@@ -179,15 +221,6 @@ if /usr/libexec/java_home &>/dev/null ; then
   done
 fi
 
-##
-## GCloud
-##
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/path.zsh.inc'; fi
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc'; fi
-# kubectl
-command -v kubectl &>/dev/null && source <(kubectl completion zsh)
 
 {# Add your sensitive environment variables to secret_zshrc.j2 #}
 {% include 'secret_zshrc.j2' ignore missing %}
@@ -196,12 +229,6 @@ command -v kubectl &>/dev/null && source <(kubectl completion zsh)
 export GRAALVM_HOME=/Users/{{ user }}/bin/graalvm-ce-{{ graalvm.version }}/Contents/Home
 export PATH=$PATH:$GRAALVM_HOME/bin
 {% endif %}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# load fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -215,14 +242,3 @@ export GOOGLE_APPLICATION_CREDENTIALS={{ google_credentials }}
 export GCP_SERVICE_ACCOUNT_FILE={{ google_credentials }}
 alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)"'
 {% endif %}
-
-###
-###  AWS stuff
-###
-command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
-
-
-export GITLAB_TOKEN={{ gitlab_pat }}
-alias siili-gl-token="export GITLAB_TOKEN={{ gitlab_pat_siili }}"
-
-command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
