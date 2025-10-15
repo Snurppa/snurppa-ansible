@@ -67,7 +67,7 @@ export PATH="$PATH:$HOMEBREW_PREFIX/opt/libpq/bin"
 ####################
 
 # In interactive mode, these are skipped e.g. when launching terminal from VS Code etc...
-if [[ -o interactive ]]; then
+if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; then
 
   # Se tname of the theme to load.
   export ZSH=/Users/{{ user }}/.oh-my-zsh
@@ -127,6 +127,7 @@ if [[ -o interactive ]]; then
   # From brew/coreutils
   command -v {{ brew_prefix }}/bin/ggrep &>/dev/null && alias grep="{{ brew_prefix }}/bin/ggrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}"
   command -v {{ brew_prefix }}/bin/gdate &>/dev/null && alias date="{{ brew_prefix }}/bin/gdate"
+  alias delcomp='rm "$ZSH_COMPDUMP"'
   alias -s xml=subl
   alias dcup="docker-compose up -d"
   alias dvmnt="docker volume inspect --format={{ '{{.Mountpoint}}' }}"
@@ -177,7 +178,6 @@ if [[ -o interactive ]]; then
   alias siili-gl-token="export GITLAB_TOKEN={{ gitlab_pat_siili }}"
 
   command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
-
 
 fi
 #############################

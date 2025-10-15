@@ -1,0 +1,2 @@
+local username=$(gh api user --jq '.login')
+gh api "/users/$username/events" --paginate -q '.[] | "\(.created_at | strptime("%Y-%m-%dT%H:%M:%SZ") | strftime("%d.%m.%Y %H:%M"))\t\(.repo.name)\t\(.type)"'

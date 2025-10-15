@@ -1,0 +1,16 @@
+local username=$(gh api user --jq '.login')
+
+gh api "/users/$username/events" --paginate | jq -r '.[] | 
+    select(.type == "PushEvent" or .type == "PullRequestReviewCommentEvent" or .type == "PullRequestReviewEvent" or .type == "PullRequestEvent") |
+    if .type == "PushEvent" then
+        . as $event | .payload.commits[] | select(.distinct == true) |
+        "\($event.created_at | fromdateiso8601 | strflocaltime("%d.%m.%Y %H:%M"))\t\($event.repo.name)\tPUSH\t\(.message | split("\n")[0] | .[0:80]) - \(.author.name | split(" ") | .[0] + " " + (.[1] // "" | .[0:1]))"
+    elif .type == "PullRequestReviewCommentEvent" then
+        "\(.created_at | fromdateiso8601 | strflocaltime("%d.%m.%Y %H:%M"))\t\(.repo.name)\tPR_COMMENT\tCommented \u001b]8;;\(.payload.pull_request.html_url)\u001b\\PR #\(.payload.pull_request.number)\u001b]8;;\u001b\\ - \u001b]8;;\(.payload.comment.html_url)\u001b\\comment #\(.payload.comment.id)\u001b]8;;\u001b\\"
+    elif .type == "PullRequestReviewEvent" then
+        "\(.created_at | fromdateiso8601 | strflocaltime("%d.%m.%Y %H:%M"))\t\(.repo.name)\tPR_REVIEW\tReviewed \u001b]8;;\(.payload.review.html_url)\u001b\\PR #\(.payload.pull_request.number)\u001b]8;;\u001b\\ \"\(.payload.pull_request.title | .[0:40])\" as \(.payload.review.state)"
+    elif .type == "PullRequestEvent" then
+        "\(.created_at | fromdateiso8601 | strflocaltime("%d.%m.%Y %H:%M"))\t\(.repo.name)\tPR_EVENT\t\(.payload.action | ascii_upcase) \u001b]8;;\(.payload.pull_request.html_url)\u001b\\pull request #\(.payload.pull_request.number)\u001b]8;;\u001b\\ - \(.payload.pull_request.title | .[0:50])"
+    else
+        empty
+    end' | sort -r | { echo "TIMESTAMP\tREPO\tTYPE\tDESCRIPTION"; cat; } | column -t -s $'\t'

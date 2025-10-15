@@ -19,6 +19,7 @@
     mode: u+rwx,g-wx,o-rwx
   tags:
     - zfuncs
+    - zshfunctions
 
 - file: path="/Users/{{ user }}/.oh-my-zsh" state=directory mode=0755 owner="{{ user }}"
 
@@ -31,11 +32,14 @@
   template: src=templates/zshrc.j2 dest="/Users/{{ user }}/.zshrc" owner={{ user }} backup=yes
   tags:
     - zshrc
+    - zfuncs
+    - zshfunctions
 
 - name: Clone powerline10k zsh theme
   git:
     repo: https://github.com/romkatv/powerlevel10k.git
     dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k
+    depth: 1
   tags:
     - p10k
 
