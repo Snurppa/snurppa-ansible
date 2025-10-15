@@ -3,6 +3,9 @@
 - name: Provision macOS
   hosts: localhost
   connection: local
+  # Seems that currently facts are needed, speeds up small task running considerably
+  # Enable on need basis or consider Cache plugin https://docs.ansible.com/ansible/latest/plugins/cache.html or facts.d
+  gather_facts: false
   vars:
     brew_prefix: "{{ lookup('ansible.builtin.env', 'HOMEBREW_PREFIX', default=Undefined) }}"
     gecko_version: "0.24.0"
@@ -48,8 +51,6 @@
 #      tags: chromedriver
     - import_tasks: tasks/clojure.yml
       tags: clojure, clj
-    - import_tasks: tasks/docker.yml
-      tags: docker
 #   Not sure if this is needed anymore, after powerline10k handles fonts at least
 #   - import_tasks: tasks/fonts.yml
     - import_tasks: tasks/fzf.yml
@@ -94,3 +95,5 @@
       tags: vscodium, vscode
     - role: ollama
       tags: ollama, continue.dev
+    - role: goose
+      tags: goose

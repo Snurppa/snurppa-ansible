@@ -1,0 +1,8 @@
+# Defaults from Goose
+**/.env
+**/.env.*
+**/secrets.*
+
+tmp/
+temp/
+target/

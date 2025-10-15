@@ -1,0 +1,9 @@
+
+
+- name: Install Goose CLI
+  homebrew: name=block-goose-cli state=latest
+
+- name: .gooseignore
+  copy:
+    src:  .gooseignore
+    dest: "{{ xdg_config_home }}/goose/.gooseignore"

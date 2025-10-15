@@ -13,7 +13,6 @@ brew_latest_packages:
 # These have state=present
 brew_packages:
   - age
-  - block-goose-cli
   - borkdude/brew/clj-kondo
   - coreutils
   - doctl
@@ -28,7 +27,6 @@ brew_packages:
   - fontconfig
   - freetype
   - httpie
-  - imagemagick
   - jless
   - jq
   - libpq
