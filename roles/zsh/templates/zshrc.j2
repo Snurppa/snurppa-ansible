@@ -115,10 +115,10 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   #   export EDITOR='mvim'
   # fi
 
-  # moar as pager (instead of default 'less')
-  command -v moar &>/dev/null \
-   && export PAGER="$(which moar)"\
-   MOAR='--statusbar=bold --no-linenumbers --style=solarized-dark -quit-if-one-screen'
+  # moor as pager (instead of default 'less')
+  command -v moor &>/dev/null \
+   && export PAGER="$(which moor)"\
+   MOOR='--statusbar=bold --no-linenumbers --style=solarized-dark -quit-if-one-screen'
 
   # Compilation flags
   # export ARCHFLAGS="-arch x86_64"

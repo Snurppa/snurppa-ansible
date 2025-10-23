@@ -32,7 +32,7 @@ brew_packages:
   - libpq
   - lsd
   - ollama
-  - moar
+  - moor
   - mise
   - nmap
   - netcat
