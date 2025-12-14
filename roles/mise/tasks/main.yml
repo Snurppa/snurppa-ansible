@@ -1,0 +1,6 @@
+
+- name: brew install mise
+  community.general.homebrew: name=mise state=latest install_options=quiet
+  tags:
+    - brew
+    - brew-packages

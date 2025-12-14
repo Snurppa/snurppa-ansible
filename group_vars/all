@@ -33,7 +33,6 @@ brew_packages:
   - lsd
   - ollama
   - moor
-  - mise
   - nmap
   - netcat
   - pandoc

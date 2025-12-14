@@ -85,6 +85,8 @@
   roles:
     - role: zsh
       tags: zsh
+    - role: mise
+      tags: mise
     - role: aws-profile
       tags: aws
     - role: nvim

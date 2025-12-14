@@ -129,7 +129,6 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   command -v {{ brew_prefix }}/bin/gdate &>/dev/null && alias date="{{ brew_prefix }}/bin/gdate"
   alias delcomp='rm "$ZSH_COMPDUMP"'
   alias -s xml=subl
-  alias dcup="docker-compose up -d"
   alias dvmnt="docker volume inspect --format={{ '{{.Mountpoint}}' }}"
   alias gpskip="git push -o ci.skip"
   alias gcshort="git rev-parse --short"
@@ -137,6 +136,7 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   alias glgsearch="git log -S"
   alias pocker=podman
   alias sha256sum="shasum -a 256"
+  alias pigo="ping 8.8.8.8"
   alias json="jless"
   alias yless="jless --yaml"
   alias awx="aws-vault exec"
@@ -144,6 +144,8 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
   alias npmaws="npm run aws-login"
   alias mise-zsh='eval "$(mise activate zsh)"'
+  # awk '/pattern/,0' starts printing from first match until EOF
+  alias check-vpn="scutil --dns | awk '/scoped queries/,0' | grep -B4 if_index"
 
   # autojump
   [[ -s $(brew --prefix)/etc/profile.d/autojump.sh ]] && . $(brew --prefix)/etc/profile.d/autojump.sh
@@ -185,8 +187,7 @@ fi
 #############################
 
 # Mise https://github.com/jdx/mise
-eval "$(mise activate zsh)"
-
+command -v mise &>/dev/null && eval "$(mise activate zsh)"
 
 
 # Python path (powerline tec)
