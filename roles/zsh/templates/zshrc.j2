@@ -176,9 +176,7 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
 
 
-  export GITLAB_TOKEN={{ gitlab_pat }}
-  alias siili-gl-token="export GITLAB_TOKEN={{ gitlab_pat_siili }}"
-
+  alias gitlab-token="export GITLAB_TOKEN={{ gitlab_pat }}"
   command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
 
 fi

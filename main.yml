@@ -82,6 +82,8 @@
       tags: tinkey
 #    - import_tasks: tasks/xbar.yml
 #      tags: xbar
+    - import_tasks: tasks/system-check.yml
+      tags: check
   roles:
     - role: zsh
       tags: zsh
