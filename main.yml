@@ -85,12 +85,12 @@
     - import_tasks: tasks/system-check.yml
       tags: check
   roles:
+    - role: aws
+      tags: aws
     - role: zsh
       tags: zsh
     - role: mise
       tags: mise
-    - role: aws-profile
-      tags: aws
     - role: nvim
       tags: vim, nvim
     - role: podman

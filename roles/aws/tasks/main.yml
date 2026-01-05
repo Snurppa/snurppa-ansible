@@ -5,14 +5,6 @@
     dest: "/Users/{{ user }}/.aws"
     state: directory
 
-
-- name: Install latest of aws-vault
-  homebrew: name=aws-vault state=present
-  when: false # disable
-  tags:
-    - brew
-    - aws-vault
-
 - name: .aws/config
   template:
     src: "templates/config.j2"
@@ -21,3 +13,16 @@
   when: "'aws-config' in ansible_run_tags"
   tags:
     - aws-config
+
+# https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+# Download, `cd ~` and then run `installer -pkg Downloads/AWSCLIV2.pkg -target CurrentUserHomeDirectory -applyChoiceChangesXML awscli.xml`
+- name: AWS CLI xml config
+  template:
+    src: awscli.xml.j2
+    dest: "/Users/{{ user }}/awscli.xml"
+    mode: '644'
+  vars:
+     aws_cli_location: "/Users/joni.hamalainen/awscli2"
+  tags:
+    - aws-cli
+

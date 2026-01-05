@@ -17,8 +17,6 @@
       url: https://github.com/pitch-io/asdf-babashka.git
     - name: awscli
       url: https://github.com/MetricMike/asdf-awscli.git
-    - name: aws-vault
-      url: https://github.com/karancode/asdf-aws-vault.git
     - name: just
       url: https://github.com/olofvndrhr/asdf-just.git
     - name: tfswitch

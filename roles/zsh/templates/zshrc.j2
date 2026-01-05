@@ -139,7 +139,6 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   alias pigo="ping 8.8.8.8"
   alias json="jless"
   alias yless="jless --yaml"
-  alias awx="aws-vault exec"
   alias bap="bat package.json"
   alias enis='aws ec2 describe-network-interfaces --output table --filters "Name=status,Values=in-use" --query "NetworkInterfaces[].{eni: NetworkInterfaceId, attached: Attachment.Status, vpc: VpcId, az: AvailabilityZone, subnet: SubnetId, type: InterfaceType, privateIp: PrivateIpAddress, nGroups: Groups.length(@)}"'
   alias npmaws="npm run aws-login"
@@ -169,12 +168,6 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   if [ -f '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/{{ user }}/bin/google-cloud-sdk/completion.zsh.inc'; fi
   # kubectl
   command -v kubectl &>/dev/null && source <(kubectl completion zsh)
-
-  ###
-  ###  AWS stuff
-  ###
-  command -v aws-vault &>/dev/null && source <(aws-vault --completion-script-zsh)
-
 
   alias gitlab-token="export GITLAB_TOKEN={{ gitlab_pat }}"
   command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
