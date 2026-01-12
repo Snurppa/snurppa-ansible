@@ -12,6 +12,7 @@ brew_latest_packages:
 
 # These have state=present
 brew_packages:
+  - 1password-cli
   - age
   - borkdude/brew/clj-kondo
   - coreutils

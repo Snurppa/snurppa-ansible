@@ -4,3 +4,7 @@
   tags:
     - brew
     - brew-packages
+
+- name: mise/config.toml assurances
+  #  https://mise.jdx.dev/configuration/settings.html#idiomatic_version_file_enable_tools
+  lineinfile: path="{{ xdg_config_home }}/mise/config.toml" regexp='^idiomatic_version_file_enable_tools =' line='idiomatic_version_file_enable_tools = ["python"]'

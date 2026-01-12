@@ -1,27 +1,5 @@
 ---
 
-- name: Check Python3 version
-  command: python3 --version
-  register: python_version_string
-  tags: always
-  check_mode: no
-
-- name: Python3 user base location
-  command: python3 -m site --user-base
-  register: python_user_base
-  tags: always
-  check_mode: no
-
-- set_fact:
-    python_version_full: "{{ python_version_string.stdout | regex_replace('^Python (\\d\\.\\d+\\.\\d+)', '\\1') }}"
-    python_version: "{{ python_version_string.stdout | regex_replace('^Python (\\d\\.\\d+)\\.\\d+', '\\1') }}"
-  tags: always
-  check_mode: no
-
-- debug: var=python_version_full
-  tags: always
-  check_mode: no
-
 - name: pyenv-virtualenv
   git:
     repo: https://github.com/pyenv/pyenv-virtualenv.git
