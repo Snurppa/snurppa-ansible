@@ -1,0 +1,11 @@
+
+- name: brew install opencode
+  homebrew:
+    name: opencode
+    state: latest
+
+- name: opencode.jsonc
+  template:
+    src: "opencode.jsonc"
+    dest: "/Users/{{ user }}/.config/opencode/opencode.jsonc"
+    owner: "{{ user }}"

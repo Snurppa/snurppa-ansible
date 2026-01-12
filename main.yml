@@ -101,3 +101,5 @@
       tags: ollama, continue.dev
     - role: goose
       tags: goose
+    - role: opencode
+      tags: opencode
