@@ -87,6 +87,8 @@
   roles:
     - role: aws
       tags: aws
+    - role: my-agent
+      tags: agent
     - role: zsh
       tags: zsh
     - role: mise

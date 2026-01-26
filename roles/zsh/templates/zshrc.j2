@@ -203,12 +203,15 @@ alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 # Java stuff
 if /usr/libexec/java_home &>/dev/null ; then
-  /usr/libexec/java_home -V  2>&1 | ghead -n-1 | tail -r | ghead -n-1 | while read -r version;
+  while read -r version;
   do
     PATH_TO_JAVA=$(echo $version | grep -o '/Library/.*')
     VERSION_NUM=$(echo $PATH_TO_JAVA | sed -n 's/^.*temurin-\([0-9]*\).*$/\1/p')
     alias java$VERSION_NUM="export JAVA_HOME=$PATH_TO_JAVA"
-  done
+  done < <(/usr/libexec/java_home -V 2>&1 | ghead -n-1 | tail -r | ghead -n-1)
+  # ^ avoids setting alias in a subshell (created by pipe `| while ...`)
+  # set default for shell
+  export JAVA_HOME="$(/usr/libexec/java_home -v21)"
 fi
 
 

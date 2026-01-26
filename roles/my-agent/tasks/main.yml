@@ -1,0 +1,14 @@
+
+- name: agentic skills
+  git:
+    repo: git@github.com:IngmarKrusch/agentic.git
+    dest: "/Users/{{ user }}/.my-agentic"
+
+
+- name: .cursor skill interview.md
+  file:
+    src:  "/Users/{{ user }}/.my-agentic/skills/interview/skill.md"
+    dest: "/Users/{{ user }}/.cursor/skills/interview/SKILL.md"
+    state: link
+  tags:
+    - skills

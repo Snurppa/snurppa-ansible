@@ -10,8 +10,6 @@
     name:
       - temurin # latest
       - temurin21 # 21 LTS
-      - temurin17 # 17 LTS
-      - temurin8  # 8 LTS
 
 - shell: /usr/libexec/java_home -v$(/usr/libexec/java_home -V  2>&1 | head -n2 | tail -n1 | cut -d' ' -f5)
   register: java_path

@@ -8,3 +8,10 @@
 - name: mise/config.toml assurances
   #  https://mise.jdx.dev/configuration/settings.html#idiomatic_version_file_enable_tools
   lineinfile: path="{{ xdg_config_home }}/mise/config.toml" regexp='^idiomatic_version_file_enable_tools =' line='idiomatic_version_file_enable_tools = ["python"]'
+
+- name: mise load .zprofile
+  # https://mise.jdx.dev/ide-integration.html#adding-shims-to-path-default-shell
+  lineinfile:
+    path: "~/.zprofile"
+    line: eval "$(mise activate zsh --shims)"
+    insertafter: eval "$(/opt/homebrew/bin/brew shellenv)"
