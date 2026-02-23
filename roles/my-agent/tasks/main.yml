@@ -1,14 +1,45 @@
 
-- name: agentic skills
+
+- name: clone skill repos
   git:
-    repo: git@github.com:IngmarKrusch/agentic.git
-    dest: "/Users/{{ user }}/.my-agentic"
-
-
-- name: .cursor skill interview.md
-  file:
-    src:  "/Users/{{ user }}/.my-agentic/skills/interview/skill.md"
-    dest: "/Users/{{ user }}/.cursor/skills/interview/SKILL.md"
-    state: link
+    repo: "{{ item.repo }}"
+    dest: "/Users/{{ user }}/{{ item.dest }}"
+  loop: "{{ skill_repos }}"
   tags:
     - skills
+
+- name: ensure skills parent dirs exist
+  file:
+    path: "/Users/{{ user }}/{{ item.folder }}/skills"
+    state: directory
+  loop: "{{ skill_tools }}"
+  tags:
+    - skills
+
+- name: link skills
+  file:
+    src:  "/Users/{{ user }}/{{ item[0][0].dest }}/{{ item[0][1].src_path }}"
+    path: "/Users/{{ user }}/{{ item[1].folder }}/skills/{{ item[0][1].name }}"
+    state: link
+  loop: "{{ skill_repos | subelements('skills') | product(skill_tools) | list }}"
+  loop_control:
+    label: "{{ item[0][0].dest }}/{{ item[0][1].name }} -> {{ item[1].folder }}"
+  tags:
+    - skills
+
+
+# subelements('skills') flattens repo→skills into pairs:
+# [repo_agentic, skill_interview]
+# [repo_slidev,  skill_slidev]
+#
+# product(skill_tools) creates cartesian product:
+# [[repo_agentic, skill_interview], tool_cursor]
+# [[repo_agentic, skill_interview], tool_opencode]
+# [[repo_slidev,  skill_slidev],    tool_cursor]
+# [[repo_slidev,  skill_slidev],    tool_opencode]
+#
+# So item is always [subelements_pair, tool]:
+# item[0]    → [repo, skill]
+# item[0][0] → repo
+# item[0][1] → skill
+# item[1]    → tool

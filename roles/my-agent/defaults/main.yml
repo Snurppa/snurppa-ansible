@@ -1,0 +1,15 @@
+skill_repos:
+  - repo: git@github.com:IngmarKrusch/agentic.git
+    dest: ".my-agentic"
+    skills:
+      - name: interview
+        src_path: "skills/interview"
+  - repo: git@github.com:slidevjs/slidev.git
+    dest: ".my-slidev"
+    skills:
+      - name: slidev
+        src_path: "skills/slidev"
+
+skill_tools:
+  - folder: .cursor
+  - folder: .opencode
