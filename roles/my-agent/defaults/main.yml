@@ -1,15 +1,23 @@
 skill_repos:
   - repo: git@github.com:IngmarKrusch/agentic.git
-    dest: ".my-agentic"
+    dest: "agentic"
     skills:
       - name: interview
         src_path: "skills/interview"
   - repo: git@github.com:slidevjs/slidev.git
-    dest: ".my-slidev"
+    dest: "slidev"
     skills:
       - name: slidev
         src_path: "skills/slidev"
+  - repo: git@github.com:znorris/claude-marketplace.git
+    dest: "znorris-atlassian"
+    skills:
+      - name: jira-cli
+        src_path: "plugins/atlassian-tools/skills/jira-cli"
 
 skill_tools:
+  # The .agents/skills/ paths have emerged as a widely-adopted convention for cross-client skill sharing. 
+  # While the Agent Skills specification does not mandate where skill directories live (it only defines what goes inside them), scanning .agents/skills/ means skills installed by other compliant clients are automatically visible to yours, and vice versa.
+  - folder: .agents
   - folder: .cursor
   - folder: .opencode

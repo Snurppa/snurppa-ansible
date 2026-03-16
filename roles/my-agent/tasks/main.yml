@@ -3,12 +3,12 @@
 - name: clone skill repos
   git:
     repo: "{{ item.repo }}"
-    dest: "/Users/{{ user }}/{{ item.dest }}"
+    dest: "/Users/{{ user }}/.my-skills/{{ item.dest }}"
   loop: "{{ skill_repos }}"
   tags:
     - skills
 
-- name: ensure skills parent dirs exist
+- name: ensure tool specific skills parent dirs exist
   file:
     path: "/Users/{{ user }}/{{ item.folder }}/skills"
     state: directory
@@ -18,12 +18,12 @@
 
 - name: link skills
   file:
-    src:  "/Users/{{ user }}/{{ item[0][0].dest }}/{{ item[0][1].src_path }}"
+    src:  "/Users/{{ user }}/.my-skills/{{ item[0][0].dest }}/{{ item[0][1].src_path }}"
     path: "/Users/{{ user }}/{{ item[1].folder }}/skills/{{ item[0][1].name }}"
     state: link
   loop: "{{ skill_repos | subelements('skills') | product(skill_tools) | list }}"
   loop_control:
-    label: "{{ item[0][0].dest }}/{{ item[0][1].name }} -> {{ item[1].folder }}"
+    label: "~/.my-skills/{{ item[0][0].dest }}/{{ item[0][1].name }} -> {{ item[1].folder }}"
   tags:
     - skills
 
