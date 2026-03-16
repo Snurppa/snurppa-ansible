@@ -1,3 +1,5 @@
+skills_git_update: false
+
 skill_repos:
   - repo: git@github.com:IngmarKrusch/agentic.git
     dest: "agentic"
@@ -21,3 +23,10 @@ skill_tools:
   - folder: .agents
   - folder: .cursor
   - folder: .opencode
+
+# Skills whose SKILL.md frontmatter should have 'disable-model-invocation: true' injected.
+# Values must match a name under skill_repos[*].skills[*].name.
+skills_disable_model_invocation:
+  - interview
+  - slidev
+  - jira-cli

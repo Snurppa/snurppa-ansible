@@ -4,6 +4,10 @@
   git:
     repo: "{{ item.repo }}"
     dest: "/Users/{{ user }}/.my-skills/{{ item.dest }}"
+    # Does not pull if already exists by default, refresh with `-e skills_git_update=true`
+    update: "{{ skills_git_update }}"
+    # Local modifications from below disable-model-invocation tweaks
+    force: true
   loop: "{{ skill_repos }}"
   tags:
     - skills
@@ -34,6 +38,21 @@
     - /Users/{{ user }}/.my-skills/agentic/skills/interview/skill.md
   tags: fix-skills
 
+
+- name: "Inject 'disable-model-invocation: true' into SKILL.md frontmatter"
+  lineinfile:
+    path: "/Users/{{ user }}/.my-skills/{{ item[0].dest }}/{{ item[1].src_path }}/SKILL.md"
+    regexp: "^disable-model-invocation:"
+    insertafter: "^---$"
+    firstmatch: true
+    line: "disable-model-invocation: true"
+    state: present
+  loop: "{{ skill_repos | subelements('skills') }}"
+  loop_control:
+    label: "{{ item[1].name }}"
+  when: item[1].name in skills_disable_model_invocation
+  tags:
+    - skills
 
 # subelements('skills') flattens repo→skills into pairs:
 # [repo_agentic, skill_interview]
