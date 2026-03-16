@@ -27,6 +27,13 @@
   tags:
     - skills
 
+# Fix IngmarKrusch/agentic casing
+- name: fix file
+  command: mv {{ item }} {{ item | replace('skill.md', 'SKILL.md') }}
+  loop:
+    - /Users/{{ user }}/.my-skills/agentic/skills/interview/skill.md
+  tags: fix-skills
+
 
 # subelements('skills') flattens repo→skills into pairs:
 # [repo_agentic, skill_interview]
