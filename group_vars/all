@@ -16,6 +16,7 @@ brew_packages:
   - age
   - atlassian/homebrew-acli/acli
   - borkdude/brew/clj-kondo
+  - copilot-cli
   - coreutils
   - doctl
   - dive
