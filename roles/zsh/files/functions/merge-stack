@@ -1,0 +1,105 @@
+# merge-stack — merge a stack of branches into main, bottom-up
+# Usage: merge-stack [--dry-run] [--print-stack-only] [--no-delete] <tip-branch>
+# Requires: git, gh (GitHub CLI)
+# Install: place in your autoload functions directory
+
+merge-stack() {
+  local DRY_RUN=false
+  local PRINT_STACK_ONLY=false
+  local NO_DELETE=false
+  local TARGET="main"
+  local STACK=()
+
+  while [[ "${1:-}" == --* ]]; do
+    case "$1" in
+      --dry-run)          DRY_RUN=true;          shift ;;
+      --print-stack-only) PRINT_STACK_ONLY=true; shift ;;
+      --no-delete)        NO_DELETE=true;        shift ;;
+      *) print -P "%F{red}Unknown flag: $1%f" >&2; return 1 ;;
+    esac
+  done
+
+  local TIP="${1:?Usage: merge-stack [--dry-run] [--print-stack-only] [--no-delete] <tip-branch>}"
+
+  _ms_run() {
+    if $DRY_RUN; then
+      print -P "%F{yellow}[dry-run]%f $*"
+    else
+      print -P "%F{cyan}>>%f $*"
+      eval "$*" || return 1
+    fi
+  }
+
+  # Build stack from git log decorations.
+  # Each non-empty decoration line looks like:
+  #   "origin/feature/foo, feature/foo"  or just  "feature/foo"
+  # We want local branch names only (no origin/, no HEAD, no tag:).
+  # git log order is tip-first; reverse for merge order (oldest first).
+  _ms_build_stack() {
+    STACK=()
+    local line part
+
+    while IFS= read -r line; do
+      [[ -z "$line" ]] && continue
+      for part in ${(s:, :)line}; do
+        [[ "$part" == "HEAD"* ]] && continue
+        [[ "$part" == "origin/"* ]] && continue
+        [[ "$part" == "tag:"* ]] && continue
+        STACK+=("$part")
+      done
+    done < <(git log --pretty=format:'%D' "${TARGET}..${TIP}")
+
+    if [[ ${#STACK[@]} -eq 0 ]]; then
+      print -P "%F{red}No branches found between $TARGET and $TIP. Is the branch rebased on $TARGET?%f" >&2
+      return 1
+    fi
+
+    STACK=(${(Oa)STACK})
+  }
+
+  _ms_build_stack || return 1
+
+  if $PRINT_STACK_ONLY; then
+    print -P "%F{blue}Stack (tip → oldest, merge order is bottom-up):%f"
+    for b in "${(Oa)STACK[@]}"; do
+      print "  $b"
+    done
+    return 0
+  fi
+
+  print -P "%F{blue}Stack to merge (oldest → newest):%f"
+  for b in $STACK; do
+    print "  $b"
+  done
+  echo
+
+  local i current next
+  for i in $(seq 1 ${#STACK}); do
+    current="${STACK[$i]}"
+    next="${STACK[$((i+1))]:-}"
+
+    print -P "\n%F{green}=== [$i/${#STACK}] $current → $TARGET ===%f"
+
+    _ms_run "git checkout $TARGET"   || return 1
+    _ms_run "git merge --ff-only $current" || return 1
+    _ms_run "git push origin $TARGET" || return 1
+
+    if [[ -n "$next" ]]; then
+      print -P "%F{cyan}>> Retargeting PR for $next to base: $TARGET%f"
+      _ms_run "gh pr edit $next --base $TARGET" || return 1
+    fi
+
+    if $NO_DELETE; then
+      print -P "%F{yellow}[no-delete] Skipping branch deletion for $current%f"
+    else
+      _ms_run "git push origin --delete $current" || return 1
+      _ms_run "git branch -d $current" || return 1
+    fi
+  done
+
+  print -P "\n%F{green}Done. All branches merged and deleted.%f"
+
+  # Clean up nested functions from shell namespace
+  unfunction _ms_run _ms_build_stack
+}
+
