@@ -54,3 +54,12 @@
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest:  /Users/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
+
+# HTML url to markdown python script using https://github.com/EmilStenstrom/justhtml (uv tool install justhtml)
+- name: Install html2md python script
+  copy:
+    src: html2md
+    dest: "/Users/{{ user }}/.local/bin/html2md"
+    mode: "0755"
+  tags: html2md
+

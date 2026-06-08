@@ -1,0 +1,79 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = ["justhtml", "httpx[http2]"]
+# ///
+import sys
+import time
+import tempfile
+import argparse
+import httpx
+import justhtml
+
+
+def fetch(url: str) -> tuple[str, float]:
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36",
+        "sec-ch-ua": '"Chromium";v="148", "Brave";v="148", "Not/A)Brand";v="99"',
+        "sec-ch-ua-platform": '"macOS"',
+    }
+    t0 = time.perf_counter()
+    with httpx.Client(follow_redirects=True, headers=headers) as client:
+        resp = client.get(url)
+        resp.raise_for_status()
+    return resp.text, (time.perf_counter() - t0) * 1000
+
+
+def convert(html: str, unsafe: bool) -> tuple[str, str, float]:
+    t0 = time.perf_counter()
+    doc = justhtml.JustHTML(html, sanitize=not unsafe)
+    t = doc.query_one("title")
+    b = doc.query_one("body")
+    title = t.to_text() if t else ""
+    body  = b.to_markdown() if b else ""
+    return title, body, (time.perf_counter() - t0) * 1000
+
+
+def print_stats(html: str, output: str, fetch_ms: float, parse_ms: float) -> None:
+    html_kb = len(html.encode()) / 1024
+    md_kb   = len(output.encode()) / 1024
+    ratio   = (md_kb / html_kb * 100) if html_kb else 0
+    print(f"  fetch    {fetch_ms:6.0f} ms", file=sys.stderr)
+    print(f"  parse    {parse_ms:6.0f} ms", file=sys.stderr)
+    print(f"  html     {html_kb:6.1f} KB", file=sys.stderr)
+    print(f"  markdown {md_kb:6.1f} KB  ({ratio:.0f}% of html)", file=sys.stderr)
+
+
+def write_output(output: str, dest: str | None) -> None:
+    if dest:
+        with open(dest, "w") as f:
+            f.write(output)
+        print(f"→ {dest}", file=sys.stderr)
+    elif not sys.stdout.isatty():
+        print(output)
+    else:
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".md", prefix="page_",
+                                         dir="/tmp", delete=False) as f:
+            f.write(output)
+        print(f"→ {f.name}", file=sys.stderr)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Fetch a URL and convert to Markdown")
+    parser.add_argument("url")
+    parser.add_argument("dest", nargs="?", default=None)
+    parser.add_argument("--stats", action="store_true")
+    parser.add_argument("--unsafe", action="store_true")
+    args = parser.parse_args()
+
+    html, fetch_ms        = fetch(args.url)
+    title, body, parse_ms = convert(html, args.unsafe)
+    output = f"# {title}\n\n> Source: {args.url}\n\n{body}"
+
+    if args.stats:
+        print_stats(html, output, fetch_ms, parse_ms)
+
+    write_output(output, args.dest)
+
+
+if __name__ == "__main__":
+    main()
