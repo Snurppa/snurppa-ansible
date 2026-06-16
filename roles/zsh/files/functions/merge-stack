@@ -47,7 +47,7 @@ merge-stack() {
         [[ "$part" == "tag:"* ]] && continue
         STACK+=("$part")
       done
-    done < <(git log --pretty=format:'%D' "${TARGET}..${TIP}")
+    done < <(git log --pretty=tformat:'%D' "${TARGET}..${TIP}")
 
     if [[ ${#STACK[@]} -eq 0 ]]; then
       print -P "%F{red}No branches found between $TARGET and $TIP. Is the branch rebased on $TARGET?%f" >&2
@@ -56,6 +56,7 @@ merge-stack() {
 
     STACK=(${(Oa)STACK})
   }
+  trap 'unfunction _ms_run _ms_build_stack 2>/dev/null' EXIT
 
   _ms_build_stack || return 1
 
