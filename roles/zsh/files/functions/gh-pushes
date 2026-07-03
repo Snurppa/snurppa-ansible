@@ -1,0 +1,21 @@
+function gh-pushes() {
+    local username=$(gh api user --jq '.login')
+    local days=${1:-2}
+    local lookback=$(( days - 1 ))
+
+    # macOS (BSD date) vs Linux (GNU date) compatibility
+    local since
+    if date -v -${lookback}d +"%Y-%m-%d" &>/dev/null 2>&1; then
+        since=$(date -v -${lookback}d +"%Y-%m-%dT00:00:00Z")
+    else
+        since=$(date --date="${lookback} days ago" +"%Y-%m-%dT00:00:00Z")
+    fi
+
+    gh api "/users/$username/events" --paginate | jq -r --arg since "$since" '
+        .[] |
+        select(.type == "PushEvent") |
+        select(.created_at >= $since) |
+        . as $event |
+        "\(.created_at)\t\(.created_at | fromdateiso8601 | strflocaltime("%d.%m.%Y %H:%M"))\t\(.repo.name)\t\(.payload.ref | ltrimstr("refs/heads/"))\t\(.payload.size // "-")\t\(if ((.payload.commits // []) | length) > 0 then .payload.commits[0].message | split("\n")[0] | .[0:70] else "-" end)"
+    ' | sort | cut -f2- | { printf "TIMESTAMP\tREPO\tBRANCH\tCOMMITS\tFIRST COMMIT MSG\n"; cat; } | column -t -s $'\t'
+}
