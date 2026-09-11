@@ -61,6 +61,8 @@ export PATH="$PATH:/Users/{{ user }}/bin"
 # For libpq (psql) (libpq is keg-only, which means it was not symlinked into /opt/homebrew, because conflicts with postgres formula.)
 export PATH="$PATH:$HOMEBREW_PREFIX/opt/libpq/bin"
 
+# https://unix.stackexchange.com/questions/257061/gentoo-linux-gpg-encrypts-properly-a-file-passed-through-parameter-but-throws-i/257065#257065
+export GPG_TTY=$(tty)
 
 ####################
 # Launch OH MY ZSH #
@@ -173,9 +175,6 @@ if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; 
   # kubectl
   command -v kubectl &>/dev/null && source <(kubectl completion zsh)
 
-  alias gitlab-token="export GITLAB_TOKEN={{ gitlab_pat }}"
-  command -v tea &>/dev/null && add-zsh-hook -Uz chpwd(){ source <(tea -Eds) }  #tea
-
 fi
 #############################
 ## END OF INTERACTIVE INIT ##
@@ -227,15 +226,7 @@ export GRAALVM_HOME=/Users/{{ user }}/bin/graalvm-ce-{{ graalvm.version }}/Conte
 export PATH=$PATH:$GRAALVM_HOME/bin
 {% endif %}
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
 
 {% if google_credentials is defined %}
-export GOOGLE_APPLICATION_CREDENTIALS={{ google_credentials }}
-# for Ansible GCP inventory plugin
-export GCP_SERVICE_ACCOUNT_FILE={{ google_credentials }}
 alias gcurl='curl --header "Authorization: Bearer $(gcloud auth print-identity-token)"'
 {% endif %}

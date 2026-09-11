@@ -12,4 +12,3 @@
   community.general.launchd:
     name: private.maxfiles
     enabled: yes
-
