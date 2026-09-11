@@ -95,8 +95,6 @@
       tags: mise
     - role: nvim
       tags: vim, nvim
-    - role: podman
-      tags: podman
     - role: vscodium
       tags: vscodium, vscode
     - role: ollama
