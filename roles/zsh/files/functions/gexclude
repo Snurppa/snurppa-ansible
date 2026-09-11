@@ -4,7 +4,7 @@ gexclude() {
     return 1
   fi
 
-  local git_dir exclude_file begin end path tmp
+  local git_dir exclude_file begin end p tmp
   git_dir=$(git rev-parse --git-dir 2>/dev/null) || {
     print -u2 "gexclude: not inside a git repo"
     return 1
@@ -17,16 +17,16 @@ gexclude() {
   touch "$exclude_file"
   grep -qF "$begin" "$exclude_file" || printf '\n%s\n%s\n' "$begin" "$end" >> "$exclude_file"
 
-  for path in "$@"; do
-    if grep -qxF "$path" "$exclude_file"; then
-      print -u2 "gexclude: already present, skipping: $path"
+  for p in "$@"; do
+    if grep -qxF "$p" "$exclude_file"; then
+      print -u2 "gexclude: already present, skipping: $p"
       continue
     fi
     tmp="${exclude_file}.tmp.$$"
     trap 'rm -f "$tmp"' EXIT
-    awk -v line="$path" -v end="$end" '$0==end{print line} {print}' "$exclude_file" > "$tmp" \
+    awk -v line="$p" -v end="$end" '$0==end{print line} {print}' "$exclude_file" > "$tmp" \
       && mv "$tmp" "$exclude_file"
     trap - EXIT
-    print "gexclude: added $path"
+    print "gexclude: added $p"
   done
 }
