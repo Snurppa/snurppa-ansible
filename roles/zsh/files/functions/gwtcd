@@ -1,0 +1,47 @@
+# gwtcd <name-or-branch-fragment>: cd into a git worktree matching by dir name or branch.
+# Exact prefix match on dir name wins outright; otherwise ambiguous matches go to fzf if installed.
+
+gwtcd() {
+  emulate -L zsh  # isolate from caller's shell options (e.g. KSH_ARRAYS would break array indexing below)
+  local query="$1"
+  [[ -z "$query" ]] && { echo "usage: gwtcd <name-or-branch-fragment>" >&2; return 1 }
+
+  local -a wt
+  # --porcelain: stable, script-safe format (plain `git worktree list` breaks on paths with spaces)
+  wt=("${(f)$(git worktree list --porcelain | awk '
+    /^worktree /  { p=$0; sub(/^worktree /,"",p) }
+    /^branch /    { b=$0; sub(/^branch refs\/heads\//,"",b); print p "\t" b }
+    /^detached/   { print p "\t(detached)" }
+  ')}")
+  # (f) splits the command substitution into an array, one line per element
+
+  local -a matches prefix_matches
+  local line wt_path branch base  # NOT `path`: that name is tied to $PATH in zsh, see earlier debugging saga
+  for line in "${wt[@]}"; do
+    wt_path="${line%%$'\t'*}"   # part before the tab
+    branch="${line#*$'\t'}"    # part after the tab
+    base="${wt_path:t}"        # :t = basename (tail of the path)
+    if [[ "$base" == "$query"* || "$branch" == *"$query"* || "$base" == *"$query"* ]]; then
+      matches+=("$line")
+      [[ "$base" == "$query"* ]] && prefix_matches+=("$line")  # exact-prefix hits get priority
+    fi
+  done
+
+  if (( ${#prefix_matches[@]} == 1 )); then
+    cd "${prefix_matches[1]%%$'\t'*}"; return  # zsh arrays are 1-indexed
+  elif (( ${#matches[@]} == 1 )); then
+    cd "${matches[1]%%$'\t'*}"; return
+  elif (( ${#matches[@]} == 0 )); then
+    echo "gwtcd: no worktree matching '$query'" >&2; return 1
+  fi
+
+  if (( ${+commands[fzf]} )); then  # ${+commands[x]} = 1 if x is a known command, else 0
+    local chosen
+    chosen=$(printf '%s\n' "${matches[@]}" | fzf --delimiter=$'\t' --with-nth=1 --preview='echo {2}' | cut -f1)
+    [[ -n "$chosen" ]] && cd "$chosen"
+  else
+    print -l "${matches[@]}"
+    echo "gwtcd: multiple matches, install fzf or refine query" >&2
+    return 1
+  fi
+}
