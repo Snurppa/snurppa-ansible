@@ -68,8 +68,16 @@ export GPG_TTY=$(tty)
 # Launch OH MY ZSH #
 ####################
 
+is_non_agentish_invocation() {
+  [[ -o interactive
+     && -z "$CURSOR_AGENT"
+     && "$TERM_PROGRAM" != "vscode"
+     && "$TERM" != "dumb"
+  ]]
+}
+
 # In interactive mode, these are skipped e.g. when launching terminal from VS Code etc...
-if [[ -o interactive && (-z "$CURSOR_AGENT" && "$TERM_PROGRAM" != "vscode") ]]; then
+if is_non_agentish_invocation; then
 
   # Se tname of the theme to load.
   export ZSH=/Users/{{ user }}/.oh-my-zsh
