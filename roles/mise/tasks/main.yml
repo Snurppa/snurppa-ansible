@@ -1,13 +1,55 @@
 
-- name: brew install mise
-  community.general.homebrew: name=mise state=latest install_options=quiet
-  tags:
-    - brew
-    - brew-packages
+# Bootstrap only; updates are done with `mise self-update`
+# https://mise.jdx.dev/installing-mise.html
+- name: check if mise is installed
+  stat:
+    path: ~/.local/bin/mise
+  register: mise_bin
 
-- name: mise/config.toml assurances
-  #  https://mise.jdx.dev/configuration/settings.html#idiomatic_version_file_enable_tools
-  lineinfile: path="{{ xdg_config_home }}/mise/config.toml" regexp='^idiomatic_version_file_enable_tools =' line='idiomatic_version_file_enable_tools = ["python"]'
+- name: install mise via verified install script
+  when: not mise_bin.stat.exists
+  block:
+    - name: import mise release gpg key
+      command: gpg --keyserver hkps://keys.openpgp.org --recv-keys 24853EC9F655CE80B48E6C3A8B81C9D17413A06D
+      changed_when: false
+
+    - name: download signed mise install script
+      get_url:
+        url: https://mise.jdx.dev/install.sh.sig
+        dest: /tmp/mise-install.sh.sig
+        mode: "0600"
+
+    - name: verify and decrypt mise install script
+      command: gpg --batch --yes --output /tmp/mise-install.sh --decrypt /tmp/mise-install.sh.sig
+      changed_when: true
+
+    - name: run mise install script
+      command: sh /tmp/mise-install.sh
+      changed_when: true
+
+  always:
+    - name: remove temporary mise installer files
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /tmp/mise-install.sh
+        - /tmp/mise-install.sh.sig
+
+- name: install mise zsh completions
+  # install script does not write completions; lands in ~/.local/share/zsh/site-functions (in fpath via zshrc)
+  shell: ~/.local/bin/mise completion zsh --install
+  args:
+    creates: ~/.local/share/zsh/site-functions/_mise
+
+#  https://mise.jdx.dev/configuration/settings.html#idiomatic_version_file_enable_tools
+- name: mise enable python idiomatic version files
+  shell: ~/.local/bin/mise settings add idiomatic_version_file_enable_tools python
+  changed_when: false
+
+- name: mise set minimum release age
+  shell: ~/.local/bin/mise settings set minimum_release_age 7d
+  changed_when: false
 
 - name: mise load .zprofile
   # https://mise.jdx.dev/ide-integration.html#adding-shims-to-path-default-shell

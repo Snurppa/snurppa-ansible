@@ -1,11 +1,11 @@
 
-- name: brew install opencode
+- name: brew install anomalyco/tap/opencode-v2
   homebrew:
-    name: opencode
+    name: anomalyco/tap/opencode-v2
     state: latest
 
-- name: opencode.jsonc
-  template:
-    src: "opencode.jsonc"
-    dest: "/Users/{{ user }}/.config/opencode/opencode.jsonc"
-    owner: "{{ user }}"
+#- name: opencode.jsonc
+#  template:
+#    src: "opencode.jsonc"
+#    dest: "/Users/{{ user }}/.config/opencode/opencode.jsonc"
+#    owner: "{{ user }}"

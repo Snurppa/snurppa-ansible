@@ -95,7 +95,7 @@ if is_non_agentish_invocation; then
 
   source $ZSH/oh-my-zsh.sh
 
-  fpath=(~/zsh-functions "${fpath[@]}")
+  fpath=(~/zsh-functions ~/.local/share/zsh/site-functions "${fpath[@]}")
   autoload -Uz {{ query('fileglob', '~/zsh-functions/*') | map('basename') | join(' ') }}
 
   # Custom compdefs
