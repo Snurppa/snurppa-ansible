@@ -93,6 +93,8 @@
       tags: mise
     - role: skillshare
       tags: [skillshare, skills, ai]
+    - role: claude-code
+      tags: [claude, ai]
     - role: nvim
       tags: vim, nvim
     - role: vscodium

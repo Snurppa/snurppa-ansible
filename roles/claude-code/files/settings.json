@@ -1,0 +1,45 @@
+{
+  "attribution": false,
+  "model": "sonnet",
+  "outputStyle": "Concise",
+  "sandbox": {
+    "enabled": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "denyRead": [
+        "~/.aws/sso"
+      ]
+    },
+    "excludedCommands": [
+      "acli jira workitem view *",
+      "acli jira workitem search *",
+      "acli jira workitem comment list *",
+      "acli jira workitem link list *",
+      "acli jira workitem transition *",
+      "acli jira workitem assign *",
+      "acli jira workitem edit *",
+      "acli confluence page view *",
+      "acli jira auth status"
+    ],
+    "network": {
+      "allowedDomains": [
+        "github.com",
+        "api.github.com",
+        "*.atlassian.com"
+      ]
+    },
+    "credentials": {
+      "files": [
+        { "path": "~/.aws/credentials", "mode": "deny" },
+        { "path": "~/.config/gh/hosts.yml", "mode": "mask", "injectHosts": ["api.github.com"] }
+      ]
+    }
+  },
+  "modelSettings": {
+    "claude-sonnet-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "tui": "fullscreen",
+  "theme": "dark"
+}

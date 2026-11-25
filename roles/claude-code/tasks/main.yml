@@ -1,0 +1,14 @@
+# Settings live in this repo and are symlinked into place, edits on either side are the same file.
+# Project specifics belong in the project's .claude/settings.local.json, not here.
+
+- name: ~/.claude
+  file:
+    path: "/Users/{{ user }}/.claude"
+    state: directory
+
+- name: link settings.json from this repo
+  file:
+    src: "{{ role_path }}/files/settings.json"
+    dest: "/Users/{{ user }}/.claude/settings.json"
+    state: link
+    force: true
