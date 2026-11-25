@@ -26,6 +26,9 @@
   pre_tasks:
     - debug: var=brew_prefix
       tags: always
+    # Packages before roles: roles need them (e.g. mise's installer verifies with gpg)
+    - import_tasks: tasks/homebrew.yml
+      tags: homebrew
 
   tasks:
     - name: ~/bin
@@ -62,8 +65,6 @@
       tags: graalvm
     - import_tasks: tasks/hashicorp.yml
       tags: hashicorp
-    - import_tasks: tasks/homebrew.yml
-      tags: homebrew
     - import_tasks: tasks/java.yml
       tags: java
     - import_tasks: tasks/launchctl.yml

@@ -31,7 +31,13 @@ uv tool update-shell
 
 uv fetches its own Python, no pyenv or pip needed. Homebrew's own `python@3.x` formulae are dependencies of other formulae; leave them alone.
 
-[mise](https://mise.jdx.dev) is installed by the playbook (`--tags mise`). Repo tools such as gitleaks are pinned in `mise.toml`; `--tags gitleaks` trusts and installs them, or by hand: `mise trust && mise install`.
+Then one full run, from the repo root, does everything in order:
+
+```bash
+ansible-playbook main.yml --ask-become-pass
+```
+
+Order: Homebrew packages (`pre_tasks`) → roles (zsh, [mise](https://mise.jdx.dev), skillshare, claude-code, cursor, …) → tasks. After the first full run, single tags work on their own; `--tags ai` also brings mise along. Repo tools such as gitleaks are pinned in `mise.toml`; `--tags gitleaks` trusts and installs them, or by hand: `mise trust && mise install`.
 
 # Agent harnesses migration
 

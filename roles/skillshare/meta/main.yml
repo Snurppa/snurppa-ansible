@@ -1,0 +1,3 @@
+# skillshare is installed with mise; also makes `--tags ai` / `--tags skillshare` bring mise in
+dependencies:
+  - role: mise
