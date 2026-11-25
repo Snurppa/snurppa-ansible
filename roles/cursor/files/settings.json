@@ -1,0 +1,52 @@
+{
+    "window.commandCenter": true,
+    "aws.telemetry": false,
+    "javascript.preferGoToSourceDefinition": true,
+    "editor.definitionLinkOpensInPeek": false,
+    "editor.gotoLocation.multipleImplementations": "gotoAndPeek",
+    "vue.autoInsert.dotValue": true,
+    "vue.complete.casing.tags": "kebab",
+    "workbench.colorTheme": "Solarized Dark",
+    "[vue]": {
+        "editor.defaultFormatter": "Vue.volar"
+    },
+    "files.autoSave": "onFocusChange",
+    "redhat.telemetry.enabled": false,
+    "editor.codeActionsOnSave": {
+    },
+    "files.trimTrailingWhitespace": true,
+    "gitlens.telemetry.enabled": false,
+    "gitlens.advanced.abbreviateShaOnCopy": true,
+    "gitlens.blame.avatars": false,
+    "gitlens.blame.heatmap.enabled": false,
+    "gitlens.blame.separateLines": false,
+    "gitlens.currentLine.uncommittedChangesFormat": "",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.shellIntegration.enabled": false,
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.scrollback": 5000,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "svg.preview.mode": "svg",
+    "[typescript]": {
+
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "aws.cloudformation.telemetry.enabled": false,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "dev.containers.dockerPath": "podman",
+    "microprofile.alwaysShowOverview": false,
+    "git.showCursorWorktrees": true,
+    "cursor.composer.usageSummaryDisplay": "always",
+    "window.autoDetectColorScheme": false,
+    "security.workspace.trust.enabled": true,
+    "task.allowAutomaticTasks": "off",
+    "cursor.composer.queueMessageDefaultBehavior": "steer",
+    "eslint.debug": true,
+    "[worktree-typescript]": {
+        "js/ts.validate.enabled": true,
+    },
+    "git.blame.editorDecoration.enabled": true
+}

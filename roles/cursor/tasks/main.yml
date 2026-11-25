@@ -1,0 +1,29 @@
+# settings.json and keybindings.json are symlinked from this repo.
+# cli-config.json is state-heavy (Cursor CLI rewrites it), so it is only seeded when missing.
+# Not managed: ~/.cursor/mcp.json (Skillshare) and ~/.cursor/hooks.json.
+
+- name: Cursor user dir
+  file:
+    path: "/Users/{{ user }}/Library/Application Support/Cursor/User"
+    state: directory
+
+- name: link Cursor settings and keybindings from this repo
+  file:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/Users/{{ user }}/Library/Application Support/Cursor/User/{{ item }}"
+    state: link
+    force: true
+  loop:
+    - settings.json
+    - keybindings.json
+
+- name: ~/.cursor
+  file:
+    path: "/Users/{{ user }}/.cursor"
+    state: directory
+
+- name: seed Cursor CLI config
+  copy:
+    src: cli-config.json
+    dest: "/Users/{{ user }}/.cursor/cli-config.json"
+    force: false

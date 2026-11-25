@@ -31,7 +31,7 @@ Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). E
 * **Skills, MCP servers:** `roles/skillshare`. Own skills live in `skills/` and are linked into Skillshare. Third-party skills and MCP servers are lists in `roles/skillshare/defaults/main.yml`, installed at bootstrap. Skillshare's `config.yaml` is seeded only when missing. The sync is one-way: whatever is installed or tried later stays on that machine until it is added here on purpose.
 * **Tool settings:** one role per tool.
    * `roles/claude-code`: `~/.claude/settings.json` is a symlink to the file in the repo.
-   * `roles/cursor` (todo)
+   * `roles/cursor`: settings.json and keybindings.json are symlinked from the repo, `~/.cursor/cli-config.json` is seeded once (Cursor CLI writes state into it). `mcp.json` is Skillshare's.
 * **Manual, not synced:**
    * `~/.junie/allowlist.json`: project paths, recreate per project.
 
