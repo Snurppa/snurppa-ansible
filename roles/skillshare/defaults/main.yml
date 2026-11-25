@@ -1,0 +1,24 @@
+skillshare_home: "{{ lookup('ansible.builtin.env', 'HOME') }}"
+skillshare_bin: "{{ skillshare_home }}/.local/share/mise/shims/skillshare"
+skillshare_config_dir: "{{ skillshare_home }}/.config/skillshare"
+skillshare_source: "{{ skillshare_config_dir }}/skills"
+
+skillshare_targets: [claude, junie, universal]
+
+# Own skills: this repo's skills/ folder is linked into the source under this name
+skillshare_own_skills_link: _snurppa-ansible
+
+# Third-party skills installed at bootstrap. Anything else installed later stays on that machine.
+skillshare_skills:
+  - name: skillshare
+    source: github.com/runkids/skillshare/skills/skillshare
+  - name: caveman
+    source: github.com/JuliusBrussee/caveman/skills/caveman
+  - name: caveman-compress
+    source: github.com/JuliusBrussee/caveman/skills/caveman-compress
+
+skillshare_mcp_servers:
+  # JetBrains IDE built-in MCP server
+  - name: idea
+    url: http://127.0.0.1:64342/stream
+    targets: [claude, cursor, junie]

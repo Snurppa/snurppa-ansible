@@ -91,6 +91,8 @@
       tags: zsh
     - role: mise
       tags: mise
+    - role: skillshare
+      tags: [skillshare, skills, ai]
     - role: nvim
       tags: vim, nvim
     - role: vscodium

@@ -28,8 +28,8 @@ ansible-playbook main.yml --ask-become-pass
 
 Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). Everything project-specific stays in the project (e.g. `.claude/settings.local.json`) or is migrated by hand.
 
-* **Skills, MCP servers:** `roles/skillshare`. Own skills live in `skills/` and are linked into Skillshare. Third-party skills are a list installed at bootstrap. The sync is one-way: whatever is installed or tried later stays on that machine until it is added here on purpose.
-* **Tool settings** (Claude Code, Cursor): one role per tool.
+* **Skills, MCP servers:** `roles/skillshare`. Own skills live in `skills/` and are linked into Skillshare. Third-party skills and MCP servers are lists in `roles/skillshare/defaults/main.yml`, installed at bootstrap. Skillshare's `config.yaml` is seeded only when missing. The sync is one-way: whatever is installed or tried later stays on that machine until it is added here on purpose.
+* **Tool settings** (Claude Code, Cursor): one role per tool (todo).
 * **Manual, not synced:**
    * `~/.junie/allowlist.json`: project paths, recreate per project.
 

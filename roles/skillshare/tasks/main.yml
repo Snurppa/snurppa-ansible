@@ -1,0 +1,50 @@
+# One-way bootstrap: this role installs what the repo lists and never reads changes back.
+# config.yaml is only created when missing (skillshare init); skillshare rewrites it on every install.
+
+- name: install skillshare via mise
+  command: "{{ skillshare_home }}/.local/bin/mise use -g aqua:runkids/skillshare@latest"
+  changed_when: false
+
+- name: create skillshare config (first run only)
+  command: >-
+    {{ skillshare_bin }} init -g --no-copy --no-git --no-skill --mode merge
+    --targets {{ skillshare_targets | join(',') }}
+  args:
+    creates: "{{ skillshare_config_dir }}/config.yaml"
+  register: skillshare_init
+
+# Target folder name = skill folder name, so linked skills don't get a _snurppa-ansible__ prefix
+- name: standard target naming (first run only)
+  command: "{{ skillshare_bin }} target {{ item }} --target-naming standard -g"
+  loop: "{{ skillshare_targets }}"
+  when: skillshare_init is changed
+
+- name: link own skills from this repo
+  command: >-
+    {{ skillshare_bin }} link {{ playbook_dir }}/skills
+    --name {{ skillshare_own_skills_link }} --enable -g
+  args:
+    creates: "{{ skillshare_source }}/{{ skillshare_own_skills_link }}"
+
+- name: install third-party skills
+  command: "{{ skillshare_bin }} install {{ item.source }} -g --json"
+  args:
+    creates: "{{ skillshare_source }}/{{ item.name }}"
+  loop: "{{ skillshare_skills }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: add MCP servers
+  command: >-
+    {{ skillshare_bin }} mcp add {{ item.name }} --url {{ item.url }}
+    {% for t in item.targets %}--target {{ t }} {% endfor %}--no-tui
+  register: mcp_add
+  changed_when: mcp_add.rc == 0
+  failed_when: mcp_add.rc != 0 and 'already exists' not in (mcp_add.stdout + mcp_add.stderr)
+  loop: "{{ skillshare_mcp_servers }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: sync skills and MCP into targets
+  command: "{{ skillshare_bin }} sync --all -g"
+  changed_when: false
