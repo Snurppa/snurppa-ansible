@@ -6,9 +6,9 @@
     path: "/Users/{{ user }}/.claude"
     state: directory
 
+# import (static) so the role's tags reach the imported tasks
 - name: link settings.json from this repo
-  file:
-    src: "{{ role_path }}/files/settings.json"
-    dest: "/Users/{{ user }}/.claude/settings.json"
-    state: link
-    force: true
+  import_tasks: "{{ playbook_dir }}/tasks/link-with-backup.yml"
+  vars:
+    link_src: "{{ role_path }}/files/settings.json"
+    link_dest: "/Users/{{ user }}/.claude/settings.json"

@@ -1,0 +1,22 @@
+# Symlink link_dest -> link_src. The file module has no `backup:`, so a real file
+# already at link_dest is copied to <link_dest>.backup-<timestamp> first.
+# Existing symlinks are just replaced (they hold no content).
+- name: "stat {{ link_dest | basename }}"
+  stat:
+    path: "{{ link_dest }}"
+  register: link_dest_stat
+
+- name: "back up {{ link_dest | basename }} before linking"
+  copy:
+    src: "{{ link_dest }}"
+    dest: "{{ link_dest }}.backup-{{ now(fmt='%Y%m%d-%H%M%S') }}"
+    remote_src: true
+    mode: preserve
+  when: link_dest_stat.stat.exists and not link_dest_stat.stat.islnk
+
+- name: "link {{ link_dest | basename }} from this repo"
+  file:
+    src: "{{ link_src }}"
+    dest: "{{ link_dest }}"
+    state: link
+    force: true

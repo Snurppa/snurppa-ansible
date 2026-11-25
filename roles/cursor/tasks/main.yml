@@ -7,15 +7,18 @@
     path: "/Users/{{ user }}/Library/Application Support/Cursor/User"
     state: directory
 
-- name: link Cursor settings and keybindings from this repo
-  file:
-    src: "{{ role_path }}/files/{{ item }}"
-    dest: "/Users/{{ user }}/Library/Application Support/Cursor/User/{{ item }}"
-    state: link
-    force: true
-  loop:
-    - settings.json
-    - keybindings.json
+# import (static, no loop) so the role's tags reach the imported tasks
+- name: link Cursor settings.json from this repo
+  import_tasks: "{{ playbook_dir }}/tasks/link-with-backup.yml"
+  vars:
+    link_src: "{{ role_path }}/files/settings.json"
+    link_dest: "/Users/{{ user }}/Library/Application Support/Cursor/User/settings.json"
+
+- name: link Cursor keybindings.json from this repo
+  import_tasks: "{{ playbook_dir }}/tasks/link-with-backup.yml"
+  vars:
+    link_src: "{{ role_path }}/files/keybindings.json"
+    link_dest: "/Users/{{ user }}/Library/Application Support/Cursor/User/keybindings.json"
 
 - name: ~/.cursor
   file:
