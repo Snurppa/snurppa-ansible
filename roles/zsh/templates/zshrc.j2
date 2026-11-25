@@ -165,8 +165,6 @@ if is_non_agentish_invocation; then
 
   # autojump
   [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
-  # thefuck (uv tool, tasks/uv.yml): alias generated on first use, `thefuck --alias` costs ~0.3s per shell
-  command -v thefuck &>/dev/null && fuck() { unfunction fuck; eval "$(thefuck --alias)"; fuck "$@" }
 
 
   # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

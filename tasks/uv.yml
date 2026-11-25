@@ -8,8 +8,5 @@
     - name: ansible
       args: --with-executables-from ansible-core,ansible-lint
     - name: justhtml
-    # 3.32 imports `imp`, removed in Python 3.12
-    - name: thefuck
-      args: --python 3.11
   loop_control:
     label: "{{ item.name }}"
