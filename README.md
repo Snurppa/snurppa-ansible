@@ -24,6 +24,15 @@ ansible-playbook main.yml --ask-become-pass
    * `eval "$(pyenv init -)"`
    * `pip3 install argcomplete ansible`
 
+# Agent harnesses migration
+
+Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). Everything project-specific stays in the project (e.g. `.claude/settings.local.json`) or is migrated by hand.
+
+* **Skills, MCP servers:** `roles/skillshare`. Own skills live in `skills/` and are linked into Skillshare. Third-party skills are a list installed at bootstrap. The sync is one-way: whatever is installed or tried later stays on that machine until it is added here on purpose.
+* **Tool settings** (Claude Code, Cursor): one role per tool.
+* **Manual, not synced:**
+   * `~/.junie/allowlist.json`: project paths, recreate per project.
+
 # Python trivia (from brew Python vs pyenv)
 
 - Reinstalling brew packages that require Python will pick the latest Python version

@@ -87,8 +87,6 @@
   roles:
     - role: aws
       tags: aws
-    - role: my-skills
-      tags: skills
     - role: zsh
       tags: zsh
     - role: mise
@@ -99,7 +97,3 @@
       tags: vscodium, vscode
     - role: ollama
       tags: ollama, continue.dev
-    - role: goose
-      tags: goose
-    - role: opencode
-      tags: opencode
