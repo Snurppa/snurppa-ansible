@@ -1,18 +1,25 @@
-# ~/.npmrc for npm from any Node install (mise)
-- block:
-    - name: .npmrc | npm.pkg.github.com authToken
-      lineinfile:
-        path: "/Users/{{ user }}/.npmrc"
-        create: yes
-        regexp: "^//npm.pkg.github.com/:_authToken"
-        line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
-      when: npm_gh_token
-    - name: .npmrc | save = true
-      lineinfile:
-        path: "/Users/{{ user }}/.npmrc"
-        create: yes
-        # By default when updating, edit package.json versions too
-        regexp: "^save="
-        line: "save=true"
-  tags:
-    - npmrc
+# ~/.npmrc for npm from any Node install (mise).
+- name: .npmrc | npm.pkg.github.com authToken
+  lineinfile:
+    path: "/Users/{{ user }}/.npmrc"
+    create: yes
+    mode: "0600"
+    regexp: "^//npm.pkg.github.com/:_authToken"
+    line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
+  when: npm_gh_token
+  tags: npmrc
+
+# Supply-chain defaults: no install scripts, only versions published 7+ days ago (same as mise minimum_release_age)
+- name: .npmrc | hardening
+  lineinfile:
+    path: "/Users/{{ user }}/.npmrc"
+    create: yes
+    mode: "0600"
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value }}"
+  loop:
+    - { key: ignore-scripts, value: "true" }
+    - { key: min-release-age, value: "7" }
+  loop_control:
+    label: "{{ item.key }}"
+  tags: npmrc
