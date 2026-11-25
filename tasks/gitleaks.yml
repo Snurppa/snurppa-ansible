@@ -1,0 +1,17 @@
+# Secret scan of staged changes on commit (hook in .githooks/pre-commit)
+- name: install gitleaks via mise
+  command: "/Users/{{ user }}/.local/bin/mise use -g aqua:gitleaks/gitleaks@8.30.1"
+  changed_when: false
+  tags: [gitleaks, ai]
+
+- name: current hooksPath
+  command: git -C {{ playbook_dir }} config --get core.hooksPath
+  register: hooks_path
+  changed_when: false
+  failed_when: false
+  tags: [gitleaks, ai]
+
+- name: use the repo's git hooks
+  command: git -C {{ playbook_dir }} config core.hooksPath .githooks
+  when: hooks_path.stdout != '.githooks'
+  tags: [gitleaks, ai]

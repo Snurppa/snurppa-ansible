@@ -32,6 +32,7 @@ Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). E
 * **Tool settings:** one role per tool.
    * `roles/claude-code`: `~/.claude/settings.json` is a symlink to the file in the repo.
    * `roles/cursor`: settings.json and keybindings.json are symlinked from the repo, `~/.cursor/cli-config.json` is seeded once (Cursor CLI writes state into it). `mcp.json` is Skillshare's.
+* **Secret scan:** `--tags gitleaks` installs gitleaks and points `core.hooksPath` at `.githooks`, so staged changes are scanned on commit. For a false positive add `# gitleaks:allow` on the line or the fingerprint to `.gitleaksignore`.
 * **Manual, not synced:**
    * `~/.junie/allowlist.json`: project paths, recreate per project.
 

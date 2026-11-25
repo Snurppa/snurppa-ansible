@@ -59,6 +59,8 @@
 #      tags: geckodriver
     - import_tasks: tasks/git.yml
       tags: git, git-config
+    - import_tasks: tasks/gitleaks.yml
+      tags: gitleaks, ai
     - import_tasks: tasks/graalvm.yml
       when: graalvm.enabled
       tags: graalvm

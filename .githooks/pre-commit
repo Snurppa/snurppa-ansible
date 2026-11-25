@@ -1,0 +1,4 @@
+#!/bin/sh
+# Installed by `--tags gitleaks` (core.hooksPath). Bypass a false positive with `# gitleaks:allow` on the line or .gitleaksignore.
+PATH="$HOME/.local/share/mise/shims:$PATH"
+exec gitleaks git --staged --redact --no-banner
