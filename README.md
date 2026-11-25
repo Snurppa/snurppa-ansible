@@ -31,15 +31,17 @@ uv tool update-shell
 
 uv fetches its own Python, no pyenv or pip needed. Homebrew's own `python@3.x` formulae are dependencies of other formulae; leave them alone.
 
+[mise](https://mise.jdx.dev) is installed by the playbook (`--tags mise`). Repo tools such as gitleaks are pinned in `mise.toml`; `--tags gitleaks` trusts and installs them, or by hand: `mise trust && mise install`.
+
 # Agent harnesses migration
 
 Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). Everything project-specific stays in the project (e.g. `.claude/settings.local.json`) or is migrated by hand.
 
-* **Skills, MCP servers:** `roles/skillshare`. Own skills live in `skills/` and are linked into Skillshare. Third-party skills and MCP servers are lists in `roles/skillshare/defaults/main.yml`, installed at bootstrap. Skillshare's `config.yaml` is seeded only when missing. The sync is one-way: whatever is installed or tried later stays on that machine until it is added here on purpose.
+* **Skills, MCP servers:** `roles/skillshare`. Own skills live in `skills/` and are linked into Skillshare. Third-party skills and MCP servers are lists in `roles/skillshare/defaults/main.yml`, installed at bootstrap. Skillshare's `config.yaml` is created with `skillshare init` only when missing. The sync is one-way: whatever is installed or tried later stays on that machine until it is added here on purpose.
 * **Tool settings:** one role per tool.
    * `roles/claude-code`: `~/.claude/settings.json` is a symlink to the file in the repo.
    * `roles/cursor`: settings.json and keybindings.json are symlinked from the repo, `~/.cursor/cli-config.json` is seeded once (Cursor CLI writes state into it). `mcp.json` is Skillshare's.
-* **Secret scan:** `--tags gitleaks` installs gitleaks and points `core.hooksPath` at `.githooks`, so staged changes are scanned on commit. For a false positive add `# gitleaks:allow` on the line or the fingerprint to `.gitleaksignore`.
+* **Secret scan:** `--tags gitleaks` installs gitleaks (pinned in `mise.toml`) and points `core.hooksPath` at `.githooks`, so staged changes are scanned on commit. For a false positive add `# gitleaks:allow` on the line or the fingerprint to `.gitleaksignore`.
 * **Manual, not synced:**
    * `~/.junie/allowlist.json`: project paths, recreate per project.
 

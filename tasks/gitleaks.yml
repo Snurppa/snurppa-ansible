@@ -1,6 +1,14 @@
 # Secret scan of staged changes on commit (hook in .githooks/pre-commit)
-- name: install gitleaks via mise
-  command: "/Users/{{ user }}/.local/bin/mise use -g aqua:gitleaks/gitleaks@8.30.1"
+# gitleaks is pinned in the repo's mise.toml
+- name: trust the repo's mise.toml
+  command: "/Users/{{ user }}/.local/bin/mise trust {{ playbook_dir }}/mise.toml"
+  changed_when: false
+  tags: [gitleaks, ai]
+
+- name: install the repo's mise tools
+  command: "/Users/{{ user }}/.local/bin/mise install"
+  args:
+    chdir: "{{ playbook_dir }}"
   changed_when: false
   tags: [gitleaks, ai]
 
