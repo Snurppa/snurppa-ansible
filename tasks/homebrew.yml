@@ -52,7 +52,8 @@
     create: yes
     path: "/Users/{{ user }}/.zprofile"
     regexp: 'brew shellenv'
-    line: 'eval "$(brew shellenv)"'
+    # Absolute path: on a fresh Mac brew is not on PATH yet when .zprofile runs
+    line: 'eval "$(/opt/homebrew/bin/brew shellenv)"'
   tags:
     - brew
     - zprofile

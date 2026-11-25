@@ -1,0 +1,18 @@
+# ~/.npmrc for npm from any Node install (mise)
+- block:
+    - name: .npmrc | npm.pkg.github.com authToken
+      lineinfile:
+        path: "/Users/{{ user }}/.npmrc"
+        create: yes
+        regexp: "^//npm.pkg.github.com/:_authToken"
+        line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
+      when: npm_gh_token
+    - name: .npmrc | save = true
+      lineinfile:
+        path: "/Users/{{ user }}/.npmrc"
+        create: yes
+        # By default when updating, edit package.json versions too
+        regexp: "^save="
+        line: "save=true"
+  tags:
+    - npmrc

@@ -1,6 +1,5 @@
 .venv
 *.retry
 *_token
-templates/secret_zshrc.j2
 .vault-pw
 .DS_Store

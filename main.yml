@@ -39,8 +39,6 @@
 
     - import_tasks: tasks/alacritty.yml
       tags: alacritty
-    - import_tasks: tasks/asdf.yml
-      tags: asdf
     - import_tasks: tasks/bat.yml
       tags: bat
     - import_tasks: tasks/bash.yml
@@ -72,8 +70,8 @@
       tags: launchd, sudo
     - import_tasks: tasks/lein.yml
       tags: lein,clojure
-    - import_tasks: tasks/nvm.yml
-      tags: nvm
+    - import_tasks: tasks/npmrc.yml
+      tags: npmrc
     - import_tasks: tasks/uv.yml
       tags: uv
     - import_tasks: tasks/scripts.yml
