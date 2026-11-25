@@ -1,22 +1,10 @@
-[tools]
-# Specify python version with local virtualenv
-python = { version = "3.11.5", virtualenv = ".venv" }
+# Ansible and ansible-lint come from `uv tool install` (see README), no project Python needed.
+# The vault password file is set in ansible.cfg.
 
-[env]
-# Environment variables
-ANSIBLE_VAULT_PASSWORD_FILE = ".vault-pw"
-
-# First-time setup task to install dependencies in the virtualenv
-[tasks.setup]
-description = "Install Ansible and dependencies in virtualenv"
-run = "pip install ansible==8.4.0 ansible-core==2.15.4 ansible-lint jinja2 pyyaml cryptography"
-
-# Task to run ansible-lint
 [tasks.lint]
 description = "Lint Ansible playbooks"
 run = "ansible-lint"
 
-# Task to run the playbook
 [tasks.run]
 description = "Run the main playbook"
-run = "ansible-playbook main.yml"
+run = "ansible-playbook main.yml --ask-become-pass"

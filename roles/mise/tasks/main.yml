@@ -42,11 +42,6 @@
   args:
     creates: ~/.local/share/zsh/site-functions/_mise
 
-#  https://mise.jdx.dev/configuration/settings.html#idiomatic_version_file_enable_tools
-- name: mise enable python idiomatic version files
-  shell: ~/.local/bin/mise settings add idiomatic_version_file_enable_tools python
-  changed_when: false
-
 - name: mise set minimum release age
   shell: ~/.local/bin/mise settings set minimum_release_age 7d
   changed_when: false

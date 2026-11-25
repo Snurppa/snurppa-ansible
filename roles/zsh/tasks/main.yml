@@ -11,12 +11,6 @@
   tags:
     - sudo
 
-- name: Python3 user base location
-  command: python3 -m site --user-base
-  register: python_user_base
-  tags: always
-  check_mode: no
-
 # https://gist.github.com/SheldonWangRJT/8d3f44a35c8d1386a396b9b49b43c385
 - name: ~/zsh-functions
   copy:
@@ -55,7 +49,7 @@
     dest:  /Users/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 
-# HTML url to markdown python script using https://github.com/EmilStenstrom/justhtml (uv tool install justhtml)
+# HTML url to markdown python script using https://github.com/EmilStenstrom/justhtml (installed by tasks/uv.yml)
 - name: Install html2md python script
   copy:
     src: html2md

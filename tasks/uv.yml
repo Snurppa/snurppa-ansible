@@ -1,0 +1,15 @@
+# Python CLI tools as uv tools (isolated envs, executables in ~/.local/bin).
+# uv itself comes from Homebrew (group_vars/all), Python is fetched by uv on demand.
+- name: uv tools
+  command: "uv tool install {{ item.args | default('') }} {{ item.name }}"
+  args:
+    creates: "/Users/{{ user }}/.local/share/uv/tools/{{ item.name }}"
+  loop:
+    - name: ansible
+      args: --with-executables-from ansible-core,ansible-lint
+    - name: justhtml
+    # 3.32 imports `imp`, removed in Python 3.12
+    - name: thefuck
+      args: --python 3.11
+  loop_control:
+    label: "{{ item.name }}"
