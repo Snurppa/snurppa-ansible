@@ -8,19 +8,25 @@
    xcode-select --install
    ```
 
-2. GitHub over SSH: set up the SSH key, then make HTTPS GitHub URLs use SSH (also avoids Homebrew's GitHub API token, [source](https://gist.github.com/bef/37d481764819187bad996cef0a30143b)):
+2. iTerm2 (optional), then continue in it. Colors: Settings → Profiles → Colors → Color Presets → Solarized Dark.
+
+   ```bash
+   brew install --cask iterm2
+   ```
+
+3. GitHub over SSH: set up the SSH key, then make HTTPS GitHub URLs use SSH (also avoids Homebrew's GitHub API token, [source](https://gist.github.com/bef/37d481764819187bad996cef0a30143b)):
 
    ```bash
    git config --global --add url."git@github.com:".insteadOf "https://github.com/"
    ```
 
-3. Clone to exactly this path (Claude, Cursor and Skillshare symlink into it), then copy `.vault-pw` (gitignored) into the repo root:
+4. Clone to exactly this path (Claude, Cursor and Skillshare symlink into it), then copy `.vault-pw` (gitignored) into the repo root. If SSH isn't working yet, try HTTPS (`https://github.com/Snurppa/snurppa-ansible.git`) while the repo is public, before step 3's `insteadOf` turns it back into SSH.
 
    ```bash
    git clone git@github.com:Snurppa/snurppa-ansible.git ~/code/snurppa-ansible
    ```
 
-4. Ansible via uv, then open a new terminal:
+5. Ansible via uv, then open a new terminal:
 
    ```bash
    brew install uv
@@ -28,7 +34,7 @@
    uv tool update-shell
    ```
 
-5. Everything that doesn't need sudo:
+6. Everything that doesn't need sudo:
 
    ```bash
    cd ~/code/snurppa-ansible && ansible-playbook main.yml --skip-tags sudo
@@ -36,15 +42,15 @@
 
    Casks that install a `.pkg` call sudo themselves and can fail here; install those by hand with `brew install --cask <name>`.
 
-6. The sudo tasks: Homebrew zsh as login shell (needs step 5's zsh), open files limit. The password is your login password.
+7. The sudo tasks: Homebrew zsh as login shell (needs step 6's zsh), open files limit. The password is your login password.
 
    ```bash
    ansible-playbook main.yml --tags sudo --ask-become-pass
    ```
 
-7. Private git signing setup (not in this repo): `~/.gitconfig.local` with `commit.gpgsign`, `user.signingkey`, `gpg.format`, `gpg.ssh.program` and `gpg.ssh.allowedSignersFile`, plus the allowed signers file. Claude Code commits unsigned (`GIT_CONFIG_*` env in its settings).
+8. Private git signing setup (not in this repo): `~/.gitconfig.local` with `commit.gpgsign`, `user.signingkey`, `gpg.format`, `gpg.ssh.program` and `gpg.ssh.allowedSignersFile`, plus the allowed signers file. Claude Code commits unsigned (`GIT_CONFIG_*` env in its settings).
 
-8. Open a new terminal.
+9. Open a new terminal.
 
 ## Existing Mac
 
@@ -83,7 +89,6 @@ Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). E
 -- Remove Cmd+Shift+A "Open man page" keyboard shortcut from Services section
 -- Set Screenshots location `defaults write com.apple.screencapture location ~/Screenshots`
 - https://adoptopenjdk.net/
-- iTerm + Solarized: Color -> Color Presets -> Solarized (https://gist.github.com/kevin-smets/8568070)
 
 # Hints
 
