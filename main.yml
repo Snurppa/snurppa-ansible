@@ -100,5 +100,3 @@
       tags: vim, nvim
     - role: vscodium
       tags: vscodium, vscode
-    - role: ollama
-      tags: ollama, continue.dev

@@ -2,48 +2,41 @@
 
 # These have state=latest
 brew_latest_packages:
+  - age
   - autojump
+  - fd
   - git
   - grep
   - gnu-tar
+  - httpie
+  - jless
   - openssl
   - ripgrep
-  - sops
   - uv
 
 # These have state=present
 brew_packages:
   - 1password-cli
-  - age
-  - atlassian/homebrew-acli/acli
-  - borkdude/brew/clj-kondo
-  - copilot-cli
   - coreutils
-  - doctl
   - dive
  # - gcc
   - gh
   - gpg
-  - graphviz
   - gifsicle
-  - fd
   - ffmpeg
   - fontconfig
   - freetype
-  - httpie
-  - jless
   - jq
-  - libpq
-  - lsd
-  - ollama
+#  - libpq
+#  - lsd
+#  - ollama
   - moor
   - nmap
   - netcat
-  - pandoc
+#  - pandoc
   - procs
   - shellcheck
   - sourcemeta/apps/jsonschema
-  - tldr
   - yq
 
 brew_casks:
@@ -51,5 +44,5 @@ brew_casks:
   - spotify
   - flux
   - sublime-text
-  - licecap
-  - wireshark
+#  - licecap
+#  - wireshark

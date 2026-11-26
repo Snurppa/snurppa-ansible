@@ -2,6 +2,11 @@
   "attribution": false,
   "model": "sonnet",
   "outputStyle": "Concise",
+  "env": {
+    "GIT_CONFIG_COUNT": "1",
+    "GIT_CONFIG_KEY_0": "commit.gpgsign",
+    "GIT_CONFIG_VALUE_0": "false"
+  },
   "sandbox": {
     "enabled": true,
     "allowUnsandboxedCommands": false,

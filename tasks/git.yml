@@ -1,4 +1,7 @@
 ---
+# Public, generic git config. Signing (commit.gpgsign, key, signer program, allowed_signers)
+# is machine-private and lives in ~/.gitconfig.local (included below, not managed here).
+# Agents commit unsigned via GIT_CONFIG_* env in their own settings (roles/claude-code).
 
 - name: ~/.gitconfig | name
   community.general.git_config:
@@ -10,4 +13,10 @@
   community.general.git_config:
     scope: global
     name: user.email
-    value: "{{ git_email | default('snurppa@gmail.com') }}"
+    value: "{{ git_email }}"
+
+- name: ~/.gitconfig | include ~/.gitconfig.local (private signing setup)
+  community.general.git_config:
+    scope: global
+    name: include.path
+    value: ~/.gitconfig.local

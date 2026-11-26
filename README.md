@@ -1,43 +1,68 @@
 # ansible-playbook for personal macOS setup
 
-For Homebrew GitHub API Token, set communication to SSH instead of HTTPS.
-```
-git config --global --add url."git@github.com:".insteadOf "https://github.com/"
-```
-Source: [https://gist.github.com/bef/37d481764819187bad996cef0a30143b](https://gist.github.com/bef/37d481764819187bad996cef0a30143b)
+## Fresh Mac
 
-Provision your macOS by running:
+1. Command line tools and [Homebrew](https://brew.sh/). Run the `brew shellenv` lines the Homebrew installer prints, so `brew` is on PATH in this terminal.
+
+   ```bash
+   xcode-select --install
+   ```
+
+2. GitHub over SSH: set up the SSH key, then make HTTPS GitHub URLs use SSH (also avoids Homebrew's GitHub API token, [source](https://gist.github.com/bef/37d481764819187bad996cef0a30143b)):
+
+   ```bash
+   git config --global --add url."git@github.com:".insteadOf "https://github.com/"
+   ```
+
+3. Clone to exactly this path (Claude, Cursor and Skillshare symlink into it), then copy `.vault-pw` (gitignored) into the repo root:
+
+   ```bash
+   git clone git@github.com:Snurppa/snurppa-ansible.git ~/code/snurppa-ansible
+   ```
+
+4. Ansible via uv, then open a new terminal:
+
+   ```bash
+   brew install uv
+   uv tool install --with-executables-from ansible-core,ansible-lint ansible
+   uv tool update-shell
+   ```
+
+5. Everything that doesn't need sudo:
+
+   ```bash
+   cd ~/code/snurppa-ansible && ansible-playbook main.yml --skip-tags sudo
+   ```
+
+   Casks that install a `.pkg` call sudo themselves and can fail here; install those by hand with `brew install --cask <name>`.
+
+6. The sudo tasks: Homebrew zsh as login shell (needs step 5's zsh), open files limit. The password is your login password.
+
+   ```bash
+   ansible-playbook main.yml --tags sudo --ask-become-pass
+   ```
+
+7. Private git signing setup (not in this repo): `~/.gitconfig.local` with `commit.gpgsign`, `user.signingkey`, `gpg.format`, `gpg.ssh.program` and `gpg.ssh.allowedSignersFile`, plus the allowed signers file. Claude Code commits unsigned (`GIT_CONFIG_*` env in its settings).
+
+8. Open a new terminal.
+
+## Existing Mac
+
+Bring the machine back in line with the repo (re-running is safe, finished tasks are skipped):
 
 ```bash
-ansible-playbook main.yml --ask-become-pass
+ansible-playbook main.yml --skip-tags sudo
 ```
 
+Single parts with tags, e.g. `--tags ai`, `--tags zsh`. Run `--tags sudo --ask-become-pass` only when the sudo tasks changed.
 
-# Requirements
+## How it runs
 
-On a fresh Mac, in order:
-
-```bash
-xcode-select --install
-```
-
-Install [Homebrew](https://brew.sh/), then:
-
-```bash
-brew install uv
-uv tool install --with-executables-from ansible-core,ansible-lint ansible
-uv tool update-shell
-```
+Order: Homebrew packages (`pre_tasks`) → roles (zsh, [mise](https://mise.jdx.dev), skillshare, claude-code, cursor, …) → tasks. `--tags ai` also brings mise along.
 
 uv fetches its own Python, no pyenv or pip needed. Homebrew's own `python@3.x` formulae are dependencies of other formulae; leave them alone.
 
-Then one full run, from the repo root, does everything in order:
-
-```bash
-ansible-playbook main.yml --ask-become-pass
-```
-
-Order: Homebrew packages (`pre_tasks`) → roles (zsh, [mise](https://mise.jdx.dev), skillshare, claude-code, cursor, …) → tasks. After the first full run, single tags work on their own; `--tags ai` also brings mise along. Repo tools such as gitleaks are pinned in `mise.toml`; `--tags gitleaks` trusts and installs them, or by hand: `mise trust && mise install`.
+Repo tools such as gitleaks are pinned in `mise.toml`; `--tags gitleaks` trusts and installs them, or by hand: `mise trust && mise install`.
 
 # Agent harnesses migration
 

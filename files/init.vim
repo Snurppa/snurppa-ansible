@@ -6,6 +6,8 @@ set termguicolors
 set history=100
 set ruler
 set showcmd
+" indent with 2 spaces by default; filetype plugins (e.g. python) override
+set expandtab shiftwidth=2 softtabstop=2
 " generals
 let maplocalleader = ","
 
