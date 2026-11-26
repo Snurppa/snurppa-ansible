@@ -7,7 +7,8 @@
   # Enable on need basis or consider Cache plugin https://docs.ansible.com/ansible/latest/plugins/cache.html or facts.d
   gather_facts: false
   vars:
-    brew_prefix: "{{ lookup('ansible.builtin.env', 'HOMEBREW_PREFIX', default=Undefined) }}"
+    # Falls back to the Apple Silicon default when brew shellenv hasn't run in this shell
+    brew_prefix: "{{ lookup('ansible.builtin.env', 'HOMEBREW_PREFIX', default='/opt/homebrew') }}"
     gecko_version: "0.24.0"
     chromedriver_version: "91.0.4472.101"
     xbar_version: "2.1.7-beta"
@@ -40,8 +41,6 @@
       file: path="/Users/{{ user }}/Applications" state=directory mode=0755
 
 
-    - import_tasks: tasks/alacritty.yml
-      tags: alacritty
     - import_tasks: tasks/bat.yml
       tags: bat
     - import_tasks: tasks/bash.yml
@@ -50,7 +49,7 @@
 #      tags: chromedriver
     - import_tasks: tasks/clojure.yml
       tags: clojure, clj
-#   Not sure if this is needed anymore, after powerline10k handles fonts at least
+#   Not sure if this is needed anymore (was for powerlevel10k)
 #   - import_tasks: tasks/fonts.yml
     - import_tasks: tasks/fzf.yml
       tags: fzf
@@ -63,20 +62,12 @@
     - import_tasks: tasks/graalvm.yml
       when: graalvm.enabled
       tags: graalvm
-    - import_tasks: tasks/hashicorp.yml
-      tags: hashicorp
-    - import_tasks: tasks/java.yml
-      tags: java
-    - import_tasks: tasks/lein.yml
-      tags: lein,clojure
     - import_tasks: tasks/npmrc.yml
       tags: npmrc
     - import_tasks: tasks/uv.yml
       tags: uv
     - import_tasks: tasks/scripts.yml
       tags: scripts
-    - import_tasks: tasks/tinkey.yml
-      tags: tinkey
 #    - import_tasks: tasks/xbar.yml
 #      tags: xbar
     - import_tasks: tasks/system-check.yml

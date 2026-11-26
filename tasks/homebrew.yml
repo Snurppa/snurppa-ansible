@@ -1,14 +1,42 @@
 ---
 
+- name: Tap third-party Homebrew repositories
+  community.general.homebrew_tap:
+    name: "{{ brew_taps }}"
+  tags:
+    - brew
+    - brew-tap
+    - brew-packages
+
+# Homebrew 7+ refuses to load anything from a third-party tap until it is trusted,
+# and the homebrew modules have no option for it.
+- name: Read trusted Homebrew taps
+  command: "{{ brew_prefix }}/bin/brew trust --json v1"
+  register: brew_trust
+  changed_when: false
+  check_mode: no
+  tags:
+    - brew
+    - brew-tap
+    - brew-packages
+
+- name: Trust third-party Homebrew taps
+  command: "{{ brew_prefix }}/bin/brew trust --tap {{ item }}"
+  loop: "{{ brew_taps | difference((brew_trust.stdout | from_json).taps) }}"
+  tags:
+    - brew
+    - brew-tap
+    - brew-packages
+
 - name: Install Homebrew packages
   community.general.homebrew: name={{ brew_packages }} state=present install_options=quiet
-  register: brew_packages
+  register: brew_packages_result
   tags:
     - brew
     - brew-packages
 
-- name: "Changed packages" 
-  debug: var=brew_packages.changed_pkgs
+- name: "Changed packages"
+  debug: var=brew_packages_result.changed_pkgs
   check_mode: no
   tags:
     - brew
@@ -16,18 +44,18 @@
 
 - name: Install Homebrew state=latest packages
   community.general.homebrew: name={{ brew_latest_packages }} state=latest install_options=quiet
-  register: brew_latest_packages
+  register: brew_latest_result
   tags:
    - brew
    - brew-latest
 
-- name: "Changed latest packages" 
-  debug: var=brew_latest_packages.changed_pkgs
+- name: "Changed latest packages"
+  debug: var=brew_latest_result.changed_pkgs
   check_mode: no
-  when: brew_latest_packages.changed_pkgs
+  when: brew_latest_result is defined and brew_latest_result.changed_pkgs | length > 0
   tags:
     - brew
-    - brew-packages
+    - brew-latest
 
 - name: Install homebrew-cask packages
   community.general.homebrew_cask:
@@ -37,12 +65,23 @@
     - brew
     - brew-cask
 
-- name: Pin certain brew forumales
-  command: brew pin {{ item }}
+- name: List installed and pinned Homebrew formulae
+  shell: "{{ brew_prefix }}/bin/brew list --formula -1; echo ---; {{ brew_prefix }}/bin/brew list --pinned"
+  register: brew_state
+  changed_when: false
+  check_mode: no
+  tags:
+    - brew
+    - brew-pin
+
+# Only pins formulae that are installed (gcc is a dependency, not in brew_packages) and not yet pinned
+- name: Pin certain brew formulae
+  command: "{{ brew_prefix }}/bin/brew pin {{ item }}"
   loop:
     - gcc
-  register: brew_pin
-  changed_when: '"already pinned" not in brew_pin.msg'
+  when:
+    - item in brew_state.stdout_lines[:brew_state.stdout_lines.index('---')]
+    - item not in brew_state.stdout_lines[brew_state.stdout_lines.index('---'):]
   tags:
     - brew
     - brew-pin

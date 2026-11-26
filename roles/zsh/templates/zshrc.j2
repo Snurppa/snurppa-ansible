@@ -1,20 +1,14 @@
 # vim: filetype=zsh
 # Managed by snurppa-ansible (roles/zsh/templates/zshrc.j2), do not edit directly
 
-#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status command_execution_time time)
 DEFAULT_USER={{ user }}
 
 # Keep PATH/fpath entries unique (.zprofile and .zshrc both add brew and mise dirs)
 typeset -U path PATH fpath FPATH
 
+# Allow "# comments" at the interactive prompt (handy when pasting commands)
+setopt interactive_comments
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -o interactive ]] && [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -54,6 +48,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# NOTE: consider dropping oh-my-zsh if only its aliases (git, aws) are used; a small aliases file does that.
 plugins=(git)
 
 # User configuration
@@ -88,8 +83,9 @@ if is_non_agentish_invocation; then
   # Look in ~/.oh-my-zsh/themes/
   # Optionally, if you set this to "random", it'll load a random theme each
   # time that oh-my-zsh is loaded.
-  ZSH_THEME="powerlevel10k/powerlevel10k"
-  plugins+=(aws terraform urltools zsh-syntax-highlighting)
+  # Prompt comes from starship (below), not an oh-my-zsh theme
+  ZSH_THEME=""
+  plugins+=(aws zsh-syntax-highlighting)
 
   export PATH=$PATH:'/Applications/Sublime Text.app/Contents/SharedSupport/bin'
 
@@ -167,8 +163,8 @@ if is_non_agentish_invocation; then
   [[ -s $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ]] && . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
 
 
-  # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  # Prompt, configure in ~/.config/starship.toml
+  command -v starship &>/dev/null && eval "$(starship init zsh)"
 
   # load fzf
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

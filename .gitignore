@@ -3,3 +3,5 @@
 *_token
 .vault-pw
 .DS_Store
+# Created by tasks/link-with-backup.yml
+*.backup-*

@@ -1,5 +1,9 @@
 ---
 
+# Third-party taps, tapped and trusted (brew refuses untrusted taps)
+brew_taps:
+  - sourcemeta/apps
+
 # These have state=latest
 brew_latest_packages:
   - age
@@ -36,10 +40,12 @@ brew_packages:
 #  - pandoc
   - procs
   - shellcheck
-  - sourcemeta/apps/jsonschema
+  - starship
+  - tree
   - yq
 
 brew_casks:
+  - sourcemeta/apps/jsonschema
   - cursor
   - spotify
   - flux

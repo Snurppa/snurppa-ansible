@@ -6,7 +6,7 @@
     mode: "0600"
     regexp: "^//npm.pkg.github.com/:_authToken"
     line: "//npm.pkg.github.com/:_authToken={{ npm_gh_token }}"
-  when: npm_gh_token
+  when: npm_gh_token | default('') | length > 0
   tags: npmrc
 
 # Supply-chain defaults: no install scripts, only versions published 7+ days ago (same as mise minimum_release_age)

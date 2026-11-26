@@ -27,6 +27,7 @@
   git:
     repo: https://github.com/robbyrussell/oh-my-zsh.git
     dest: "/Users/{{ user }}/.oh-my-zsh"
+    update: false  # clone once; oh-my-zsh updates itself, re-pulling every run is noise
 
 - name: .zshrc from template
   template: src=templates/zshrc.j2 dest="/Users/{{ user }}/.zshrc" owner={{ user }} backup=yes
@@ -35,18 +36,11 @@
     - zfuncs
     - zshfunctions
 
-- name: Clone powerline10k zsh theme
-  git:
-    repo: https://github.com/romkatv/powerlevel10k.git
-    dest: /Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k
-    depth: 1
-  tags:
-    - p10k
-
 - name: zsh-syntax-highlight
   git:
     repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
     dest:  /Users/{{ user }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+    update: false
 
 
 # HTML url to markdown python script using https://github.com/EmilStenstrom/justhtml (installed by tasks/uv.yml)
