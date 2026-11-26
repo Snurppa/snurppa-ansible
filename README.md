@@ -96,7 +96,7 @@ Only generic, personal AI tool config is bootstrapped from here (`--tags ai`). E
 
 ### Essentials
 
-- --tags bin,git,zsh,bash,bat,fzf,scripts,launchd --skip-tags vscodium,chromedriver,geckodriver,hashicorp,lein
+- --tags bin,git,zsh,bash,bat,fzf,scripts --skip-tags vscodium,chromedriver,geckodriver,hashicorp,lein
 
 ## Completion
 
